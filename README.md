@@ -63,6 +63,9 @@ where:
 
 # BackgroundImage(speech, url)
 
+## BackgroundImage(speech, url)
+where:
+
 ## Parameters:
       speech = what is to be spoken
       url = url of the image to display in fullscreen mode
@@ -74,6 +77,8 @@ where:
       sendResponse(PepperResponse(backgroundImage));
 
 # BasicCard(title, url)
+## BasicCard(title, url)
+where:
 
 ## Parameters:
       title = what is to be spoken/displayed as title
