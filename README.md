@@ -65,7 +65,7 @@ where:
 
 ## Usage:
 
-### BackgroundImage(speech, url)
+### new BackgroundImage(speech, url);
 where:
 
 ## Parameters:
