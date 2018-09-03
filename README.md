@@ -1,5 +1,5 @@
 # pepper-dialogflow-markup-library
-A Javascript library for the easy creation of valid responses for the Pepper robot using Dialogflow's Fulfillment engine. More info about the responses is available at the official documentation site: https://softbankroboticstraining.github.io/pepper-chatbot-api/
+A Javascript library for the easy creation of valid responses for the Pepper robot using Dialogflow's Fulfillment engine. More info about the responses is available at the official documentation site: https://softbankroboticstraining.github.io/pepper-chatbot-api/#types-of-responses
 
 
 # Begin Pepper Chat Fulfillment Library                    
