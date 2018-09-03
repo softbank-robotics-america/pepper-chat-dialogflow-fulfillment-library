@@ -62,10 +62,6 @@ where:
 ** Some response types do not allow styling to be added to them directly. In these cases, the styling must be applied either before or after such a response type.
 
 # BackgroundImage(speech, url)
-
-## Usage:
-
-### new BackgroundImage(speech, url);
 where:
 
 ## Parameters:
@@ -79,7 +75,6 @@ where:
       sendResponse(PepperResponse(backgroundImage));
 
 # BasicCard(title, url)
-## BasicCard(title, url)
 where:
 
 ## Parameters:
