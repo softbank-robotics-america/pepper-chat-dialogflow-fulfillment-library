@@ -63,7 +63,9 @@ where:
 
 # BackgroundImage(speech, url)
 
-## BackgroundImage(speech, url)
+## Usage:
+
+### BackgroundImage(speech, url)
 where:
 
 ## Parameters:
