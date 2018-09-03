@@ -21,6 +21,7 @@ where:
 
 ### Example of usage:
  let urlOfBat = generateRandomUrlOfBat()
+ 
  let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
  basicCard.setContext("batImage", 3, { whichImageSeen: urlOfBat } )
 
@@ -34,9 +35,13 @@ where:
 
 ### Example of usage:
   // Commented out styling after having decided to go with Style #2
+  
   // let styleObj = {}
+  
   // styleObj.backgroundColor = '#49F420'; <-- Color codes can be HTML color codes or accepted HTML color names
+  
   // styleObj.textColor = 'black';  <-- Color codes can be HTML color codes or accepted HTML color names
+  
   // styleObj.font = 'Times New Roman';
 
 
