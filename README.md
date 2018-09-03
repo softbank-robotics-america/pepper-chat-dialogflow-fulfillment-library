@@ -8,12 +8,11 @@ A Javascript library for the easy creation of valid responses for the Pepper rob
 
  The base class from which all of Pepper's Responses inherit, has some handy helper functions to set Context and Style to the response. This design enables using these methods on (nearly**) any response of your choice.
 
-## Setting Context
+## Setting Context:
  To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires 3 values to be valid, 'name', 'parameters'.
 
 ### Method definition:
-setContext(name, lifespan, parameters)
-
+setContext(name, lifespan, parameters) <br>
 where:
   - name = name of the context
   - lifespan = duration/expiration of the context, once set
@@ -21,32 +20,28 @@ where:
 
 
 ### Example of usage:
- let urlOfBat = generateRandomUrlOfBat()
+ let urlOfBat = generateRandomUrlOfBat() <br>
+ let basicCard = new BasicCard("Random picture of a bat", urlOfBat) <br>
+ basicCard.setContext("batImage", 3, { whichImageSeen: urlOfBat } )  <br>
  
- let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
- 
- basicCard.setContext("batImage", 3, { whichImageSeen: urlOfBat } )
 
-## Set Style
+## Setting Style:
  Style options include:  'backgroundColor', 'backgroundImage', 'textColor', 'font', 'bubbleColor', 'bubbleTextColor', 'bubbleFont'. 
 
 ### Method definition:
-setStyle(styleObj)
+setStyle(styleObj) <br>
 where:
   - styleObj = an object containing a comma-separated list of any number of key-value pairs of style configurations (see above list)
 
 ### Example of usage:
-  // Commented out Style #1 after having decided to go with Style #2
-  
-  // let styleObj = {}
-  
-  // styleObj.backgroundColor = '#49F420'; <-- Color codes can be HTML color codes or accepted HTML color names
-  
-  // styleObj.textColor = 'black';  <-- Color codes can be HTML color codes or accepted HTML color names
-  
-  // styleObj.font = 'Times New Roman';
+  // Commented out Style #1 after having decided to go with Style #2 <br>
+  // Style #1:
+  // let styleObj = {} <br>
+  // styleObj.backgroundColor = '#49F420'; <-- Color codes can be HTML color codes or accepted HTML color names <br>
+  // styleObj.textColor = 'black';  <-- Color codes can be HTML color codes or accepted HTML color names <br>
+  // styleObj.font = 'Times New Roman'; <br>
 
-
+  // Style #2
   let styleObj2 = {} <br>
   styleObj.backgroundColor = 'grey';  <br>
   styleObj2.backgroundImage = 'https://best-bat-background-images/not-quite-fullscreen.jpg'; <br>
@@ -62,7 +57,7 @@ where:
 
   // batIcons.setStyle(styleObj); <br>
   batIcons.setStyle(styleObj2);  <br>
-
+ <br>
 
 ** Some response types do not allow styling to be added to them directly. In these cases, the styling must be applied either before or after such a response type.
 
@@ -73,17 +68,17 @@ where:
    - url = url of the image to display in fullscreen mode
  
 ## Ex. usage:
-  let speech = "Look at this beautiful vista."
-  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
-  let backgroundImage = new BackgroundImage(speech, landscapeImageUrl);
-  sendResponse(PepperResponse(backgroundImage));
+  let speech = "Look at this beautiful vista." <br>
+  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg"; <br>
+  let backgroundImage = new BackgroundImage(speech, landscapeImageUrl); <br>
+  sendResponse(PepperResponse(backgroundImage)); <br>
 
 
 # BasicCard(title, url)
 
 ## Parameters:
-      title = what is to be spoken/displayed as title
-      url = url of the image to display
+      title = what is to be spoken/displayed as title <br>
+      url = url of the image to display <br>
  
 ## Ex. usage:
   let title = "Employee of the Month";
@@ -95,22 +90,22 @@ where:
 # CarouselImage(titleOrObj, url, triggerUtterance)
 
 ## Parameters:
-	  titleOrObj = what is displayed under the image; ALTERNATIVELY, when over-
-	      loaded as an object (as the sole parameter passed), the object must 
-	      contain "title", "url", & "triggerUtterance" properties
-	  url = the image to be displayed
-	  triggerUtterance = the utterance that will be triggered upon selecting
-	      the carousel image
+	  titleOrObj = what is displayed under the image; ALTERNATIVELY, when over- <br>
+	      loaded as an object (as the sole parameter passed), the object must  <br>
+	      contain "title", "url", & "triggerUtterance" properties <br>
+	  url = the image to be displayed <br>
+	  triggerUtterance = the utterance that will be triggered upon selecting <br>
+	      the carousel image <br>
  
 ## Ex. usage:  
-  let carouselArray = [];
-  for (var name in list) {
-      var carouselImage = new CarouselImage(name, "https://pepper-img-server/"+name+".jpg", "trigger " + name)
-      carouselArray.push(carouselImage);
-  }
-  let carousel = new Carousel("Check out these options:", carouselArray);
- 
- Note: Cannot be used standalone with PepperResponse!
+  let carouselArray = []; <br>
+  for (var name in list) { <br>
+      let carouselImage = new CarouselImage(name, "https://pepper-img-server/"+name+".jpg", "trigger " + name) <br>
+      carouselArray.push(carouselImage); <br>
+  } <br>
+  let carousel = new Carousel("Check out these options:", carouselArray); <br>
+  <br>
+ Note: Cannot be used standalone with PepperResponse! <br>
 
 
 # Carousel(title, carouselImageArray)
@@ -120,12 +115,12 @@ where:
       carouselImageArray = array of CarouselImage objects
  
 ## Ex. usage:
-  let carouselDog = new CarouselImage("Dog","http://animal-images/dog.jpg", "Dog image");
-  let carouselCat = new CarouselImage("Cat","http://animal-images/cat.jpg", "Cat image");
-  let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image");
-  let carouselArray = [carouselDog, carouselCat, carouselArray];
-  let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
-  sendResponse(PepperResponse(carousel));
+  let carouselDog = new CarouselImage("Dog","http://animal-images/dog.jpg", "Dog image"); <br>
+  let carouselCat = new CarouselImage("Cat","http://animal-images/cat.jpg", "Cat image"); <br>
+  let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image"); <br>
+  let carouselArray = [carouselDog, carouselCat, carouselArray]; <br>
+  let carousel = new Carousel("Look at this beautiful carousel", carouselArray); <br>
+  sendResponse(PepperResponse(carousel)); <br>
 
 
 # CarouselImageNoTitle(speak, url, triggerUtterance)
