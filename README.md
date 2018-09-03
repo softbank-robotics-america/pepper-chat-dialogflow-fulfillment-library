@@ -64,15 +64,14 @@ where:
 # BackgroundImage(speech, url)
 
 ## Parameters:
-   - speech = what is to be spoken
-   - url = url of the image to display in fullscreen mode
+      speech = what is to be spoken
+      url = url of the image to display in fullscreen mode
  
 ## Ex. usage:
-  let speech = "Look at this beautiful vista." <br>
-  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg"; <br>
-  let backgroundImage = new BackgroundImage(speech, landscapeImageUrl); <br>
-  sendResponse(PepperResponse(backgroundImage)); <br>
-
+      let speech = "Look at this beautiful vista."
+      let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
+      let backgroundImage = new BackgroundImage(speech, landscapeImageUrl);
+      sendResponse(PepperResponse(backgroundImage));
 
 # BasicCard(title, url)
 
@@ -81,31 +80,31 @@ where:
       url = url of the image to display <br>
  
 ## Ex. usage:
-  let title = "Employee of the Month";
-  let employeeOfMonthImageUrl = "https://companywebsite.com/employee-of-month/jan-2018.jpg";
-  let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
-  sendResponse(PepperResponse(basicCard));
+      let title = "Employee of the Month";
+      let employeeOfMonthImageUrl = "https://companywebsite.com/employee-of-month/jan-2018.jpg";
+      let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
+      sendResponse(PepperResponse(basicCard));
 
 
 # CarouselImage(titleOrObj, url, triggerUtterance)
 
 ## Parameters:
-	  titleOrObj = what is displayed under the image; ALTERNATIVELY, when over- <br>
-	      loaded as an object (as the sole parameter passed), the object must  <br>
-	      contain "title", "url", & "triggerUtterance" properties <br>
-	  url = the image to be displayed <br>
-	  triggerUtterance = the utterance that will be triggered upon selecting <br>
-	      the carousel image <br>
+      titleOrObj = what is displayed under the image; ALTERNATIVELY, when over-
+	      loaded as an object (as the sole parameter passed), the object must
+	      contain "title", "url", & "triggerUtterance" properties
+      url = the image to be displayed 
+      triggerUtterance = the utterance that will be triggered upon selecting
+	      the carousel image
  
 ## Ex. usage:  
-  let carouselArray = []; <br>
-  for (var name in list) { <br>
-      let carouselImage = new CarouselImage(name, "https://pepper-img-server/"+name+".jpg", "trigger " + name) <br>
-      carouselArray.push(carouselImage); <br>
-  } <br>
-  let carousel = new Carousel("Check out these options:", carouselArray); <br>
-  <br>
- Note: Cannot be used standalone with PepperResponse! <br>
+      let carouselArray = []; 
+      for (var name in list) { 
+      	 let carouselImage = new CarouselImage(name, "https://pepper-img-server/"+name+".jpg", "trigger " + name);
+      	 carouselArray.push(carouselImage); 
+      }
+      let carousel = new Carousel("Check out these options:", carouselArray);
+      
+ Note: Cannot be used standalone with PepperResponse!
 
 
 # Carousel(title, carouselImageArray)
@@ -115,12 +114,12 @@ where:
       carouselImageArray = array of CarouselImage objects
  
 ## Ex. usage:
-  let carouselDog = new CarouselImage("Dog","http://animal-images/dog.jpg", "Dog image"); <br>
-  let carouselCat = new CarouselImage("Cat","http://animal-images/cat.jpg", "Cat image"); <br>
-  let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image"); <br>
-  let carouselArray = [carouselDog, carouselCat, carouselArray]; <br>
-  let carousel = new Carousel("Look at this beautiful carousel", carouselArray); <br>
-  sendResponse(PepperResponse(carousel)); <br>
+      let carouselDog = new CarouselImage("Dog","http://animal-images/dog.jpg", "Dog image");
+      let carouselCat = new CarouselImage("Cat","http://animal-images/cat.jpg", "Cat image");
+      let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image");
+      let carouselArray = [carouselDog, carouselCat, carouselArray];
+      let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
+      sendResponse(PepperResponse(carousel));
 
 
 # CarouselImageNoTitle(speak, url, triggerUtterance)
@@ -132,12 +131,12 @@ where:
           the carousel image
  
 ## Ex. usage:  
-  let carouselArray = [];
-  for (var name in list) {
-      var carouselImage = new CarouselImageNoTitle("https://pepper-img-server/"+name+".jpg", "trigger " + name);
-      carouselArray.push(carouselImage);
-  }
-  let carousel = new Carousel("Check out these options:", carouselArray);
+      let carouselArray = [];
+      for (var name in list) {
+      	  var carouselImage = new CarouselImageNoTitle("https://pepper-img-server/"+name+".jpg", "trigger " + name);
+          carouselArray.push(carouselImage);
+      }
+      let carousel = new Carousel("Check out these options:", carouselArray);
  
  Note: Cannot be used standalone with PepperResponse!
 
@@ -149,12 +148,12 @@ where:
       carouselImageArray = array of CarouselImage objects
  
 ## Ex. usage:
-  let carouselDog = new CarouselImageNoTitle("Dog","http://animal-images/dog.jpg", "Dog image");
-  let carouselCat = new CarouselImageNoTitle("Cat","http://animal-images/cat.jpg", "Cat image");
-  let carouselBird = new CarouselImageNoTitle("Bird","http://animal-images/bird.jpg", "Bird image");
-  let carouselArray = [carouselDog, carouselCat, carouselArray];
-  let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
-  sendResponse(PepperResponse(carousel));
+      let carouselDog = new CarouselImageNoTitle("Dog","http://animal-images/dog.jpg", "Dog image");
+      let carouselCat = new CarouselImageNoTitle("Cat","http://animal-images/cat.jpg", "Cat image");
+      let carouselBird = new CarouselImageNoTitle("Bird","http://animal-images/bird.jpg", "Bird image");
+      let carouselArray = [carouselDog, carouselCat, carouselArray];
+      let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
+      sendResponse(PepperResponse(carousel));
 
 
 # FullScreenImage(speech, url)
@@ -164,10 +163,10 @@ where:
       url = url of the image to display in fullscreen mode
  
 ## Ex. usage:
-  let speech = "Look at this beautiful vista."
-  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
-  let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
-  sendResponse(PepperResponse(fullScreenImg));
+	let speech = "Look at this beautiful vista."
+	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
+	let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
+	sendResponse(PepperResponse(fullScreenImg));
 
 
 # Icon(url, triggerUtterance, speech, iconTitle)
@@ -179,14 +178,14 @@ where:
       iconTitle = (optional) the text string that is displayed over the icon
  
 ## Ex. usage:
-  let urlBase = "https://icon-library/best-icons/icon-"
-  let iconOne = [new Icon(urlBase + "1.jpg", "Icon 1", "Great choice!")
-  let iconTwo = new Icon(urlBase + "2.jpg", "Icon 2", "Wonderful selection!")]
-  let iconArray = [iconOne, iconTwo];
-  let mainSpeech = "Select from one of these options"
-  let titleText = "Select an option:"
-  let icons = new Icons(mainSpeech, titleText, iconArray);
-  sendResponse(PepperResponse(icons));
+	let urlBase = "https://icon-library/best-icons/icon-"
+	let iconOne = [new Icon(urlBase + "1.jpg", "Icon 1", "Great choice!")
+	let iconTwo = new Icon(urlBase + "2.jpg", "Icon 2", "Wonderful selection!")]
+	let iconArray = [iconOne, iconTwo];
+	let mainSpeech = "Select from one of these options"
+	let titleText = "Select an option:"
+	let icons = new Icons(mainSpeech, titleText, iconArray);
+	sendResponse(PepperResponse(icons));
 
 
 # Icons(speech, titleText, iconArray)
@@ -197,12 +196,12 @@ where:
       iconArray = array of Icon objects
  
 ## Ex. usage:
-  let speech = "Select from one of these options"
-  let titleText = "Select an option:"
-  let urlBase = "https://icon-library/best-icons/icon-"
-  let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
-  let icons = new Icons(speech, titleText, iconArray);
-  sendResponse(PepperResponse(icons));
+	let speech = "Select from one of these options"
+	let titleText = "Select an option:"
+	let urlBase = "https://icon-library/best-icons/icon-"
+	let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
+	let icons = new Icons(speech, titleText, iconArray);
+	sendResponse(PepperResponse(icons));
 
 
 # Style(title, url)
@@ -212,10 +211,10 @@ where:
       url = url of the image to display in fullscreen mode
  
 ## Ex. usage:
-  let title = "Look at this beautiful vista."
-  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
-  let fullScreenImg = new FullScreenImage(title, landscapeImageUrl);
-  sendResponse(PepperResponse(basicCard));
+	let title = "Look at this beautiful vista."
+	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
+	let fullScreenImg = new FullScreenImage(title, landscapeImageUrl);
+	sendResponse(PepperResponse(basicCard));
 
 
 # Text(simpleText)
@@ -224,8 +223,8 @@ where:
       simpleText = what is to be spoken/display by Pepper
  
 ## Ex. usage:
-  let simpleText = "Why, hello! Hello there! || Hello.";
-  sendResponse(PepperResponse(new Text(simpleText)));
+	let simpleText = "Why, hello! Hello there! || Hello.";
+	sendResponse(PepperResponse(new Text(simpleText)));
 
 
 # TextBubble(textValue, triggerUtterance, speech)
@@ -236,12 +235,12 @@ where:
     speech = (optional) what Pepper says if a user selects this text bubble
  
 ## Ex. usage:
-  let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
-  let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
-  let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
-  sendResponse(PepperResponse(textBubbles));
- 
- Note: Cannot be used standalone with PepperResponse!
+	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
+	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
+	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
+	sendResponse(PepperResponse(textBubbles));
+
+Note: Cannot be used standalone with PepperResponse!
 
 
 # TextBubbles(title, bubblesArray, randomize)
@@ -252,10 +251,10 @@ where:
     randomize = (optional) a boolean value of whether or not to randomize the bubbles
  
 ## Ex. usage:
-  let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
-  let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
-  let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
-  sendResponse(PepperResponse(textBubbles));
+	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
+	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
+	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
+	sendResponse(PepperResponse(textBubbles));
 
         
 # TriggerIntent(triggerUtterance)
@@ -264,8 +263,8 @@ where:
       triggerUtterance = the utterance string to trigger
  
 ## Ex. usage:
-  let returnToMainMenu = new TriggerIntent("Main Menu");
-  sendResponse(PepperResponse(returnToMainMenu));
+	let returnToMainMenu = new TriggerIntent("Main Menu");
+	sendResponse(PepperResponse(returnToMainMenu));
  
  Note: can't be chained together with a Style response object
 
@@ -278,10 +277,10 @@ where:
       contentType = (optional) If the video file's url ends in the filetype, this field is optional;
           otherwise specify the content type with the syntax "video/{file-type}", e.g. "video/mp4"
 ## Ex. usage:
-  let speech = "Watch this product video to understand our latest new features:"
-  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
-  let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
-  sendResponse(PepperResponse(basicCard));
+	let speech = "Watch this product video to understand our latest new features:"
+	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
+	let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
+	sendResponse(PepperResponse(basicCard));
 
 
 
@@ -292,10 +291,10 @@ where:
       url = url of the image to display in fullscreen mode
  
 ## Ex. usage:
-  let speech = "You can see our current mortgage rates in the table displayed on my tablet"
-  let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
-  let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl);
-  sendResponse(PepperResponse(mortgageRatesWebsite));
+	let speech = "You can see our current mortgage rates in the table displayed on my tablet"
+	let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
+	let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl);
+	sendResponse(PepperResponse(mortgageRatesWebsite));
 
 
 # PepperResponse(anyValidPepperResponseAbove)
