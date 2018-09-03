@@ -6,7 +6,7 @@ A Javascript library for the easy creation of valid responses for the Pepper rob
 
 #  Base Class: 
 
- The base class from which all of Pepper's Responses inherit, has some handy helper functions to set Context and Style to the response. This design enables using these methods on (nearly**) any response of your choice.
+ The base class from which all of Pepper's Responses inherit, has some handy helper methods to set Context and Style to the response. This design enables using these methods on (nearly**) any response of your choice.
 
 ## Setting Context:
  To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires 3 values to be valid, 'name', 'parameters'.
@@ -89,6 +89,7 @@ where:
 
 
 # CarouselImage(titleOrObj, url, triggerUtterance)
+where:
 
 ## Parameters:
       titleOrObj = what is displayed under the image; ALTERNATIVELY, when over-
@@ -110,6 +111,7 @@ where:
 
 
 # Carousel(title, carouselImageArray)
+where:
 
 ## Parameters:
       title = what is to be spoken/displayed as title
@@ -125,6 +127,7 @@ where:
 
 
 # CarouselImageNoTitle(speak, url, triggerUtterance)
+where:
 
 ## Parameters:
       speak = what the robot says when you click a button
@@ -144,6 +147,7 @@ where:
 
 
 # CarouselNoTitles(title, carouselImageArray)
+where:
 
 ## Parameters:
       title = what is to be spoken/displayed as title
@@ -159,6 +163,7 @@ where:
 
 
 # FullScreenImage(speech, url)
+where:
 
 ## Parameters:
       speech = what is to be spoken
@@ -172,6 +177,7 @@ where:
 
 
 # Icon(url, triggerUtterance, speech, iconTitle)
+where:
 
 ## Parameters:
       url = the url of the icon image
@@ -191,6 +197,7 @@ where:
 
 
 # Icons(speech, titleText, iconArray)
+where:
 
 ## Parameters:
       speech = what is to be spoken
@@ -207,6 +214,7 @@ where:
 
 
 # Style(title, url)
+where:
 
 ## Parameters:
       title = what is to be spoken
@@ -220,6 +228,7 @@ where:
 
 
 # Text(simpleText)
+where:
 
 ## Parameters:
       simpleText = what is to be spoken/display by Pepper
@@ -230,6 +239,7 @@ where:
 
 
 # TextBubble(textValue, triggerUtterance, speech)
+where:
 
 ## Parameters:
     textValue = what displays on Pepper inside the bubble
@@ -246,6 +256,7 @@ Note: Cannot be used standalone with PepperResponse!
 
 
 # TextBubbles(title, bubblesArray, randomize)
+where:
 
 ## Parameters:
     title = the title that displays on Pepper's tablet / what Pepper speaks
@@ -260,6 +271,7 @@ Note: Cannot be used standalone with PepperResponse!
 
         
 # TriggerIntent(triggerUtterance)
+where:
 
 ## Parameters:
       triggerUtterance = the utterance string to trigger
@@ -272,6 +284,7 @@ Note: Cannot be used standalone with PepperResponse!
 
 
 # Video(speech, url, contentType)
+where:
 
 ## Parameters:
       speech = what is to be spoken
@@ -287,6 +300,7 @@ Note: Cannot be used standalone with PepperResponse!
 
 
 # Website(speech, url)
+where:
 
 ## Parameters:
       speech = what is to be spoken
