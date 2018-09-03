@@ -76,8 +76,8 @@ where:
 # BasicCard(title, url)
 
 ## Parameters:
-      title = what is to be spoken/displayed as title <br>
-      url = url of the image to display <br>
+      title = what is to be spoken/displayed as title
+      url = url of the image to display
  
 ## Ex. usage:
       let title = "Employee of the Month";
