@@ -1,0 +1,19 @@
+{
+  "name": "sbra-pepper-chat-markup",
+  "version": "1.0.0",
+  "description": "A simple library for creating Dialogflow responses for Pepper the robot configured on the Pepper Chat platform.",
+  "main": "Pepper-Fulfillment-Library.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pepper",
+    "robot",
+    "pepper chat",
+    "dialogflow",
+    "host"
+  ],
+  "author": "Daniel Schofield",
+  "email": "daniel.schofield@softbankrobotics.com",
+  "license": "ISC"
+}
