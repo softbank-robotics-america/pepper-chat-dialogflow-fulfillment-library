@@ -503,7 +503,6 @@ class PepperResponse {
         let textResponses = [];
         let validResponses = ["BasicCard","Carousel","CarouselNoTitles","FullScreenImage","BackgroundImage","Icons","Style","Text","TriggerIntent","Video","Website"];
         for (let x = 0; x < arguments.length; x++) {
-            console.log("Argument: ", x+1);
             let messageType = arguments[x].constructor.name.toString();
             console.log("messageType: ", messageType);
             if ( validResponses.indexOf(messageType) === -1) {
