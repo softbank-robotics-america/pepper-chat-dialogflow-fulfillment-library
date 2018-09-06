@@ -61,7 +61,7 @@ class BasicResponse {
  *  let backgroundImage = new BackgroundImage(title, landscapeImageUrl);
  *  sendResponse(PepperResponse(backgroundImage));
  */
-module.exports = class BackgroundImage extends BasicResponse {
+class BackgroundImage extends BasicResponse {
     constructor(title, url) {
         super();
         this.type = 4;
@@ -83,7 +83,7 @@ module.exports = class BackgroundImage extends BasicResponse {
  *  let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
  *  sendResponse(PepperResponse(basicCard));
  */
-module.exports = class BasicCard extends BasicResponse {
+class BasicCard extends BasicResponse {
     constructor(title, url) {
         super();
         this.type = "basic_card";
@@ -114,7 +114,7 @@ module.exports = class BasicCard extends BasicResponse {
  * 
  * Note: Cannot be used standalone with PepperResponse!
  */
-module.exports = class CarouselImage {
+class CarouselImage {
     constructor(title, url, triggerUtterance) {
         this.title = title;
         this.url = url;
@@ -139,7 +139,7 @@ module.exports = class CarouselImage {
  *  let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
  *  sendResponse(PepperResponse(carousel));
  */
-module.exports = class Carousel extends BasicResponse {
+class Carousel extends BasicResponse {
     constructor(title, carouselImagesArray) {
         super();
         this.type = "list_card";
@@ -180,7 +180,7 @@ module.exports = class Carousel extends BasicResponse {
  * 
  * Note: Cannot be used standalone with PepperResponse!
  */
-module.exports = class CarouselImageNoTitle {
+class CarouselImageNoTitle {
     constructor(speak, url, triggerUtterance) {
         if (speak) { this.speak = speak }
         this.contentURL = url;
@@ -203,7 +203,7 @@ module.exports = class CarouselImageNoTitle {
  *  let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
  *  sendResponse(PepperResponse(carousel));
  */
-module.exports = class CarouselNoTitles extends BasicResponse {
+class CarouselNoTitles extends BasicResponse {
     constructor(title, carouselImagesNoTitlesArray) {
         super();
         this.type = 4;
@@ -232,7 +232,7 @@ module.exports = class CarouselNoTitles extends BasicResponse {
  *  let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
  *  sendResponse(PepperResponse(fullScreenImg));
  */
-module.exports = class FullScreenImage extends BasicResponse {
+class FullScreenImage extends BasicResponse {
     constructor(speech, url) {
         super();
         this.type = 4;
@@ -261,7 +261,7 @@ module.exports = class FullScreenImage extends BasicResponse {
  *  let icons = new Icons(mainSpeech, titleText, iconArray);
  *  sendResponse(PepperResponse(icons));
  */
-module.exports = class Icon {
+class Icon {
     constructor(url, triggerUtterance, speech, iconTitle) {
         this.iconUrl = url;
         this.value = triggerUtterance;
@@ -286,7 +286,7 @@ module.exports = class Icon {
  *  let icons = new Icons(speech, titleText, iconArray);
  *  sendResponse(PepperResponse(icons));
  */
-module.exports = class Icons extends BasicResponse {
+class Icons extends BasicResponse {
     constructor(speech, titleText, customIconsArray) {
         super();
         this.type = 4;
@@ -316,7 +316,7 @@ module.exports = class Icons extends BasicResponse {
  *  let style = new Style(title, styleConfigObj);
  *  sendResponse(PepperResponse(style));
  */
-module.exports = class Style extends BasicResponse {
+class Style extends BasicResponse {
     constructor(title, styleConfig) {
         super();
         this.type = 4;
@@ -345,7 +345,7 @@ module.exports = class Style extends BasicResponse {
  *  sendResponse(PepperResponse(new Text(title)));
  *  (Output: Pepper's tablet: 'Hello.' || Pepper's voice: 'Why, hello! Hello there!')
  */
-module.exports = class Text extends BasicResponse {
+class Text extends BasicResponse {
     constructor(title) {
         super();
         this.type = 0;
@@ -371,7 +371,7 @@ module.exports = class Text extends BasicResponse {
  * 
  * Note: Cannot be used standalone with PepperResponse!
  */
-module.exports = class TextBubble {
+class TextBubble {
     constructor(textValue, triggerUtterance, speech) {
         this.title = textValue;
         this.value = triggerUtterance;
@@ -393,7 +393,7 @@ module.exports = class TextBubble {
  *  let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
  *  sendResponse(PepperResponse(textBubbles));
  */
-module.exports = class TextBubbles extends BasicResponse {
+class TextBubbles extends BasicResponse {
     constructor(title, textBubbleArray, randomize) {
         super();
         this.type = 4;
@@ -415,7 +415,7 @@ module.exports = class TextBubbles extends BasicResponse {
  *  let returnToMainMenu = new TriggerIntent("Main Menu");
  *  sendResponse(PepperResponse(returnToMainMenu));
  */
-module.exports = class TriggerIntent extends BasicResponse {
+class TriggerIntent extends BasicResponse {
     constructor(triggerUtterance) {
         super();
         this.type = 4;
@@ -439,7 +439,7 @@ module.exports = class TriggerIntent extends BasicResponse {
  *  let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
  *  sendResponse(PepperResponse(basicCard));
  */
-module.exports = class Video extends BasicResponse {
+class Video extends BasicResponse {
     constructor(speech, url, contentType) {
         super();
         this.type = 4;
@@ -468,7 +468,7 @@ module.exports = class Video extends BasicResponse {
  *  let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl);
  *  sendResponse(PepperResponse(mortgageRatesWebsite));
  */
-module.exports = class Website extends BasicResponse {
+class Website extends BasicResponse {
     constructor(speech, url, triggerUtteranceOnClose) {
         super();
         this.type = 4;
@@ -493,7 +493,7 @@ module.exports = class Website extends BasicResponse {
  *  let followUp = new Text("I hope you enjoyed learning about our mortgage rates!")
  *  sendResponse(PepperResponse(mortgageRatesWebsite, followUp));
  */
-module.exports = class PepperResponse {
+class PepperResponse {
     constructor(){
         this.speech = "";
         this.messages = [];
@@ -542,7 +542,7 @@ module.exports = class PepperResponse {
 }
 
 
-module.exports = function toTitleCase(str) {
+function toTitleCase(str) {
     return str.replace(
         /\w\S*/g,
         function(txt) {
@@ -551,6 +551,9 @@ module.exports = function toTitleCase(str) {
     );
 }
 
-module.exports = function randomlyChoose(array){
+function randomlyChoose(array){
     return array[Math.floor(Math.random() * array.length)];
 }
+
+module.exports = { BackgroundImage, BasicCard, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, 
+    Icon, Icons, Style, Text, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse, toTitleCase, randomlyChoose };
