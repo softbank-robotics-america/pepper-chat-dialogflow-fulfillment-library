@@ -307,24 +307,25 @@ where:
           otherwise specify the content type with the syntax "video/{file-type}", e.g. "video/mp4"
 ## Ex. usage:
 	let speech = "Watch this product video to understand our latest new features:"
-	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
-	let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
-	sendResponse(PepperResponse(basicCard));
+	let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
+	let video = new Video(speech, url);
+	sendResponse(PepperResponse(video));
 
 
-
-# Website(speech, url)
+# Website(speech, url, onClose)
 where:
 
 ## Parameters:
       speech = what is to be spoken
       url = url of the image to display in fullscreen mode
+      onClose = the utterance string to trigger when the user exits
  
 ## Ex. usage:
-	let speech = "You can see our current mortgage rates in the table displayed on my tablet"
-	let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
-	let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl);
-	sendResponse(PepperResponse(mortgageRatesWebsite));
+    let speech = "You can see our current mortgage rates in the table displayed on my tablet"
+    let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
+    let finishedBrowsing = "Website exited";  
+    let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl, finishedBrowsing);
+    sendResponse(PepperResponse(mortgageRatesWebsite));
 
 
 # PepperResponse(anyValidPepperResponseAbove)

@@ -435,9 +435,9 @@ class TriggerIntent extends BasicResponse {
  *
  * @example
  *  let speech = "Watch this product video to understand our latest new features:"
- *  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
- *  let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
- *  sendResponse(PepperResponse(basicCard));
+ *  let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
+ *  let video = new Video(speech, url);
+ *  sendResponse(PepperResponse(video));
  */
 class Video extends BasicResponse {
     constructor(speech, url, contentType) {
@@ -456,10 +456,11 @@ class Video extends BasicResponse {
 
 
 /**
- * Website(speech, url) - creates a valid website response object for Pepper
+ * Website(speech, url, onClose) - creates a valid website response object for Pepper
  * 
  * @param {string} speech - what is to be spoken by Pepper
  * @param {string} url - the URL of the image to display in fullscreen mode
+ * @param {string} onClose - the utterance string that triggers when the website is closed
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
@@ -469,14 +470,14 @@ class Video extends BasicResponse {
  *  sendResponse(PepperResponse(mortgageRatesWebsite));
  */
 class Website extends BasicResponse {
-    constructor(speech, url, triggerUtteranceOnClose) {
+    constructor(speech, url, onClose) {
         super();
         this.type = 4;
         this.payload = {    speak : speech,
                             action: "showWebpage",
                             action_parameters: {
                                 url : url,
-                                onClose : triggerUtteranceOnClose   }   };
+                                onClose : onClose   }   };
     }
 }
 
