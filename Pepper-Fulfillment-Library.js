@@ -237,7 +237,7 @@ class FullScreenImage extends BasicResponse {
         super();
         this.type = 4;
         this.payload = {    speak : speech,
-                            imageUrl : url      };
+                            imageURL : url      };
     }
 }
 
