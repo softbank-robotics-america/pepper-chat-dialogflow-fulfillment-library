@@ -3,7 +3,21 @@ A Javascript library for the easy creation of valid responses for the Pepper rob
 
 
 # Pepper Chat Dialogflow Fulfillment Library    
-In order for this library to work, you must use the included template file, template/index.js & template/package.json
+We recommend you use the included template file, template/index.js & template/package.json to get started with using this library. <br><br>
+
+If you choose to work from an existing project, the key ingredient to using this library is simply including the library in your fulfillment in-line editor's (or webhook's) 'package.json' file:
+
+    "dependencies": {
+      ...
+      "sbra-pepper-chat-markup": "softbank-robotics-america/pepper-dialogflow-markup-library#master"
+      ...
+    }
+
+... then, in your main (presumably 'index.js') file, include any response types you wish to include in your fulfillment code using destructured assignment as shown below:
+
+    const {BasicCard, CarouselImage, Carousel, PepperResponse} = require('sbra-pepper-chat-markup');
+
+You're ready to go! You should now be able to use the library according to the documentation provided below.
 
 
 #  Base Class: 
@@ -90,13 +104,11 @@ where:
       sendResponse(PepperResponse(basicCard));
 
 
-# CarouselImage(titleOrObj, url, triggerUtterance)
+# CarouselImage(title, url, triggerUtterance)
 where:
 
 ## Parameters:
-      titleOrObj = what is displayed under the image; ALTERNATIVELY, when over-
-	      loaded as an object (as the sole parameter passed), the object must
-	      contain "title", "url", & "triggerUtterance" properties
+      title = what is displayed under the image
       url = the image to be displayed 
       triggerUtterance = the utterance that will be triggered upon selecting
 	      the carousel image
