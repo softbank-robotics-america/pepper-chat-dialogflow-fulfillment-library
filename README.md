@@ -25,7 +25,7 @@ You're ready to go! You should now be able to use the library according to the d
  The base class from which all of Pepper's Responses inherit, has some handy helper methods to set Context and Style to the response. This design enables using these methods on (nearly**) any response of your choice.
 
 ## Setting Context:
- To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires 3 values to be valid, 'name', 'parameters'.
+ To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires 3 values to be valid, 'name', 'lifespan', & 'parameters'.
 
 ### Method definition:
 setContext(name, lifespan, parameters) <br>
