@@ -501,7 +501,7 @@ class PepperResponse {
         let googleAssistant = [];
         let customPayloads = [];
         let textResponses = [];
-        let validResponses = ["BasicCard","Carousel","CarouselNoTitles","FullScreenImage","BackgroundImage","Icons","Style","Text","TriggerIntent","Video","Website"];
+        let validResponses = ["BasicCard","Carousel","CarouselNoTitles","FullScreenImage","BackgroundImage","Icons","Style","Text","TextBubbles","TriggerIntent","Video","Website"];
         for (let x = 0; x < arguments.length; x++) {
             let messageType = arguments[x].constructor.name.toString();
             console.log("messageType: ", messageType);
