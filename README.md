@@ -36,6 +36,7 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
 
   or for multiple:
 
+    let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
     let website = new Website("Here is a website", "http://website.html", "Website exited");
     sendResponse(new PepperResponse(card, website));
 
