@@ -562,5 +562,5 @@ function randomlyChoose(array){
     return array[Math.floor(Math.random() * array.length)];
 }
 
-module.exports = { BackgroundImage, BasicCard, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, 
-    Icon, Icons, Style, Text, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse, toTitleCase, randomlyChoose };
+module.exports = { BackgroundImage, BasicCard, BasicText, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, 
+    Icon, Icons, Style, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse, toTitleCase, randomlyChoose };
