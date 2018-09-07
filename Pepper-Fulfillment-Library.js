@@ -109,7 +109,7 @@ class BasicCard extends BasicResponse {
  * 
  * @example
  *  let title = "Why, hello! Hello there! || Hello.";
- *  sendResponse(new PepperResponse(new Text(title)));
+ *  sendResponse(new PepperResponse(new BasicText(title)));
  *  (Output: Pepper's tablet: 'Hello.' || Pepper's voice: 'Why, hello! Hello there!')
  */
 class BasicText extends BasicResponse {
