@@ -1,6 +1,6 @@
 {
-  "name": "sbra-pepper-chat-markup-v013",
-  "version": "0.1.3",
+  "name": "sbra-pepper-chat-markup-v014",
+  "version": "0.1.4",
   "description": "A simple library for creating Dialogflow responses for Pepper the robot configured on the Pepper Chat platform.",
   "main": "Pepper-Fulfillment-Library.js",
   "scripts": {
