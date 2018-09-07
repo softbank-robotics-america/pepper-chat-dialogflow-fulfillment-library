@@ -305,9 +305,9 @@ where:
 
 
 ### Example of usage:
-  let urlOfBat = generateRandomUrlOfBat()
-  let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
-  basicCard.setContext("batImage", 3, { whichImageSeen: urlOfBat } )
+    let urlOfBat = generateRandomUrlOfBat()
+    let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
+    basicCard.setContext("batImage", 3, { whichImageSeen: urlOfBat } )
  
 
 ## Setting Style:
@@ -319,29 +319,29 @@ where:
   - styleObj = an object containing a comma-separated list of any number of key-value pairs of style configurations (see above list)
 
 ### Example of usage:
-  // Commented out Style #1 after having decided to go with Style #2
-  // Style #1:
-  // let styleObj = {}
-  // styleObj.backgroundColor = '#49F420'; <-- Color codes can be HTML color codes or accepted HTML color names
-  // styleObj.textColor = 'black';  <-- Color codes can be HTML color codes or accepted HTML color names
-  // styleObj.font = 'Times New Roman';
+    // Commented out Style #1 after having decided to go with Style #2
+    // Style #1:
+    // let styleObj = {}
+    // styleObj.backgroundColor = '#49F420'; <-- Color codes can be HTML color codes or accepted HTML color names
+    // styleObj.textColor = 'black';  <-- Color codes can be HTML color codes or accepted HTML color names
+    // styleObj.font = 'Times New Roman';
 
-  // Style #2
-  let styleObj2 = {}
-  styleObj.backgroundColor = 'grey';
-  styleObj2.backgroundImage = 'https://best-bat-background-images/not-quite-fullscreen.jpg';
-  styleObj2.textColor = '#ffffff';
-  styleObj2.font' = 'Sans-Serif';
-  styleObj2.bubbleColor = 'black';
-  styleObj2.bubbleTextColor = '#42A3B2C';
-  styleObj2.bubbleFont = 'white';
+    // Style #2
+    let styleObj2 = {}
+    styleObj.backgroundColor = 'grey';
+    styleObj2.backgroundImage = 'https://best-bat-background-images/not-quite-fullscreen.jpg';
+    styleObj2.textColor = '#ffffff';
+    styleObj2.font' = 'Sans-Serif';
+    styleObj2.bubbleColor = 'black';
+    styleObj2.bubbleTextColor = '#42A3B2C';
+    styleObj2.bubbleFont = 'white';
 
-  let loveBatsIcon = new Icon("https://icon-of-check-mark.jpg", "Love Bats", "Great! I'm glad you love bats!");
-  let dislikeBatsIcon = new Icon("https://icon-of-x.jpg", "Dislike Bats", "Oh! I'm sorry to hear you don't like bats!");
-  let batIcons = new Icons("Do you love bats?", [loveBatsIcon, dislikeBatsIcon]);
+    let loveBatsIcon = new Icon("https://icon-of-check-mark.jpg", "Love Bats", "Great! I'm glad you love bats!");
+    let dislikeBatsIcon = new Icon("https://icon-of-x.jpg", "Dislike Bats", "Oh! I'm sorry to hear you don't like bats!");
+    let batIcons = new Icons("Do you love bats?", [loveBatsIcon, dislikeBatsIcon]);
 
-  // batIcons.setStyle(styleObj); 
-  batIcons.setStyle(styleObj2);
+    // batIcons.setStyle(styleObj); 
+    batIcons.setStyle(styleObj2);
  <br>
 
 ** Some response types do not allow styling to be added to them directly. In these cases, the styling must be applied either before or after such a response type.
