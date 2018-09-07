@@ -29,7 +29,8 @@ class BasicResponse {
             let validStyles = [    'backgroundColor', 'backgroundImage','textColor',
                     'font','bubbleColor','bubbleTextColor','bubbleFont'];
             let styleConfigKeys = Object.keys(styleConfig);
-            for (let styleKey in styleConfigKeys) {
+            for (let x = 0; x < styleConfigKeys.length; x++) {
+                let styleKey = styleConfigKeys[x];
                 if (validStyles.indexOf(styleKey) == -1) {
                     throw styleKey + " is not a valid style key (" + validStyles.join(", ") + ").";
                 } else {
