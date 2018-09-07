@@ -20,62 +20,17 @@ If you choose to work from an existing project, the key ingredient to using this
 You're ready to go! You should now be able to use the library according to the documentation provided below.
 
 
-#  Base Class: 
 
- The base class from which all of Pepper's Responses inherit, has some handy helper methods to set Context and Style to the response. This design enables using these methods on (nearly**) any response of your choice.
+# PepperResponse(anyValidPepperResponseAbove)
+All Pepper responses below must be wrapped by a PepperResponse in order to work.
 
-## Setting Context:
- To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires 3 values to be valid: 'name', 'lifespan', & 'parameters'.
+## Parameters:
+  anyValidPepperResponseAbove = ["BasicCard","Carousel","CarouselNoTitles","FullScreenImage","BackgroundImage","Icons","Style","Text","TriggerIntent","Video","Website"];
 
-### Method definition:
-setContext(name, lifespan, parameters) <br>
-where:
-  - name = name of the context
-  - lifespan = duration/expiration of the context, once set
-  - parameters = an object containing a comma-separated list of key-value pairs
+## Ex. Usage:
+  let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
+  sendResponse(PepperResponse(card));
 
-
-### Example of usage:
-	let urlOfBat = generateRandomUrlOfBat()
-	let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
-	basicCard.setContext("batImage", 3, { whichImageSeen: urlOfBat } )
- 
-
-## Setting Style:
- Style options include:  'backgroundColor', 'backgroundImage', 'textColor', 'font', 'bubbleColor', 'bubbleTextColor', 'bubbleFont'. 
-
-### Method definition:
-setStyle(styleObj) <br>
-where:
-  - styleObj = an object containing a comma-separated list of any number of key-value pairs of style configurations (see above list)
-
-### Example of usage:
-	// Commented out Style #1 after having decided to go with Style #2
-	// Style #1:
-	// let styleObj = {}
-	// styleObj.backgroundColor = '#49F420'; <-- Color codes can be HTML color codes or accepted HTML color names
-	// styleObj.textColor = 'black';  <-- Color codes can be HTML color codes or accepted HTML color names
-	// styleObj.font = 'Times New Roman';
-
-	// Style #2
-	let styleObj2 = {}
-	styleObj.backgroundColor = 'grey';
-	styleObj2.backgroundImage = 'https://best-bat-background-images/not-quite-fullscreen.jpg';
-	styleObj2.textColor = '#ffffff';
-	styleObj2.font' = 'Sans-Serif';
-	styleObj2.bubbleColor = 'black';
-	styleObj2.bubbleTextColor = '#42A3B2C';
-	styleObj2.bubbleFont = 'white';
-
-	let loveBatsIcon = new Icon("https://icon-of-check-mark.jpg", "Love Bats", "Great! I'm glad you love bats!");
-	let dislikeBatsIcon = new Icon("https://icon-of-x.jpg", "Dislike Bats", "Oh! I'm sorry to hear you don't like bats!");
-	let batIcons = new Icons("Do you love bats?", [loveBatsIcon, dislikeBatsIcon]);
-
-	// batIcons.setStyle(styleObj); 
-	batIcons.setStyle(styleObj2);
- <br>
-
-** Some response types do not allow styling to be added to them directly. In these cases, the styling must be applied either before or after such a response type.
 
 # BackgroundImage(speech, url)
 where:
@@ -328,16 +283,63 @@ where:
     sendResponse(PepperResponse(mortgageRatesWebsite));
 
 
-# PepperResponse(anyValidPepperResponseAbove)
-All Pepper responses must be wrapped by a PepperResponse in order to work.
 
-## Parameters:
-	anyValidPepperResponseAbove = ["BasicCard","Carousel","CarouselNoTitles","FullScreenImage","BackgroundImage","Icons","Style","Text","TriggerIntent","Video","Website"];
+#  Base Class: 
 
-## Ex. Usage:
-	let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
-	sendResponse(PepperResponse(card));
+ The base class from which all of Pepper's Responses inherit, has some handy helper methods to set Context and Style to the response. This design enables using these methods on (nearly**) any response of your choice.
 
+## Setting Context:
+ To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires 3 values to be valid: 'name', 'lifespan', & 'parameters'.
+
+### Method definition:
+setContext(name, lifespan, parameters) <br>
+where:
+  - name = name of the context
+  - lifespan = duration/expiration of the context, once set
+  - parameters = an object containing a comma-separated list of key-value pairs
+
+
+### Example of usage:
+  let urlOfBat = generateRandomUrlOfBat()
+  let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
+  basicCard.setContext("batImage", 3, { whichImageSeen: urlOfBat } )
+ 
+
+## Setting Style:
+ Style options include:  'backgroundColor', 'backgroundImage', 'textColor', 'font', 'bubbleColor', 'bubbleTextColor', 'bubbleFont'. 
+
+### Method definition:
+setStyle(styleObj) <br>
+where:
+  - styleObj = an object containing a comma-separated list of any number of key-value pairs of style configurations (see above list)
+
+### Example of usage:
+  // Commented out Style #1 after having decided to go with Style #2
+  // Style #1:
+  // let styleObj = {}
+  // styleObj.backgroundColor = '#49F420'; <-- Color codes can be HTML color codes or accepted HTML color names
+  // styleObj.textColor = 'black';  <-- Color codes can be HTML color codes or accepted HTML color names
+  // styleObj.font = 'Times New Roman';
+
+  // Style #2
+  let styleObj2 = {}
+  styleObj.backgroundColor = 'grey';
+  styleObj2.backgroundImage = 'https://best-bat-background-images/not-quite-fullscreen.jpg';
+  styleObj2.textColor = '#ffffff';
+  styleObj2.font' = 'Sans-Serif';
+  styleObj2.bubbleColor = 'black';
+  styleObj2.bubbleTextColor = '#42A3B2C';
+  styleObj2.bubbleFont = 'white';
+
+  let loveBatsIcon = new Icon("https://icon-of-check-mark.jpg", "Love Bats", "Great! I'm glad you love bats!");
+  let dislikeBatsIcon = new Icon("https://icon-of-x.jpg", "Dislike Bats", "Oh! I'm sorry to hear you don't like bats!");
+  let batIcons = new Icons("Do you love bats?", [loveBatsIcon, dislikeBatsIcon]);
+
+  // batIcons.setStyle(styleObj); 
+  batIcons.setStyle(styleObj2);
+ <br>
+
+** Some response types do not allow styling to be added to them directly. In these cases, the styling must be applied either before or after such a response type.
 
 
 # Helper functions
