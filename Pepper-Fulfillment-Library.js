@@ -35,12 +35,12 @@ class BasicResponse {
                     this.payload[styleKey] = styleConfig[styleKey];
                 }
             }
-        } else if (this.type == 0) {
-            this.payload == {
+        } else if (this.type === 0) {
+            this.payload = {
                 speak: this.speech
             }
-            this.type == 4;
-            this.speech == "";
+            this.type = 4;
+            this.speech = "";
             this.setStyle(styleConfig);
         } else {
             // For Google Assistant types (and any other objects), do not allow the addition of styling
