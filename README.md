@@ -21,15 +21,20 @@ You're ready to go! You should now be able to use the library according to the d
 
 
 
-# PepperResponse(anyValidPepperResponseAbove)
+# PepperResponse(anyValidPepperResponse)
 All Pepper responses below must be wrapped by a PepperResponse in order to work.
 
 ## Parameters:
-  anyValidPepperResponseAbove = [BasicCard, Carousel, CarouselNoTitles, FullScreenImage, BackgroundImage, Icons, Style, Text, TextBubbles, TriggerIntent, Video, Website];
+  anyValidPepperResponse = (any of:) [BasicCard, Carousel, CarouselNoTitles, FullScreenImage, BackgroundImage, Icons, Style, Text, TextBubbles, TriggerIntent, Video, Website];
 
 ## Ex. Usage:
   let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
-  sendResponse(PepperResponse(card));
+  sendResponse(new PepperResponse(card));
+
+  or for multiple:
+
+  let website = new Website("Here is a website", "http://website.html", "Website exited");
+  sendResponse(new PepperResponse(card, website));
 
 
 # BackgroundImage(speech, url)
@@ -43,7 +48,7 @@ where:
       let speech = "Look at this beautiful vista."
       let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
       let backgroundImage = new BackgroundImage(speech, landscapeImageUrl);
-      sendResponse(PepperResponse(backgroundImage));
+      sendResponse(new PepperResponse(backgroundImage));
 
 # BasicCard(title, url)
 where:
@@ -56,7 +61,7 @@ where:
       let title = "Employee of the Month";
       let employeeOfMonthImageUrl = "https://companywebsite.com/employee-of-month/jan-2018.jpg";
       let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
-      sendResponse(PepperResponse(basicCard));
+      sendResponse(new PepperResponse(basicCard));
 
 
 # CarouselImage(title, url, triggerUtterance)
@@ -92,7 +97,7 @@ where:
       let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image");
       let carouselArray = [carouselDog, carouselCat, carouselArray];
       let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
-      sendResponse(PepperResponse(carousel));
+      sendResponse(new PepperResponse(carousel));
 
 
 # CarouselImageNoTitle(speak, url, triggerUtterance)
@@ -128,7 +133,7 @@ where:
       let carouselBird = new CarouselImageNoTitle("Bird","http://animal-images/bird.jpg", "Bird image");
       let carouselArray = [carouselDog, carouselCat, carouselArray];
       let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
-      sendResponse(PepperResponse(carousel));
+      sendResponse(new PepperResponse(carousel));
 
 
 # FullScreenImage(speech, url)
@@ -142,7 +147,7 @@ where:
 	let speech = "Look at this beautiful vista."
 	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
 	let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
-	sendResponse(PepperResponse(fullScreenImg));
+	sendResponse(new PepperResponse(fullScreenImg));
 
 
 # Icon(url, triggerUtterance, speech, iconTitle)
@@ -162,7 +167,7 @@ where:
 	let mainSpeech = "Select from one of these options"
 	let titleText = "Select an option:"
 	let icons = new Icons(mainSpeech, titleText, iconArray);
-	sendResponse(PepperResponse(icons));
+	sendResponse(new PepperResponse(icons));
 
 
 # Icons(speech, titleText, iconArray)
@@ -179,7 +184,7 @@ where:
 	let urlBase = "https://icon-library/best-icons/icon-"
 	let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
 	let icons = new Icons(speech, titleText, iconArray);
-	sendResponse(PepperResponse(icons));
+	sendResponse(new PepperResponse(icons));
 
 
 # Style(title, url)
@@ -193,7 +198,7 @@ where:
 	let title = "Look at this beautiful vista."
 	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
 	let fullScreenImg = new FullScreenImage(title, landscapeImageUrl);
-	sendResponse(PepperResponse(basicCard));
+	sendResponse(new PepperResponse(basicCard));
 
 
 # Text(simpleText)
@@ -204,7 +209,7 @@ where:
  
 ## Ex. usage:
 	let simpleText = "Why, hello! Hello there! || Hello.";
-	sendResponse(PepperResponse(new Text(simpleText)));
+	sendResponse(new PepperResponse(new Text(simpleText)));
 
 
 # TextBubble(textValue, triggerUtterance, speech)
@@ -219,7 +224,7 @@ where:
 	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
 	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
 	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
-	sendResponse(PepperResponse(textBubbles));
+	sendResponse(new PepperResponse(textBubbles));
 
 Note: Cannot be used standalone with PepperResponse!
 
@@ -236,7 +241,7 @@ where:
 	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
 	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
 	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
-	sendResponse(PepperResponse(textBubbles));
+	sendResponse(new PepperResponse(textBubbles));
 
         
 # TriggerIntent(triggerUtterance)
@@ -247,7 +252,7 @@ where:
  
 ## Ex. usage:
 	let returnToMainMenu = new TriggerIntent("Main Menu");
-	sendResponse(PepperResponse(returnToMainMenu));
+	sendResponse(new PepperResponse(returnToMainMenu));
  
  Note: can't be chained together with a Style response object
 
@@ -264,7 +269,7 @@ where:
 	let speech = "Watch this product video to understand our latest new features:"
 	let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
 	let video = new Video(speech, url);
-	sendResponse(PepperResponse(video));
+	sendResponse(new PepperResponse(video));
 
 
 # Website(speech, url, onClose)
@@ -280,7 +285,7 @@ where:
     let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
     let finishedBrowsing = "Website exited";  
     let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl, finishedBrowsing);
-    sendResponse(PepperResponse(mortgageRatesWebsite));
+    sendResponse(new PepperResponse(mortgageRatesWebsite));
 
 
 

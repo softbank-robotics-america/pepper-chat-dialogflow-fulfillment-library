@@ -59,7 +59,7 @@ class BasicResponse {
  *  let title = "Look at this beautiful vista."
  *  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
  *  let backgroundImage = new BackgroundImage(title, landscapeImageUrl);
- *  sendResponse(PepperResponse(backgroundImage));
+ *  sendResponse(new PepperResponse(backgroundImage));
  */
 class BackgroundImage extends BasicResponse {
     constructor(title, url) {
@@ -81,7 +81,7 @@ class BackgroundImage extends BasicResponse {
  *  let title = "Employee of the Month";
  *  let employeeOfMonthImageUrl = "https://companywebsite.com/employee-of-month/jan-2018.jpg";
  *  let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
- *  sendResponse(PepperResponse(basicCard));
+ *  sendResponse(new PepperResponse(basicCard));
  */
 class BasicCard extends BasicResponse {
     constructor(title, url) {
@@ -137,7 +137,7 @@ class CarouselImage {
  *  let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image");
  *  let carouselArray = [carouselDog, carouselCat, carouselArray];
  *  let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
- *  sendResponse(PepperResponse(carousel));
+ *  sendResponse(new PepperResponse(carousel));
  */
 class Carousel extends BasicResponse {
     constructor(title, carouselImagesArray) {
@@ -201,7 +201,7 @@ class CarouselImageNoTitle {
  *  let carouselBird = new CarouselImageNoTitle("Bird","http://animal-images/bird.jpg", "Bird image");
  *  let carouselArray = [carouselDog, carouselCat, carouselArray];
  *  let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
- *  sendResponse(PepperResponse(carousel));
+ *  sendResponse(new PepperResponse(carousel));
  */
 class CarouselNoTitles extends BasicResponse {
     constructor(title, carouselImagesNoTitlesArray) {
@@ -230,7 +230,7 @@ class CarouselNoTitles extends BasicResponse {
  *  let speech = "Look at this beautiful vista."
  *  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
  *  let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
- *  sendResponse(PepperResponse(fullScreenImg));
+ *  sendResponse(new PepperResponse(fullScreenImg));
  */
 class FullScreenImage extends BasicResponse {
     constructor(speech, url) {
@@ -259,7 +259,7 @@ class FullScreenImage extends BasicResponse {
  *  let mainSpeech = "Select from one of these options"
  *  let titleText = "Select an option:"
  *  let icons = new Icons(mainSpeech, titleText, iconArray);
- *  sendResponse(PepperResponse(icons));
+ *  sendResponse(new PepperResponse(icons));
  */
 class Icon {
     constructor(url, triggerUtterance, speech, iconTitle) {
@@ -284,7 +284,7 @@ class Icon {
  *  let urlBase = "https://icon-library/best-icons/icon-"
  *  let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
  *  let icons = new Icons(speech, titleText, iconArray);
- *  sendResponse(PepperResponse(icons));
+ *  sendResponse(new PepperResponse(icons));
  */
 class Icons extends BasicResponse {
     constructor(speech, titleText, customIconsArray) {
@@ -314,7 +314,7 @@ class Icons extends BasicResponse {
  *  let title = "Look at this beautiful styling."
  *  let styleConfigObj = {  backgroundColor: "grey", textColor: "black"  };
  *  let style = new Style(title, styleConfigObj);
- *  sendResponse(PepperResponse(style));
+ *  sendResponse(new PepperResponse(style));
  */
 class Style extends BasicResponse {
     constructor(title, styleConfig) {
@@ -342,7 +342,7 @@ class Style extends BasicResponse {
  * 
  * @example
  *  let title = "Why, hello! Hello there! || Hello.";
- *  sendResponse(PepperResponse(new Text(title)));
+ *  sendResponse(new PepperResponse(new Text(title)));
  *  (Output: Pepper's tablet: 'Hello.' || Pepper's voice: 'Why, hello! Hello there!')
  */
 class Text extends BasicResponse {
@@ -367,7 +367,7 @@ class Text extends BasicResponse {
  *  let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
  *  let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
  *  let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
- *  sendResponse(PepperResponse(textBubbles));
+ *  sendResponse(new PepperResponse(textBubbles));
  * 
  * Note: Cannot be used standalone with PepperResponse!
  */
@@ -391,7 +391,7 @@ class TextBubble {
  *  let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
  *  let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
  *  let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
- *  sendResponse(PepperResponse(textBubbles));
+ *  sendResponse(new PepperResponse(textBubbles));
  */
 class TextBubbles extends BasicResponse {
     constructor(title, textBubbleArray, randomize) {
@@ -413,7 +413,7 @@ class TextBubbles extends BasicResponse {
  * 
  * @example
  *  let returnToMainMenu = new TriggerIntent("Main Menu");
- *  sendResponse(PepperResponse(returnToMainMenu));
+ *  sendResponse(new PepperResponse(returnToMainMenu));
  */
 class TriggerIntent extends BasicResponse {
     constructor(triggerUtterance) {
@@ -437,7 +437,7 @@ class TriggerIntent extends BasicResponse {
  *  let speech = "Watch this product video to understand our latest new features:"
  *  let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
  *  let video = new Video(speech, url);
- *  sendResponse(PepperResponse(video));
+ *  sendResponse(new PepperResponse(video));
  */
 class Video extends BasicResponse {
     constructor(speech, url, contentType) {
@@ -467,7 +467,7 @@ class Video extends BasicResponse {
  *  let speech = "You can see our current mortgage rates in the table displayed on my tablet"
  *  let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
  *  let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl);
- *  sendResponse(PepperResponse(mortgageRatesWebsite));
+ *  sendResponse(new PepperResponse(mortgageRatesWebsite));
  */
 class Website extends BasicResponse {
     constructor(speech, url, onClose) {
@@ -492,7 +492,7 @@ class Website extends BasicResponse {
  *  let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
  *  let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl);
  *  let followUp = new Text("I hope you enjoyed learning about our mortgage rates!")
- *  sendResponse(PepperResponse(mortgageRatesWebsite, followUp));
+ *  sendResponse(new PepperResponse(mortgageRatesWebsite, followUp));
  */
 class PepperResponse {
     constructor(){
