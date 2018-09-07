@@ -14,13 +14,13 @@
 class BasicResponse {
     constructor() {
     }
-    set setContext(name, lifespan, parameters){
+    set setContext(contextObj){
         if (!this.contextOut)
             this.contextOut = [];
         this.contextOut.push({ 
-            name : name, 
-            lifespan : lifespan,
-            parameters : parameters
+            name : contextObj.name, 
+            lifespan : contextObj.lifespan,
+            parameters : contextObj.parameters
         });
     }
     set addStyle(styleConfig) {
