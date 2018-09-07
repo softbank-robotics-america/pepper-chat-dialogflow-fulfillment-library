@@ -23,7 +23,7 @@ class BasicResponse {
             parameters : contextObj.parameters
         });
     }
-    static addStyle(styleConfig) {
+    static setStyle(styleConfig) {
         // Only allow the addition of styling to Custom Payload types
         if (this.type == 4) {
             let validStyles = this._getValidStyles();
@@ -41,7 +41,7 @@ class BasicResponse {
             }
             this.type == 4;
             this.speech == "";
-            this.addStyle(styleConfig);
+            this.setStyle(styleConfig);
         } else {
             // For Google Assistant types (and any other objects), do not allow the addition of styling
             throw "Unfortunately, you are not able to add style to this type of response (" + this.constructor.name +
