@@ -14,7 +14,7 @@
 class BasicResponse {
     constructor() {
     }
-    setContext(name, lifespan, parameters){
+    set setContext(name, lifespan, parameters){
         if (!this.contextOut)
             this.contextOut = [];
         this.contextOut.push({ 
@@ -23,7 +23,7 @@ class BasicResponse {
             parameters : parameters
         });
     }
-    addStyle(styleConfig) {
+    set addStyle(styleConfig) {
         // Only allow the addition of styling to Custom Payload types
         if (this.type == 4) {
             let validStyles = this._getValidStyles();
@@ -48,7 +48,7 @@ class BasicResponse {
                 "). Please add the styling to a previous response or choose a different response type.";
         }
     }
-    _getValidStyles() {
+    get _getValidStyles() {
         return [    'backgroundColor', 'backgroundImage','textColor',
                     'font','bubbleColor','bubbleTextColor','bubbleFont'];
     }
