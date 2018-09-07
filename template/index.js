@@ -5,7 +5,7 @@
 const { DialogflowApp } = require('actions-on-google');
 const { WebhookClient } = require('dialogflow-fulfillment');
 const functions = require('firebase-functions');
-const {BackgroundImage, BasicCard, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, Icon, Icons, 
+const {BackgroundImage, BasicCard, BasicText, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, Icon, Icons, 
 Style, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse} = require('sbra-pepper-chat-markup');
 
 /**
@@ -51,9 +51,9 @@ const MEDIA = {
     icons: {    
         dance: "https://pepperstorageprod.blob.core.windows.net/pepperdrive/6bb74073-3661-4588-81fd-d4484e9e01da32fd87f5-d314-447f-8323-e56e194344fd.png",
         selfie: "https://pepperstorageprod.blob.core.windows.net/pepperdrive/6bb74073-3661-4588-81fd-d4484e9e01da2bf6ebbf-f8aa-4da4-b32e-1c50bfec5532.png",
-        photo_booth: "https://pepperstorageprod.blob.core.windows.net/pepperdrive/6bb74073-3661-4588-81fd-d4484e9e01da25f2cabf-2686-45b4-b731-b9bcb9d65aac.png"  },
+        photo_booth: "https://pepperstorageprod.blob.core.windows.net/pepperdrive/6bb74073-3661-4588-81fd-d4484e9e01da150ff583-e8fc-4e0b-97ce-da3810c0ecc8.png"  },
     video: "https://pepperstorageprod.blob.core.windows.net/pepperdrive/6bb74073-3661-4588-81fd-d4484e9e01da55dba592-8209-46ff-922d-b7f83773dafa.mp4",
-    website: "https://www.softbankrobotics.com/us/" };
+    website: "https://softbankroboticstraining.github.io/pepper-chatbot-api/#pepper-chat" };
                         
 const COPY = {  
     basic_card: "Check out this beautiful basic card of a few of my heroes: || A few of my heroes:",
@@ -77,8 +77,8 @@ const COPY = {
                                 nextIntent: "Launch Dance application" },
              selfie: {      onSelected: "I love taking pictures!", 
                                 nextIntent: "Launch Selfie application" },
-             music_boxes: { onSelected: "A musician, are we? \\pau=500\\ Ok. Let's make some music!", 
-                                nextIntent: "Launch Music Boxes" } },
+             photo_booth: { onSelected: "On social media, are we? \\pau=500\\ Well you look gorgeous today!", 
+                                nextIntent: "Launch Photo Booth" } },
     text_bubbles: { title: "What's your favorite color?",
                     orange: {   display: "Orange", nextIntent: "My favorite color is orange" },
                     yellow: {   display: "Yellow", nextIntent: "My favorite color is yellow" },
@@ -99,16 +99,17 @@ function processV1Request(request, response) {
         carousel: "Carousel.FavoriteRobot",
         icons: "Icons.Entertainment",
         text_bubbles: "TextBubbles.FavoriteColor",
+        text_bubbles_set_color: "TextBubbles.SetColor",
         video: "Video.PepperPromo",
         website: "Website.SBRA",
         trigger_intent: "TriggerIntent.TriggerStarWars",
         chained_responses: "ChainedResponses.SlideShowThenTriggerWebsite"
     };
-    const Contexts = { user_name: "userName" };
-    const Parameters = { user_name: "firstName" };
+    const Contexts = { user_name: "username" };
+    const Parameters = { user_name: "firstName", color: "color"};
     let firstName = '';
     try {
-        firstName = app.getContextArgument(Contexts.user_name, Parameters.user_name).value;
+        firstName = app.getContext(Contexts.user_name).parameters[Parameters.user_name];
     } catch (err) {
         console.log("Error retrieving username: ", err);
     }
@@ -146,17 +147,31 @@ function processV1Request(request, response) {
                 COPY.icons[icon].nextIntent,
                 COPY.icons[icon].onSelected )   );
         }
-        let icons = new Icons(COPY.icons.title, iconArray);
+        let icons = new Icons(COPY.icons.title, COPY.icons.title, iconArray);
         sendResponse(new PepperResponse(icons));
     };
     const showTextBubbles = () => {
         let bubblesArray = [];
         for (let bubble in COPY.text_bubbles) {
             if (bubble == "title") { continue }
-            bubblesArray.push( new TextBubble( COPY.display, COPY.nextIntent));  
+            bubblesArray.push( new TextBubble( COPY.text_bubbles[bubble].display, COPY.text_bubbles[bubble].nextIntent));  
         }
         let textBubbles = new TextBubbles(COPY.text_bubbles.title, bubblesArray);
         sendResponse(new PepperResponse(textBubbles));
+    };
+    const setTextColor = () =>
+    {
+        let color = "I'm not sure what you said, but I'm sure your favorite color";
+        try {
+            color = app.getArgument(Parameters.color).toLowerCase();
+        } catch (err) {
+            console.log("Error retrieving user-selected color.");
+        }
+        let text1 = new BasicText(color + "  is a nice color indeed!");
+        console.log(text1);
+        text1.setStyle({textColor : color.length > 20 ? "blue" : color});
+        let text2 = new BasicText("And now. \\pau=300\\ Please ask me to show you another response type. || Please ask me to show you another response type.");
+        sendResponse(new PepperResponse(text1, text2));
     };
     const showVideo = () => {
         let video = new Video(COPY.video, MEDIA.video);
@@ -167,27 +182,29 @@ function processV1Request(request, response) {
         sendResponse(new PepperResponse(website));
     };
     const triggerIntent = () => {
+        let text = new BasicText("Ok, I will now trigger the Star Wars basic card intent.");
         let nextIntent = new TriggerIntent("Show Me Star Wars Droids");
         nextIntent.speech = COPY.trigger_intent;
-        sendResponse(new PepperResponse(nextIntent));
+        sendResponse(new PepperResponse(text, nextIntent));
     };
     const showChainedResponses = () => {
         let fullScreen = new FullScreenImage(COPY.full_screen_image, MEDIA.full_screen_image);
         let fullScreen2 = new FullScreenImage("And " + COPY.full_screen_image2, MEDIA.full_screen_image2);
-        let website = new Website("And " + COPY.website, MEDIA.website);
+        let website = new Website("And " + COPY.website.speech, MEDIA.website, COPY.website.onExit);
         sendResponse(new PepperResponse( fullScreen, fullScreen2, website ));
     };
     const actionMap = new Map();
-    actionMap.set(  Actions.basic_card,           showBasicCard       );
-    actionMap.set(  Actions.full_screen_image,    showFullScreenImage );
-    actionMap.set(  Actions.background_image,     setBackgroundImage  );
-    actionMap.set(  Actions.carousel,             showCarousel        );
-    actionMap.set(  Actions.icons,                showIcons           );
-    actionMap.set(  Actions.text_bubbles,         showTextBubbles     );
-    actionMap.set(  Actions.video,                showVideo           );
-    actionMap.set(  Actions.website,              showWebsite         );
-    actionMap.set(  Actions.trigger_intent,       triggerIntent       );
-    actionMap.set(  Actions.chained_responses,    showChainedResponses);
+    actionMap.set(  Actions.basic_card,             showBasicCard       );
+    actionMap.set(  Actions.full_screen_image,      showFullScreenImage );
+    actionMap.set(  Actions.background_image,       setBackgroundImage  );
+    actionMap.set(  Actions.carousel,               showCarousel        );
+    actionMap.set(  Actions.icons,                  showIcons           );
+    actionMap.set(  Actions.text_bubbles,           showTextBubbles     );
+    actionMap.set(  Actions.text_bubbles_set_color, setTextColor        );
+    actionMap.set(  Actions.video,                  showVideo           );
+    actionMap.set(  Actions.website,                showWebsite         );
+    actionMap.set(  Actions.trigger_intent,         triggerIntent       );
+    actionMap.set(  Actions.chained_responses,      showChainedResponses);
     app.handleRequest(actionMap);
     
     
