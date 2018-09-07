@@ -293,11 +293,11 @@ where:
  The base class from which all of Pepper's Responses inherit, has some handy helper methods to set Context and Style to the response. This design enables using these methods on (nearly**) any response of your choice.
 
 ## Setting Context:
- To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires 3 values to be valid: 'name', 'lifespan', & 'parameters'.
+ To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires an object with 3 properties to be valid: 'name', 'lifespan', & 'parameters'.
 
 ### Method definition:
-setContext(name, lifespan, parameters) <br>
-where:
+setContext(contextObj) <br>
+where contextObj is a simple object containing 3 properties:
   - name = name of the context
   - lifespan = duration/expiration of the context, once set
   - parameters = an object containing a comma-separated list of key-value pairs
@@ -306,7 +306,7 @@ where:
 ### Example of usage:
     let urlOfBat = generateRandomUrlOfBat()
     let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
-    basicCard.setContext("batImage", 3, { whichImageSeen: urlOfBat } )
+    basicCard.setContext({name: "batImage", lifespan: 3, parameters: { whichImageSeen: urlOfBat }} )
  
 
 ## Setting Style:
