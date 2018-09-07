@@ -28,13 +28,13 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
   anyValidPepperResponse = (any of:) [BasicCard, Carousel, CarouselNoTitles, FullScreenImage, BackgroundImage, Icons, Style, Text, TextBubbles, TriggerIntent, Video, Website];
 
 ## Ex. Usage:
-  let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
-  sendResponse(new PepperResponse(card));
+    let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
+    sendResponse(new PepperResponse(card));
 
   or for multiple:
 
-  let website = new Website("Here is a website", "http://website.html", "Website exited");
-  sendResponse(new PepperResponse(card, website));
+    let website = new Website("Here is a website", "http://website.html", "Website exited");
+    sendResponse(new PepperResponse(card, website));
 
 
 # BackgroundImage(speech, url)
