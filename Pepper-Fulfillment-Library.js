@@ -14,7 +14,7 @@
 class BasicResponse {
     constructor() {
     }
-    set setContext(contextObj){
+    static setContext(contextObj){
         if (!this.contextOut)
             this.contextOut = [];
         this.contextOut.push({ 
@@ -23,7 +23,7 @@ class BasicResponse {
             parameters : contextObj.parameters
         });
     }
-    set addStyle(styleConfig) {
+    static addStyle(styleConfig) {
         // Only allow the addition of styling to Custom Payload types
         if (this.type == 4) {
             let validStyles = this._getValidStyles();
@@ -75,6 +75,12 @@ class BackgroundImage extends BasicResponse {
         this.payload = {    speak : title, 
                             backgroundImage : url   };
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }
 }
 
 /**
@@ -99,6 +105,12 @@ class BasicCard extends BasicResponse {
         this.image = { "url" : url };
         this.buttons = [];
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 /**
@@ -118,6 +130,12 @@ class BasicText extends BasicResponse {
         this.type = 0;
         this.speech = title;
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 /**
@@ -145,7 +163,7 @@ class CarouselImage {
         this.title = title;
         this.url = url;
         this.triggerUtterance = triggerUtterance;
-    }
+    }  
 }
 
 /**
@@ -185,6 +203,12 @@ class Carousel extends BasicResponse {
             }
         });
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 /**
@@ -211,7 +235,7 @@ class CarouselImageNoTitle {
         if (speak) { this.speak = speak }
         this.contentURL = url;
         this.value = triggerUtterance;
-    }
+    }    
 }
 
 /**
@@ -243,6 +267,12 @@ class CarouselNoTitles extends BasicResponse {
             }
         });
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 /**
@@ -265,6 +295,12 @@ class FullScreenImage extends BasicResponse {
         this.payload = {    speak : speech,
                             imageURL : url      };
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 /**
@@ -327,6 +363,12 @@ class Icons extends BasicResponse {
                                 }
                             })};
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 /**
@@ -358,6 +400,9 @@ class Style extends BasicResponse {
         }
         this.payload.speak = title || " ";
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }    
 }
 
 /**
@@ -383,7 +428,7 @@ class TextBubble {
         this.title = textValue;
         this.value = triggerUtterance;
         this.speak = speech;
-    }
+    }    
 }
 
 /**
@@ -409,6 +454,12 @@ class TextBubbles extends BasicResponse {
         if (randomize)
             this.payload.randomize = true;
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
         
 /**
@@ -429,6 +480,12 @@ class TriggerIntent extends BasicResponse {
         this.payload = { action : "setStyle",
                          action_parameters : { nextUtterance : triggerUtterance } };
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 /**
@@ -459,6 +516,12 @@ class Video extends BasicResponse {
                             contentType : contentType,
                             speak : speech              };
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 
@@ -486,6 +549,12 @@ class Website extends BasicResponse {
                                 url : url,
                                 onClose : onClose   }   };
     }
+    static setContext(contextObj) {
+        super.setContext(contextObj);
+    }
+    static setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }    
 }
 
 /**
