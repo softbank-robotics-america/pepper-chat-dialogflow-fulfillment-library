@@ -26,7 +26,8 @@ class BasicResponse {
     setStyle(styleConfig) {
         // Only allow the addition of styling to Custom Payload types
         if (this.type == 4) {
-            let validStyles = this._getValidStyles();
+            let validStyles = [    'backgroundColor', 'backgroundImage','textColor',
+                    'font','bubbleColor','bubbleTextColor','bubbleFont'];
             let styleConfigKeys = Object.keys(styleConfig);
             for (let styleKey in styleConfigKeys) {
                 if (validStyles.indexOf(styleKey) == -1) {
@@ -47,10 +48,6 @@ class BasicResponse {
             throw "Unfortunately, you are not able to add style to this type of response (" + this.constructor.name +
                 "). Please add the styling to a previous response or choose a different response type.";
         }
-    }
-    static _getValidStyles() {
-        return [    'backgroundColor', 'backgroundImage','textColor',
-                    'font','bubbleColor','bubbleTextColor','bubbleFont'];
     }
 }
 
@@ -81,9 +78,6 @@ class BackgroundImage extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }    
 }
 
 /**
@@ -114,9 +108,6 @@ class BasicCard extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
@@ -142,9 +133,6 @@ class BasicText extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
@@ -218,9 +206,6 @@ class Carousel extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
@@ -285,9 +270,6 @@ class CarouselNoTitles extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
@@ -316,9 +298,6 @@ class FullScreenImage extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
@@ -387,9 +366,6 @@ class Icons extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
@@ -424,9 +400,6 @@ class Style extends BasicResponse {
     setContext(contextObj) {
         super.setContext(contextObj);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
@@ -453,9 +426,6 @@ class TextBubble {
         this.value = triggerUtterance;
         this.speak = speech;
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
@@ -487,9 +457,6 @@ class TextBubbles extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
         
 /**
@@ -516,9 +483,7 @@ class TriggerIntent extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
+ 
 }
 
 /**
@@ -555,9 +520,6 @@ class Video extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 
@@ -591,9 +553,6 @@ class Website extends BasicResponse {
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
-    static _getValidStyles() {
-        return super._getValidStyles();
-    }     
 }
 
 /**
