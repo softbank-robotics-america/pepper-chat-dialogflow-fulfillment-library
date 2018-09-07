@@ -102,6 +102,25 @@ class BasicCard extends BasicResponse {
 }
 
 /**
+ * BasicText(title) - a simple text-based response
+ * 
+ * @param {string} title = what is to be spoken by Pepper/displayed on Pepper's tablet
+ * @return {object} The correctly formatted JSON to pass to the PepperResponse object
+ * 
+ * @example
+ *  let title = "Why, hello! Hello there! || Hello.";
+ *  sendResponse(new PepperResponse(new Text(title)));
+ *  (Output: Pepper's tablet: 'Hello.' || Pepper's voice: 'Why, hello! Hello there!')
+ */
+class BasicText extends BasicResponse {
+    constructor(title) {
+        super();
+        this.type = 0;
+        this.speech = title;
+    }
+}
+
+/**
  * CarouselImage(title, url, triggerUtterance) - must be used in conjunction with the Carousel class
  * to create a carousel; the relationship is that a Carousel is composed of CarouselImage objects.
  * 
@@ -338,25 +357,6 @@ class Style extends BasicResponse {
             }
         }
         this.payload.speak = title || " ";
-    }
-}
-
-/**
- * Text(title) - a simple text-based response
- * 
- * @param {string} title = what is to be spoken by Pepper/displayed on Pepper's tablet
- * @return {object} The correctly formatted JSON to pass to the PepperResponse object
- * 
- * @example
- *  let title = "Why, hello! Hello there! || Hello.";
- *  sendResponse(new PepperResponse(new Text(title)));
- *  (Output: Pepper's tablet: 'Hello.' || Pepper's voice: 'Why, hello! Hello there!')
- */
-class Text extends BasicResponse {
-    constructor(title) {
-        super();
-        this.type = 0;
-        this.speech = title;
     }
 }
 
