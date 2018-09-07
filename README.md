@@ -25,7 +25,7 @@ You're ready to go! You should now be able to use the library according to the d
 All Pepper responses below must be wrapped by a PepperResponse in order to work.
 
 ## Parameters:
-  anyValidPepperResponseAbove = ["BasicCard","Carousel","CarouselNoTitles","FullScreenImage","BackgroundImage","Icons","Style","Text","TriggerIntent","Video","Website"];
+  anyValidPepperResponseAbove = [BasicCard, Carousel, CarouselNoTitles, FullScreenImage, BackgroundImage, Icons, Style, Text, TextBubbles, TriggerIntent, Video, Website];
 
 ## Ex. Usage:
   let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
