@@ -63,6 +63,16 @@ where:
       let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
       sendResponse(new PepperResponse(basicCard));
 
+# BasicText(simpleText)
+where:
+
+## Parameters:
+      simpleText = what is to be spoken/display by Pepper
+ 
+## Ex. usage:
+	let simpleText = "Why, hello! Hello there! || Hello.";
+	sendResponse(new PepperResponse(new BasicText(simpleText)));
+
 
 # CarouselImage(title, url, triggerUtterance)
 where:
@@ -199,17 +209,6 @@ where:
 	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
 	let fullScreenImg = new FullScreenImage(title, landscapeImageUrl);
 	sendResponse(new PepperResponse(basicCard));
-
-
-# Text(simpleText)
-where:
-
-## Parameters:
-      simpleText = what is to be spoken/display by Pepper
- 
-## Ex. usage:
-	let simpleText = "Why, hello! Hello there! || Hello.";
-	sendResponse(new PepperResponse(new Text(simpleText)));
 
 
 # TextBubble(textValue, triggerUtterance, speech)
