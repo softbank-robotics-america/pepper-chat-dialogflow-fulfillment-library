@@ -18,7 +18,7 @@ If you choose to work from an existing project, the key ingredient to using this
 
 ... then, in your main (presumably 'index.js') file, include any response types you wish to include in your fulfillment code using destructured assignment as shown below:
 
-    const {BasicCard, CarouselImage, Carousel, PepperResponse} = require('sbra-pepper-chat-markup');
+    const {BasicCard, CarouselImage, Carousel, PepperResponse} = require('sbra-pepper-chat-df-fulfillment');
 
 You're ready to go! You should now be able to use the library according to the documentation provided below.
 
