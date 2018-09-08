@@ -42,6 +42,7 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
 
 
 # BackgroundImage(speech, url)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-background-image
 where:
 
 ## Parameters:
