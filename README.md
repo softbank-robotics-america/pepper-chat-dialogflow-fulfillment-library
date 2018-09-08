@@ -1,8 +1,8 @@
-# pepper-dialogflow-markup-library
+# pepper-dialogflow-fulfillment-library
 A Javascript library for the easy creation of valid responses for the Pepper robot running the Host / Pepper Chat software and using Dialogflow's Fulfillment (Google Cloud Functions) engine. More info about the responses is available at the official documentation site: https://softbankroboticstraining.github.io/pepper-chatbot-api/#types-of-responses
 
 
-# Pepper Chat Dialogflow Fulfillment Library    
+# Pepper Chat Responses Dialogflow Fulfillment Library    
 We recommend you use the included template files, located in the 'template' folder: 
 - Agent zip file: PEPPER_FULLFILLMENT_EXAMPLE.zip
 - Fulfillment code: index.js, package.json <br><br>
