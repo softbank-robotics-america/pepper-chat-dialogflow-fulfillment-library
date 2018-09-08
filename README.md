@@ -139,6 +139,7 @@ where:
 
 
 # CarouselNoTitles(title, carouselImageArray)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-carousel-uncaptioned
 where:
 
 ## Parameters:
