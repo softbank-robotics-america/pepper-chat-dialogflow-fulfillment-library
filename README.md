@@ -1,4 +1,4 @@
-# pepper-dialogflow-fulfillment-library
+# pepper-chat-dialogflow-fulfillment-library
 A Javascript library for the easy creation of valid responses for the Pepper robot running the Host / Pepper Chat software and using Dialogflow's Fulfillment (Google Cloud Functions) engine. More info about the responses is available at the official documentation site: https://softbankroboticstraining.github.io/pepper-chatbot-api/#types-of-responses
 
 
