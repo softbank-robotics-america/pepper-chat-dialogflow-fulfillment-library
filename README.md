@@ -12,13 +12,13 @@ If you choose to work from an existing project, the key ingredient to using this
 
     "dependencies": {
       ...
-      "sbra-pepper-chat-markup": "softbank-robotics-america/sbra-pepper-chat-df-fulfillment#master"
+      "sbra-pepper-chat-markup": "softbank-robotics-america/pepper-chat-dialogflow#master"
       ...
     }
 
 ... then, in your main (presumably 'index.js') file, include any response types you wish to include in your fulfillment code using destructured assignment as shown below:
 
-    const {BasicCard, CarouselImage, Carousel, PepperResponse} = require('sbra-pepper-chat-df-fulfillment');
+    const {BasicCard, CarouselImage, Carousel, PepperResponse} = require('pepper-chat-dialogflow');
 
 You're ready to go! You should now be able to use the library according to the documentation provided below.
 
