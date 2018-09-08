@@ -56,6 +56,7 @@ where:
       sendResponse(new PepperResponse(backgroundImage));
 
 # BasicCard(title, url)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-basic-card
 where:
 
 ## Parameters:
@@ -69,6 +70,7 @@ where:
       sendResponse(new PepperResponse(basicCard));
 
 # BasicText(simpleText)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#text-only
 where:
 
 ## Parameters:
@@ -100,6 +102,7 @@ where:
 
 
 # Carousel(title, carouselImageArray)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-carousel-captioned
 where:
 
 ## Parameters:
@@ -152,6 +155,7 @@ where:
 
 
 # FullScreenImage(speech, url)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-fullscreen-image
 where:
 
 ## Parameters:
@@ -186,6 +190,7 @@ where:
 
 
 # Icons(speech, titleText, iconArray)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-1-6-icon-layouts
 where:
 
 ## Parameters:
@@ -203,6 +208,7 @@ where:
 
 
 # Style(title, url)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#styling
 where:
 
 ## Parameters:
@@ -234,6 +240,7 @@ Note: Cannot be used standalone with PepperResponse!
 
 
 # TextBubbles(title, bubblesArray, randomize)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#text-bubbles
 where:
 
 ## Parameters:
@@ -249,6 +256,7 @@ where:
 
         
 # TriggerIntent(triggerUtterance)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#actions-trigger-an-intent
 where:
 
 ## Parameters:
@@ -262,6 +270,7 @@ where:
 
 
 # Video(speech, url, contentType)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#video-fullscreen-video
 where:
 
 ## Parameters:
@@ -277,6 +286,7 @@ where:
 
 
 # Website(speech, url, onClose)
+### https://softbankroboticstraining.github.io/pepper-chatbot-api/#webpage-show-webpage
 where:
 
 ## Parameters:
