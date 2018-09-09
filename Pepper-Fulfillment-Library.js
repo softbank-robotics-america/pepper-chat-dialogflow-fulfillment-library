@@ -578,6 +578,10 @@ class PepperResponse {
         let textResponses = [];
         let validResponses = ["BackgroundImage","BasicCard","BasicText","Carousel","CarouselNoTitles","FullScreenImage","Icons","Style","Text","TextBubbles","TriggerIntent","Video","Website"];
         for (let x = 0; x < arguments.length; x++) {
+            // If simple text is passed to PepperResponse, convert it into a BasicText object before processing;
+            if (typeof arguments[x] == "string")
+                arguments[x] = new BasicText(arguments[x]);
+            // Validate that the response objects are valid
             let messageType = arguments[x].constructor.name.toString();
             console.log("messageType: ", messageType);
             if ( validResponses.indexOf(messageType) === -1) {
@@ -648,6 +652,5 @@ function randomlyChoose(array){
 }
 
 
-
 module.exports = { BackgroundImage, BasicCard, BasicText, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, 
-    Icon, Icons, Style, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse, toTitleCase, randomlyChoose, sendResponseToDialogflow};
+    Icon, Icons, Style, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse, toTitleCase, randomlyChoose };
