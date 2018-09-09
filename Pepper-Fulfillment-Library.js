@@ -662,6 +662,11 @@ class PepperResponse {
         responseJson.followupEvent = responseToUser.followupEvent;
       responseJson.data = responseToUser.data;
       console.log("RESPONSE TO DIALOGFLOW COMPLETE: ", JSON.stringify(responseJson));
+      // If the PepperResponse is in scope, you may omit the webhook response object
+      if (!webhookResponse) {
+          response.json(responseJson);
+          return;
+      }
       webhookResponse.json(responseJson); // Send response to Dialogflow
     }
 }
