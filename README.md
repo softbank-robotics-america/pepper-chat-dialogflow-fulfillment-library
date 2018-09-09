@@ -12,7 +12,7 @@ If you choose to work from an existing project, the key ingredient to using this
 
     "dependencies": {
       ...
-      "sbra-pepper-chat-markup": "softbank-robotics-america/pepper-chat-dialogflow#master"
+      "pepper-chat-dialogflow": "softbank-robotics-america/pepper-chat-dialogflow-fulfillment-library#master"
       ...
     }
 
