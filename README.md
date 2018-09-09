@@ -24,7 +24,7 @@ You're ready to go! You should now be able to use the library according to the d
 
 
 
-# PepperResponse(anyValidPepperResponse)
+# PepperResponse({any valid Pepper response})
 All Pepper responses below must be wrapped by a PepperResponse in order to work.
 
 ## Parameters:
