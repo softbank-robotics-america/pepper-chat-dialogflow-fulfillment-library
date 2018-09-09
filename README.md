@@ -32,13 +32,15 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
 
 ## Ex. Usage:
     let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
-    sendResponse(new PepperResponse(card));
+    let responseToPepper = new PepperResponse(card);
+    responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter
 
   or for multiple:
 
     let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
     let website = new Website("Here is a website", "http://website.html", "Website exited");
-    sendResponse(new PepperResponse(card, website));
+    let responseToPepper = new PepperResponse(card, website);
+    responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter    
 
 
 # BackgroundImage(speech, url)
@@ -46,48 +48,59 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
 where:
 
 ## Parameter(s):
-      speech = what is to be spoken
-      url = url of the image to display in fullscreen mode
+      speech - what is to be spoken
+      url - url of the image to display in fullscreen mode
  
 ## Ex. usage:
       let speech = "Look at this beautiful vista."
       let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
       let backgroundImage = new BackgroundImage(speech, landscapeImageUrl);
-      sendResponse(new PepperResponse(backgroundImage));
+      let responseToPepper = new PepperResponse(backgroundImage);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
 
 # BasicCard(title, url)
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-basic-card
 where:
 
 ## Parameter(s):
-      title = what is to be spoken/displayed as title
-      url = url of the image to display
+      title - what is to be spoken/displayed as title
+      url - url of the image to display
  
 ## Ex. usage:
       let title = "Employee of the Month";
       let employeeOfMonthImageUrl = "https://companywebsite.com/employee-of-month/jan-2018.jpg";
       let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
-      sendResponse(new PepperResponse(basicCard));
+      let responseToPepper = new PepperResponse(basicCard);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter        
+
 
 # BasicText(simpleText)
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#text-only
 where:
 
 ## Parameter(s):
-      simpleText = what is to be spoken/display by Pepper
+      simpleText - what is to be spoken/display by Pepper
  
 ## Ex. usage:
-	let simpleText = "Why, hello! Hello there! || Hello.";
-	sendResponse(new PepperResponse(new BasicText(simpleText)));
+    	let simpleText = "Why, hello! Hello there! || Hello.";
+      let responseToPepper = new PepperResponse(new BasicText(simpleText)); // ** see note below
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter
+
+~ Or ~ 
+
+      // ** You can also just pass a simple string to PepperResponse)
+      let simpleText = "Why, hello! Hello there! || Hello.";
+      let responseToPepper = new PepperResponse(simpleText);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
 
 
 # CarouselImage(title, url, triggerUtterance)
 where:
 
 ## Parameter(s):
-      title = what is displayed under the image
-      url = the image to be displayed 
-      triggerUtterance = the utterance that will be triggered upon selecting
+      title - what is displayed under the image
+      url - the image to be displayed 
+      triggerUtterance - the utterance that will be triggered upon selecting
 	      the carousel image
  
 ## Ex. usage:  
@@ -98,7 +111,7 @@ where:
       }
       let carousel = new Carousel("Check out these options:", carouselArray);
       
- Note: Cannot be used standalone with PepperResponse!
+ Note: Cannot be used standalone with PepperResponse; must use with Carousel!
 
 
 # Carousel(title, carouselImageArray)
@@ -106,8 +119,8 @@ where:
 where:
 
 ## Parameter(s):
-      title = what is to be spoken/displayed as title
-      carouselImageArray = array of CarouselImage objects
+      title - what is to be spoken/displayed as title
+      carouselImageArray - array of CarouselImage objects
  
 ## Ex. usage:
       let carouselDog = new CarouselImage("Dog","http://animal-images/dog.jpg", "Dog image");
@@ -115,16 +128,17 @@ where:
       let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image");
       let carouselArray = [carouselDog, carouselCat, carouselArray];
       let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
-      sendResponse(new PepperResponse(carousel));
+      let responseToPepper = new PepperResponse(carousel);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter        
 
 
 # CarouselImageNoTitle(speak, url, triggerUtterance)
 where:
 
 ## Parameter(s):
-      speak = what the robot says when you click a button
-      url = the image to be displayed
-      triggerUtterance = the utterance that will be triggered upon selecting
+      speak - what the robot says when you click a button
+      url - the image to be displayed
+      triggerUtterance - the utterance that will be triggered upon selecting
           the carousel image
  
 ## Ex. usage:  
@@ -133,9 +147,9 @@ where:
       	  var carouselImage = new CarouselImageNoTitle("https://pepper-img-server/"+name+".jpg", "trigger " + name);
           carouselArray.push(carouselImage);
       }
-      let carousel = new Carousel("Check out these options:", carouselArray);
+      let carousel = new CarouselNoTitles("Check out these options:", carouselArray);
  
- Note: Cannot be used standalone with PepperResponse!
+ Note: Cannot be used standalone with PepperResponse; must be used with CarouselNoTitles!
 
 
 # CarouselNoTitles(title, carouselImageArray)
@@ -143,8 +157,8 @@ where:
 where:
 
 ## Parameter(s):
-      title = what is to be spoken/displayed as title
-      carouselImageArray = array of CarouselImage objects
+      title - what is to be spoken/displayed as title
+      carouselImageArray - array of CarouselImage objects
  
 ## Ex. usage:
       let carouselDog = new CarouselImageNoTitle("Dog","http://animal-images/dog.jpg", "Dog image");
@@ -152,7 +166,8 @@ where:
       let carouselBird = new CarouselImageNoTitle("Bird","http://animal-images/bird.jpg", "Bird image");
       let carouselArray = [carouselDog, carouselCat, carouselArray];
       let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
-      sendResponse(new PepperResponse(carousel));
+      let responseToPepper = new PepperResponse(carousel);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter        
 
 
 # FullScreenImage(speech, url)
@@ -160,34 +175,39 @@ where:
 where:
 
 ## Parameter(s):
-      speech = what is to be spoken
-      url = url of the image to display in fullscreen mode
+      speech - what is to be spoken
+      url - url of the image to display in fullscreen mode
  
 ## Ex. usage:
-	let speech = "Look at this beautiful vista."
-	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
-	let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
-	sendResponse(new PepperResponse(fullScreenImg));
+    	let speech = "Look at this beautiful vista."
+    	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
+    	let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
+      let responseToPepper = new PepperResponse(fullScreenImg);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter    
 
 
 # Icon(url, triggerUtterance, speech, iconTitle)
 where:
 
 ## Parameter(s):
-      url = the url of the icon image
-      triggerUtterance = the utterance that will be triggered if icon is pressed
-      speech = (optional) the speak string that will be spoken if the icon is pressed
-      iconTitle = (optional) the text string that is displayed over the icon
+      url - the url of the icon image
+      triggerUtterance - the utterance that will be triggered if icon is pressed
+      speech - (optional) the speak string that will be spoken if the icon is pressed
+      iconTitle - (optional) the text string that is displayed over the icon
  
 ## Ex. usage:
-	let urlBase = "https://icon-library/best-icons/icon-"
-	let iconOne = [new Icon(urlBase + "1.jpg", "Icon 1", "Great choice!")
-	let iconTwo = new Icon(urlBase + "2.jpg", "Icon 2", "Wonderful selection!")]
-	let iconArray = [iconOne, iconTwo];
-	let mainSpeech = "Select from one of these options"
-	let titleText = "Select an option:"
-	let icons = new Icons(mainSpeech, titleText, iconArray);
-	sendResponse(new PepperResponse(icons));
+    	let urlBase = "https://icon-library/best-icons/icon-"
+    	let iconOne = [new Icon(urlBase + "1.jpg", "Icon 1", "Great choice!")
+    	let iconTwo = new Icon(urlBase + "2.jpg", "Icon 2", "Wonderful selection!")]
+    	let iconArray = [iconOne, iconTwo];
+    	let mainSpeech = "Select from one of these options"
+    	let titleText = "Select an option:"
+    	let icons = new Icons(mainSpeech, titleText, iconArray);
+      let responseToPepper = new PepperResponse(icons);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
+
+ Note: Cannot be used standalone with PepperResponse; must be used with Icons (plural)!
+
 
 
 # Icons(speech, titleText, iconArray)
@@ -195,49 +215,52 @@ where:
 where:
 
 ## Parameter(s):
-      speech = what is to be spoken
-      titleText = the text that is to be displayed
-      iconArray = array of Icon objects
+      speech - what is to be spoken
+      titleText - the text that is to be displayed
+      iconArray - array of Icon objects
  
 ## Ex. usage:
-	let speech = "Select from one of these options"
-	let titleText = "Select an option:"
-	let urlBase = "https://icon-library/best-icons/icon-"
-	let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
-	let icons = new Icons(speech, titleText, iconArray);
-	sendResponse(new PepperResponse(icons));
+    	let speech = "Select from one of these options"
+    	let titleText = "Select an option:"
+    	let urlBase = "https://icon-library/best-icons/icon-"
+    	let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
+    	let icons = new Icons(speech, titleText, iconArray);
+      let responseToPepper = new PepperResponse(icons);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
 
 
-# Style(title, url)
+# Style(title, styleConfig)
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#styling
 where:
 
 ## Parameter(s):
-      title = what is to be spoken
-      url = url of the image to display in fullscreen mode
- 
+      title - what is to be spoken/displayed on Pepper's tablet
+      styleConfig - an object containing valid style configuration key:value pairs
+
 ## Ex. usage:
-	let title = "Look at this beautiful vista."
-	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
-	let fullScreenImg = new FullScreenImage(title, landscapeImageUrl);
-	sendResponse(new PepperResponse(basicCard));
+    let title = "Look at this beautiful styling."
+    let styleConfig = {  backgroundColor: "grey", textColor: "black"  };
+    let style = new Style(title, styleConfigObj);
+    let responseToPepper = new PepperResponse(style);
+    responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter   
 
 
 # TextBubble(textValue, triggerUtterance, speech)
 where:
 
 ## Parameter(s):
-    textValue = what displays on Pepper inside the bubble
-    triggerUtterance = the utterance triggered if a user selects this text bubble
-    speech = (optional) what Pepper says if a user selects this text bubble
+    textValue - what displays on Pepper inside the bubble
+    triggerUtterance - the utterance triggered if a user selects this text bubble
+    speech - (optional) what Pepper says if a user selects this text bubble
  
 ## Ex. usage:
-	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
-	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
-	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
-	sendResponse(new PepperResponse(textBubbles));
+    	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
+    	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
+    	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
+      let responseToPepper = new PepperResponse(textBubbles);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter   
 
-Note: Cannot be used standalone with PepperResponse!
+Note: Cannot be used standalone with PepperResponse; must be used with TextBubbles (plural)!
 
 
 # TextBubbles(title, bubblesArray, randomize)
@@ -245,29 +268,32 @@ Note: Cannot be used standalone with PepperResponse!
 where:
 
 ## Parameter(s):
-    title = the title that displays on Pepper's tablet / what Pepper speaks
-    bubblesArray = an array of TextBubble objects
-    randomize = (optional) a boolean value of whether or not to randomize the bubbles
+    title - the title that displays on Pepper's tablet / what Pepper speaks
+    bubblesArray - an array of TextBubble objects
+    randomize - (optional) a boolean value of whether or not to randomize the bubbles
  
 ## Ex. usage:
-	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
-	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
-	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
-	sendResponse(new PepperResponse(textBubbles));
+    	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
+    	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
+    	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
+      let responseToPepper = new PepperResponse(textBubbles);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
 
         
-# TriggerIntent(triggerUtterance)
+# TriggerIntent(triggerUtterance, title)
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#actions-trigger-an-intent
 where:
 
 ## Parameter(s):
-      triggerUtterance = the utterance string to trigger
+      triggerUtterance - the utterance string to trigger
+      title - (optional) what Pepper will display on its
  
 ## Ex. usage:
-	let returnToMainMenu = new TriggerIntent("Main Menu");
-	sendResponse(new PepperResponse(returnToMainMenu));
+    	let returnToMainMenu = new TriggerIntent("Main Menu");
+      let responseToPepper = new PepperResponse(returnToMainMenu);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter   
  
- Note: can't be chained together with a Style response object
+ Note: There is a known issue with following certain payload types directly with TriggerIntent. Additionally, TriggerIntents will not be reflected in the Dialogflow or Pepper Chat test simulators; they only function on Pepper.
 
 
 # Video(speech, url, contentType)
@@ -275,15 +301,17 @@ where:
 where:
 
 ## Parameter(s):
-      speech = what is to be spoken
-      url = url of the video to display (FYI: Pepper Chat caches the video after the first play)
-      contentType = (optional) If the video file's url ends in the filetype, this field is optional;
+      speech - what is to be spoken
+      url - url of the video to display (FYI: Pepper Chat caches the video after the first play)
+      contentType - (optional) If the video file's url ends in the filetype, this field is optional;
           otherwise specify the content type with the syntax "video/{file-type}", e.g. "video/mp4"
 ## Ex. usage:
-	let speech = "Watch this product video to understand our latest new features:"
-	let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
-	let video = new Video(speech, url);
-	sendResponse(new PepperResponse(video));
+    	let speech = "Watch this product video to understand our latest new features:"
+    	let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
+    	let video = new Video(speech, url);
+      let responseToPepper = new PepperResponse(video);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter     
+
 
 
 # Website(speech, url, onClose)
@@ -291,16 +319,17 @@ where:
 where:
 
 ## Parameter(s):
-      speech = what is to be spoken
-      url = url of the image to display in fullscreen mode
-      onClose = the utterance string to trigger when the user exits
+      speech - what is to be spoken
+      url - url of the image to display in fullscreen mode
+      onClose - the utterance string to trigger when the user exits
  
 ## Ex. usage:
-    let speech = "You can see our current mortgage rates in the table displayed on my tablet"
-    let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
-    let finishedBrowsing = "Website exited";  
-    let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl, finishedBrowsing);
-    sendResponse(new PepperResponse(mortgageRatesWebsite));
+      let speech = "You can see our current mortgage rates in the table displayed on my tablet"
+      let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
+      let finishedBrowsing = "Website exited";  
+      let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl, finishedBrowsing);
+      let responseToPepper = new PepperResponse(mortgageRatesWebsite);
+      responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter     
 
 
 

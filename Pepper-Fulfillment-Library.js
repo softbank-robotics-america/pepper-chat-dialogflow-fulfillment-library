@@ -56,15 +56,16 @@ class BasicResponse {
  * BackgroundImage(title, url) -- sets a background image (persistently) to Pepper's tablet; 
  * https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-fullscreen-image
  * 
- * @param {string} title = what is to be spoken/displayed by Pepper
- * @param {string} url = the URL of the image to add persistently as the background
+ * @param {string} title - what is to be spoken/displayed by Pepper
+ * @param {string} url - the URL of the image to add persistently as the background
  * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
  * 
  * @example
  *  let title = "Look at this beautiful vista."
  *  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
  *  let backgroundImage = new BackgroundImage(title, landscapeImageUrl);
- *  sendResponse(new PepperResponse(backgroundImage));
+ *  let responseToPepper = new PepperResponse(backgroundImage);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
 class BackgroundImage extends BasicResponse {
     constructor(title, url) {
@@ -84,15 +85,16 @@ class BackgroundImage extends BasicResponse {
 /**
  * BasicCard(title, url) -- creates a basic image card on Pepper's tablet
  * 
- * @param {string} title = what is to be spoken/displayed as the title on Pepper's tablet
- * @param {string} url = the URL of the image to display as a basic image card
+ * @param {string} title - what is to be spoken/displayed as the title on Pepper's tablet
+ * @param {string} url - the URL of the image to display as a basic image card
  * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
  * 
  * @example
  *  let title = "Employee of the Month";
  *  let employeeOfMonthImageUrl = "https://companywebsite.com/employee-of-month/jan-2018.jpg";
  *  let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
- *  sendResponse(new PepperResponse(basicCard));
+ *  let responseToPepper = new PepperResponse(basicCard);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
 class BasicCard extends BasicResponse {
     constructor(title, url) {
@@ -114,13 +116,19 @@ class BasicCard extends BasicResponse {
 /**
  * BasicText(title) - a simple text-based response
  * 
- * @param {string} title = what is to be spoken by Pepper/displayed on Pepper's tablet
+ * @param {string} title - what is to be spoken by Pepper/displayed on Pepper's tablet
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
  *  let title = "Why, hello! Hello there! || Hello.";
- *  sendResponse(new PepperResponse(new BasicText(title)));
+ *  let responseToPepper = new PepperResponse(new BasicText(title));
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter       
  *  (Output: Pepper's tablet: 'Hello.' || Pepper's voice: 'Why, hello! Hello there!')
+ *
+ * @example
+ *  let title = "Why, hello! Hello there! || Hello.";
+ *  let responseToPepper = new PepperResponse(title); // <-- You can also just pass text directly to create a Basic Text response
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter       
  */
 class BasicText extends BasicResponse {
     constructor(title) {
@@ -140,9 +148,9 @@ class BasicText extends BasicResponse {
  * CarouselImage(title, url, triggerUtterance) - must be used in conjunction with the Carousel class
  * to create a carousel; the relationship is that a Carousel is composed of CarouselImage objects.
  * 
- * @param {string} title = what is displayed under this Carousel image
- * @param {string} url = the image to be created as an item within a Carousel
- * @param {string} triggerUtterance = the utterance that will be triggered upon selecting
+ * @param {string} title - what is displayed under this Carousel image
+ * @param {string} url - the image to be created as an item within a Carousel
+ * @param {string} triggerUtterance - the utterance that will be triggered upon selecting
  *          this carousel image
  * @return {object} The correctly formatted JSON to pass in an array to a Carousel object
  * 
@@ -153,6 +161,8 @@ class BasicText extends BasicResponse {
  *      carouselArray.push(carouselImage);
  *  }
  *  let carousel = new Carousel("Check out these options:", carouselArray);
+ *  let responseToPepper = new PepperResponse(carousel);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  * 
  * Note: Cannot be used standalone with PepperResponse!
  */
@@ -169,9 +179,9 @@ class CarouselImage {
  * must be used in conjunction with the CarouselImage class to create a carousel; the relationship 
  * is that a Carousel is composed of CarouselImage objects.
  * 
- * @param {string} title = what is to be spoken/displayed as title
- * @param {object} carouselImageArray = an array of CarouselImage objects
- * @return {object} returns the correctly formatted JSON object to pass to the PepperResponse object
+ * @param {string} title - what is to be spoken/displayed as title
+ * @param {object} carouselImageArray - an array of CarouselImage objects
+ * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
  * 
  * @example
  *  let carouselDog = new CarouselImage("Dog","http://animal-images/dog.jpg", "Dog image");
@@ -179,7 +189,8 @@ class CarouselImage {
  *  let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image");
  *  let carouselArray = [carouselDog, carouselCat, carouselArray];
  *  let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
- *  sendResponse(new PepperResponse(carousel));
+ *  let responseToPepper = new PepperResponse(carousel);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
 class Carousel extends BasicResponse {
     constructor(title, carouselImagesArray) {
@@ -212,9 +223,9 @@ class Carousel extends BasicResponse {
 /**
  * CarouselImageNoTitle(speak, url, triggerUtterance):
  * 
- * @param {string} speak = what the robot says when a user selects this carousel item
- * @param {string} url = the image to be displayed for this carousel item
- * @param {string} triggerUtterance = the utterance that will be triggered upon selecting
+ * @param {string} speak - what the robot says when a user selects this carousel item
+ * @param {string} url - the image to be displayed for this carousel item
+ * @param {string} triggerUtterance - the utterance that will be triggered upon selecting
  *          the carousel image
  * @return {object} The correctly formatted JSON to pass in an array to a CarouselNoTitles object
  * 
@@ -224,9 +235,11 @@ class Carousel extends BasicResponse {
  *      var carouselImage = new CarouselImageNoTitle("https://pepper-img-server/"+name+".jpg", "trigger " + name);
  *      carouselArray.push(carouselImage);
  *  }
- *  let carousel = new Carousel("Check out these options:", carouselArray);
- * 
- * Note: Cannot be used standalone with PepperResponse!
+ *  let carousel = new CarouselNoTitles("Check out these options:", carouselArray);
+ *  let responseToPepper = new PepperResponse(carousel);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter  
+ *
+ * Note: Cannot be used standalone with PepperResponse; must be used with CarouselNoTitles!
  */
 class CarouselImageNoTitle {
     constructor(speak, url, triggerUtterance) {
@@ -239,8 +252,8 @@ class CarouselImageNoTitle {
 /**
  * CarouselNoTitles(title, carouselImageArray):
  * 
- * @param {string} title = what is to be spoken/displayed as title
- * @param {object} carouselImageArray = an array of CarouselImageNoTitle objects
+ * @param {string} title - what is to be spoken/displayed as title
+ * @param {object} carouselImageArray - an array of CarouselImageNoTitle objects
  * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
  * 
  * @example
@@ -249,7 +262,8 @@ class CarouselImageNoTitle {
  *  let carouselBird = new CarouselImageNoTitle("Bird","http://animal-images/bird.jpg", "Bird image");
  *  let carouselArray = [carouselDog, carouselCat, carouselArray];
  *  let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
- *  sendResponse(new PepperResponse(carousel));
+ *  let responseToPepper = new PepperResponse(carousel);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter  
  */
 class CarouselNoTitles extends BasicResponse {
     constructor(title, carouselImagesNoTitlesArray) {
@@ -276,15 +290,16 @@ class CarouselNoTitles extends BasicResponse {
 /**
  * FullScreenImage(speech, url):
  * 
- * @param {string} speech = what is to be spoken
- * @param {string} url = the URL of the image to display in fullscreen mode
+ * @param {string} speech - what is to be spoken
+ * @param {string} url - the URL of the image to display in fullscreen mode
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
  *  let speech = "Look at this beautiful vista."
  *  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
  *  let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
- *  sendResponse(new PepperResponse(fullScreenImg));
+ *  let responseToPepper = new PepperResponse(fullScreenImg);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class FullScreenImage extends BasicResponse {
     constructor(speech, url) {
@@ -304,11 +319,11 @@ class FullScreenImage extends BasicResponse {
 /**
  * Icon(speech, url, triggerUtterance, iconTitle):
  * 
- * @param {string} speech = (optional) if provided, what Pepper will speak if 
+ * @param {string} speech - (optional) if provided, what Pepper will speak if 
  *      the icon is pressed; pass an empty string ("") if no speech is desired
- * @param {string} url = the url of the icon image
- * @param {string} triggerUtterance = the utterance that will be triggered if icon is pressed
- * @param {string} iconTitle = (optional) the text string that is displayed over the icon
+ * @param {string} url - the url of the icon image
+ * @param {string} triggerUtterance - the utterance that will be triggered if icon is pressed
+ * @param {string} iconTitle - (optional) the text string that is displayed over the icon
  * @return {object} The correctly formatted JSON to pass in an array to an Icons object
  * 
  * @example
@@ -319,7 +334,10 @@ class FullScreenImage extends BasicResponse {
  *  let mainSpeech = "Select from one of these options"
  *  let titleText = "Select an option:"
  *  let icons = new Icons(mainSpeech, titleText, iconArray);
- *  sendResponse(new PepperResponse(icons));
+ *  let responseToPepper = new PepperResponse(icons);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
+ *
+ * Note: Cannot be used standalone with PepperResponse; it must be used with Icons (plural)!
  */
 class Icon {
     constructor(url, triggerUtterance, speech, iconTitle) {
@@ -333,9 +351,9 @@ class Icon {
 /**
  * Icons(speech, titleText, iconArray) - a response of icons (1-6 menu layout)
  * 
- * @param {string} speech = what is to be spoken
- * @param {string} titleText = the text that is to be displayed
- * @param {object} iconArray = array of Icon objects
+ * @param {string} speech - what is to be spoken
+ * @param {string} titleText - the text that is to be displayed
+ * @param {object} iconArray - array of Icon objects
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
@@ -344,7 +362,8 @@ class Icon {
  *  let urlBase = "https://icon-library/best-icons/icon-"
  *  let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
  *  let icons = new Icons(speech, titleText, iconArray);
- *  sendResponse(new PepperResponse(icons));
+ *  let responseToPepper = new PepperResponse(icons);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class Icons extends BasicResponse {
     constructor(speech, titleText, customIconsArray) {
@@ -372,15 +391,16 @@ class Icons extends BasicResponse {
 /**
  * Style(title, styleConfig) - a simple Style object response
  * 
- * @param {string} title = what is to be spoken/displayed on Pepper's tablet
- * @param {object} styleConfigurl = url of the image to display in fullscreen mode
+ * @param {string} title - what is to be spoken/displayed on Pepper's tablet
+ * @param {object} styleConfig - an object containing valid style configuration key:value pairs
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
  *  let title = "Look at this beautiful styling."
  *  let styleConfigObj = {  backgroundColor: "grey", textColor: "black"  };
  *  let style = new Style(title, styleConfigObj);
- *  sendResponse(new PepperResponse(style));
+ *  let responseToPepper = new PepperResponse(style);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class Style extends BasicResponse {
     constructor(title, styleConfig) {
@@ -417,9 +437,10 @@ class Style extends BasicResponse {
  *  let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
  *  let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
  *  let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
- *  sendResponse(new PepperResponse(textBubbles));
+ *  let responseToPepper = new PepperResponse(textBubbles);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  * 
- * Note: Cannot be used standalone with PepperResponse!
+ * Note: Cannot be used standalone with PepperResponse; it must be used with TextBubbles (plural)!
  */
 class TextBubble {
     constructor(textValue, triggerUtterance, speech) {
@@ -432,16 +453,17 @@ class TextBubble {
 /**
  * TextBubbles(title, bubblesArray, randomize):
  * 
- * @param {string} title = the title that displays on Pepper's tablet / what Pepper speaks
- * @param {object} bubblesArray = an array of TextBubble objects
- * @param {boolean} randomize = (optional) a boolean value of whether or not to randomize the bubbles
+ * @param {string} title - the title that displays on Pepper's tablet / what Pepper speaks
+ * @param {object} bubblesArray - an array of TextBubble objects
+ * @param {boolean} randomize - (optional) a boolean value of whether or not to randomize the bubbles
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
  *  let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
  *  let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
  *  let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
- *  sendResponse(new PepperResponse(textBubbles));
+ *  let responseToPepper = new PepperResponse(textBubbles);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class TextBubbles extends BasicResponse {
     constructor(title, textBubbleArray, randomize) {
@@ -461,22 +483,26 @@ class TextBubbles extends BasicResponse {
 }
         
 /**
- * TriggerIntent(triggerUtterance) - triggers another intent; cannot be used in conjunction 
+ * TriggerIntent(triggerUtterance, title) - triggers another intent; cannot be used in conjunction 
  * with a Style response object. 
  * 
  * @param {string} triggerUtterance - the utterance string to trigger
+ * @param {string} title - (optional) The speech for pepper to display
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
  *  let returnToMainMenu = new TriggerIntent("Main Menu");
- *  sendResponse(new PepperResponse(returnToMainMenu));
+ *  let responseToPepper = new PepperResponse(returnToMainMenu);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class TriggerIntent extends BasicResponse {
-    constructor(triggerUtterance) {
+    constructor(triggerUtterance, title) {
         super();
         this.type = 4;
         this.payload = { action : "setStyle",
                          action_parameters : { nextUtterance : triggerUtterance } };
+        if (title)
+            this.payload.speak = title;
     }
     setContext(contextObj) {
         super.setContext(contextObj);
@@ -500,7 +526,8 @@ class TriggerIntent extends BasicResponse {
  *  let speech = "Watch this product video to understand our latest new features:"
  *  let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
  *  let video = new Video(speech, url);
- *  sendResponse(new PepperResponse(video));
+ *  let responseToPepper = new PepperResponse(video);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class Video extends BasicResponse {
     constructor(speech, url, contentType) {
@@ -536,7 +563,8 @@ class Video extends BasicResponse {
  *  let speech = "You can see our current mortgage rates in the table displayed on my tablet"
  *  let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
  *  let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl);
- *  sendResponse(new PepperResponse(mortgageRatesWebsite));
+ *  let responseToPepper = new PepperResponse(mortgageRatesWebsite);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class Website extends BasicResponse {
     constructor(speech, url, onClose) {
@@ -567,7 +595,8 @@ class Website extends BasicResponse {
  *  let mortgageRatesUrl = "https://robotbank/us/mortgage-rates.html";
  *  let mortgageRatesWebsite = new Website(speech, mortgageRatesUrl);
  *  let followUp = new Text("I hope you enjoyed learning about our mortgage rates!")
- *  sendResponse(new PepperResponse(mortgageRatesWebsite, followUp));
+ *  let responseToPepper = new PepperResponse(mortgageRatesWebsite, followUp);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class PepperResponse {
     constructor(){
