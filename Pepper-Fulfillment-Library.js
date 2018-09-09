@@ -614,7 +614,7 @@ class PepperResponse {
             this.messages.push(arguments[x]);
         }
     }
-    sendResponse(webhookResponse) {
+    send(webhookResponse) {
       let responseToUser = this;
       // If the response to the user includes rich responses or contexts send them to Dialogflow
       let responseJson = {};
