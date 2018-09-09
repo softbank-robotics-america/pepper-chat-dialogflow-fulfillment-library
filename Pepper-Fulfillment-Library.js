@@ -632,7 +632,7 @@ class PepperResponse {
       if (responseToUser.followupEvent)
         responseJson.followupEvent = responseToUser.followupEvent;
       responseJson.data = responseToUser.data;
-      console.log("RESPONSE TO DIALOGFLOW COMPLETE: ", JSON.stringify(responseJson);
+      console.log("RESPONSE TO DIALOGFLOW COMPLETE: ", JSON.stringify(responseJson));
       webhookResponse.json(responseJson); // Send response to Dialogflow
     }
 }
