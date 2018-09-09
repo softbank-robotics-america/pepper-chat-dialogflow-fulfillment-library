@@ -24,11 +24,11 @@ You're ready to go! You should now be able to use the library according to the d
 
 
 
-# PepperResponse({any valid Pepper response})
+# PepperResponse( { any valid Pepper response } )
 All Pepper responses below must be wrapped by a PepperResponse in order to work.
 
-## Parameters:
-  anyValidPepperResponse = (any of:) [BasicCard, Carousel, CarouselNoTitles, FullScreenImage, BackgroundImage, Icons, Style, Text, TextBubbles, TriggerIntent, Video, Website];
+## Parameter(s):
+  { any valid Pepper response } - any of: BasicCard, Carousel, CarouselNoTitles, FullScreenImage, BackgroundImage, Icons, Style, Text, TextBubbles, TriggerIntent, Video, Website;
 
 ## Ex. Usage:
     let card = new BasicCard("A beautiful, basic image card:", "https://basic-image/basic-card.jpg")
@@ -45,7 +45,7 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-background-image
 where:
 
-## Parameters:
+## Parameter(s):
       speech = what is to be spoken
       url = url of the image to display in fullscreen mode
  
@@ -59,7 +59,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-basic-card
 where:
 
-## Parameters:
+## Parameter(s):
       title = what is to be spoken/displayed as title
       url = url of the image to display
  
@@ -73,7 +73,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#text-only
 where:
 
-## Parameters:
+## Parameter(s):
       simpleText = what is to be spoken/display by Pepper
  
 ## Ex. usage:
@@ -84,7 +84,7 @@ where:
 # CarouselImage(title, url, triggerUtterance)
 where:
 
-## Parameters:
+## Parameter(s):
       title = what is displayed under the image
       url = the image to be displayed 
       triggerUtterance = the utterance that will be triggered upon selecting
@@ -105,7 +105,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-carousel-captioned
 where:
 
-## Parameters:
+## Parameter(s):
       title = what is to be spoken/displayed as title
       carouselImageArray = array of CarouselImage objects
  
@@ -121,7 +121,7 @@ where:
 # CarouselImageNoTitle(speak, url, triggerUtterance)
 where:
 
-## Parameters:
+## Parameter(s):
       speak = what the robot says when you click a button
       url = the image to be displayed
       triggerUtterance = the utterance that will be triggered upon selecting
@@ -142,7 +142,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-carousel-uncaptioned
 where:
 
-## Parameters:
+## Parameter(s):
       title = what is to be spoken/displayed as title
       carouselImageArray = array of CarouselImage objects
  
@@ -159,7 +159,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-fullscreen-image
 where:
 
-## Parameters:
+## Parameter(s):
       speech = what is to be spoken
       url = url of the image to display in fullscreen mode
  
@@ -173,7 +173,7 @@ where:
 # Icon(url, triggerUtterance, speech, iconTitle)
 where:
 
-## Parameters:
+## Parameter(s):
       url = the url of the icon image
       triggerUtterance = the utterance that will be triggered if icon is pressed
       speech = (optional) the speak string that will be spoken if the icon is pressed
@@ -194,7 +194,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-1-6-icon-layouts
 where:
 
-## Parameters:
+## Parameter(s):
       speech = what is to be spoken
       titleText = the text that is to be displayed
       iconArray = array of Icon objects
@@ -212,7 +212,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#styling
 where:
 
-## Parameters:
+## Parameter(s):
       title = what is to be spoken
       url = url of the image to display in fullscreen mode
  
@@ -226,7 +226,7 @@ where:
 # TextBubble(textValue, triggerUtterance, speech)
 where:
 
-## Parameters:
+## Parameter(s):
     textValue = what displays on Pepper inside the bubble
     triggerUtterance = the utterance triggered if a user selects this text bubble
     speech = (optional) what Pepper says if a user selects this text bubble
@@ -244,7 +244,7 @@ Note: Cannot be used standalone with PepperResponse!
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#text-bubbles
 where:
 
-## Parameters:
+## Parameter(s):
     title = the title that displays on Pepper's tablet / what Pepper speaks
     bubblesArray = an array of TextBubble objects
     randomize = (optional) a boolean value of whether or not to randomize the bubbles
@@ -260,7 +260,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#actions-trigger-an-intent
 where:
 
-## Parameters:
+## Parameter(s):
       triggerUtterance = the utterance string to trigger
  
 ## Ex. usage:
@@ -274,7 +274,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#video-fullscreen-video
 where:
 
-## Parameters:
+## Parameter(s):
       speech = what is to be spoken
       url = url of the video to display (FYI: Pepper Chat caches the video after the first play)
       contentType = (optional) If the video file's url ends in the filetype, this field is optional;
@@ -290,7 +290,7 @@ where:
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#webpage-show-webpage
 where:
 
-## Parameters:
+## Parameter(s):
       speech = what is to be spoken
       url = url of the image to display in fullscreen mode
       onClose = the utterance string to trigger when the user exits
