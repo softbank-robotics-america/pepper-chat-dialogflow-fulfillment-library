@@ -6,7 +6,7 @@ const { DialogflowApp } = require('actions-on-google');
 const { WebhookClient } = require('dialogflow-fulfillment');
 const functions = require('firebase-functions');
 const {BackgroundImage, BasicCard, BasicText, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, Icon, Icons, 
-Style, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse} = require('sbra-pepper-chat-markup');
+Style, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse} = require('pepper-chat-dialogflow');
 
 /**
  * The entry point to handle a http request
@@ -116,15 +116,18 @@ function processV1Request(request, response) {
     const showBasicCard = () => {
         console.log(BasicCard);
         let basicCard = new BasicCard(COPY.basic_card, MEDIA.basic_card);
-        sendResponse(new PepperResponse(basicCard));
+        let basicCardResponse = new PepperResponse(basicCard);
+        basicCardResponse.send(response);
     };
     const showFullScreenImage = () => {
         let fullScreen = new FullScreenImage(COPY.full_screen_image, MEDIA.full_screen_image);
-        sendResponse(new PepperResponse(fullScreen));
+        let fullScreenResponse = new PepperResponse(fullScreen);
+        fullScreenResponse.send(response);
     };
     const setBackgroundImage = () => {
         let background = new BackgroundImage(COPY.background_image, MEDIA.background_image);
-        sendResponse(new PepperResponse(background));
+        let backgroundResponse = new PepperResponse(background);
+        backgroundResponse.send(response);        
     };
     const showCarousel = () => {
         let carouselArray = [];
@@ -136,7 +139,8 @@ function processV1Request(request, response) {
                 COPY.carousel[carouselItem].nextIntent));
         }
         let carousel = new CarouselNoTitles(COPY.carousel.title, carouselArray);
-        sendResponse(new PepperResponse(carousel));
+        let carouselResponse = new PepperResponse(carousel);
+        carouselResponse.send(response);        
     };
     const showIcons = () => {
         let iconArray = [];
@@ -148,7 +152,8 @@ function processV1Request(request, response) {
                 COPY.icons[icon].onSelected )   );
         }
         let icons = new Icons(COPY.icons.title, COPY.icons.title, iconArray);
-        sendResponse(new PepperResponse(icons));
+        let iconsResponse = new PepperResponse(icons);
+        iconsResponse.send(response);        
     };
     const showTextBubbles = () => {
         let bubblesArray = [];
@@ -157,7 +162,8 @@ function processV1Request(request, response) {
             bubblesArray.push( new TextBubble( COPY.text_bubbles[bubble].display, COPY.text_bubbles[bubble].nextIntent));  
         }
         let textBubbles = new TextBubbles(COPY.text_bubbles.title, bubblesArray);
-        sendResponse(new PepperResponse(textBubbles));
+        let textBubblesResponse = new PepperResponse(textBubbles);
+        textBubblesResponse.send(response);            
     };
     const setTextColor = () =>
     {
@@ -171,27 +177,32 @@ function processV1Request(request, response) {
         console.log(text1);
         text1.setStyle({textColor : color.length > 20 ? "blue" : color});
         let text2 = new BasicText("And now. \\pau=300\\ Please ask me to show you another response type. || Please ask me to show you another response type.");
-        sendResponse(new PepperResponse(text1, text2));
+        let textStyleResponse = new PepperResponse(text1, text2);
+        textStyleResponse.send(response);            
     };
     const showVideo = () => {
         let video = new Video(COPY.video, MEDIA.video);
-        sendResponse(new PepperResponse(video));
+        let videoResponse = new PepperResponse(video);
+        videoResponse.send(response);          
     };
     const showWebsite = () => {
         let website = new Website( COPY.website.speech, MEDIA.website, COPY.website.onExit );
-        sendResponse(new PepperResponse(website));
+        let websiteResponse = new PepperResponse(website);
+        websiteResponse.send(response);           
     };
     const triggerIntent = () => {
         let text = new BasicText("Ok, I will now trigger the Star Wars basic card intent.");
         let nextIntent = new TriggerIntent("Show Me Star Wars Droids");
         nextIntent.speech = COPY.trigger_intent;
-        sendResponse(new PepperResponse(text, nextIntent));
+        let nextIntentResponse = new PepperResponse(nextIntent);
+        nextIntentResponse.send(response);         
     };
     const showChainedResponses = () => {
         let fullScreen = new FullScreenImage(COPY.full_screen_image, MEDIA.full_screen_image);
         let fullScreen2 = new FullScreenImage("And " + COPY.full_screen_image2, MEDIA.full_screen_image2);
         let website = new Website("And " + COPY.website.speech, MEDIA.website, COPY.website.onExit);
-        sendResponse(new PepperResponse( fullScreen, fullScreen2, website ));
+        let chainedResponse = new PepperResponse ( fullScreen, fullScreen2, website );
+        chainedResponse.send(response);         
     };
     const actionMap = new Map();
     actionMap.set(  Actions.basic_card,             showBasicCard       );
@@ -206,33 +217,4 @@ function processV1Request(request, response) {
     actionMap.set(  Actions.trigger_intent,         triggerIntent       );
     actionMap.set(  Actions.chained_responses,      showChainedResponses);
     app.handleRequest(actionMap);
-    
-    
-    // Nest the sendResponse helper function inside the scope of the V1 response function, 
-    // because it uses the 'response' variable in order to return a webhook response
-    function sendResponse(responseToUser) {
-        console.log('responseToUser  : ' + JSON.stringify(responseToUser));
-        if (typeof responseToUser === 'string') {
-            let responseJson = {};
-            responseJson.speech = responseToUser.speech; // spoken response
-            responseJson.displayText = responseToUser.displayText; // displayed response
-            return responseJson; // Send response to Dialogflow
-        } else {
-            // If the response to the user includes rich responses or contexts send them to Dialogflow
-            let responseJson = {};
-            // If speech or displayText is defined, use it to respond (if one isn't defined use the other's value)
-            responseJson.speech = responseToUser.speech || responseToUser.displayText || "";
-            responseJson.displayText = responseToUser.displayText || responseToUser.speech;
-            responseJson.messages = responseToUser.messages;
-            if (responseToUser.contextOut){
-                //console.log("Setting the context ", responseToUser.contextOut.name);
-                responseJson.contextOut = responseToUser.contextOut;
-            }
-            // Optional: add rich messages for integrations (https://dialogflow.com/docs/rich-messages)
-            responseJson.data = responseToUser.data;
-            // Optional: add contexts (https://dialogflow.com/docs/contexts)
-            console.log("RESPONSE TO DIALOGFLOW COMPLETE: ", JSON.stringify(responseJson));
-            response.json(responseJson); // Send response to Dialogflow
-        }
-    }
 }
