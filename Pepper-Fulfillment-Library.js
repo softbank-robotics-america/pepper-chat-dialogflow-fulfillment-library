@@ -14,15 +14,6 @@
 class BasicResponse {
     constructor() {
     }
-    setContext(contextObj){
-        if (!this.contextOut)
-            this.contextOut = [];
-        this.contextOut.push({ 
-            name : contextObj.name, 
-            lifespan : contextObj.lifespan,
-            parameters : contextObj.parameters
-        });
-    }
     setStyle(styleConfig) {
         // Only allow the addition of styling to Custom Payload types
         if (this.type == 4) {
@@ -74,9 +65,6 @@ class BackgroundImage extends BasicResponse {
         this.payload = {    speak : title, 
                             backgroundImage : url   };
     }
-    setContext(contextObj) {
-        super.setContext(contextObj);
-    }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
@@ -105,9 +93,6 @@ class BasicCard extends BasicResponse {
         this.image = { "url" : url };
         this.buttons = [];
     }
-    setContext(contextObj) {
-        super.setContext(contextObj);
-    }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
@@ -135,9 +120,6 @@ class BasicText extends BasicResponse {
         super();
         this.type = 0;
         this.speech = title;
-    }
-    setContext(contextObj) {
-        super.setContext(contextObj);
     }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
@@ -212,9 +194,6 @@ class Carousel extends BasicResponse {
             }
         });
     }
-    setContext(contextObj) {
-        super.setContext(contextObj);
-    }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
@@ -279,9 +258,6 @@ class CarouselNoTitles extends BasicResponse {
             }
         });
     }
-    setContext(contextObj) {
-        super.setContext(contextObj);
-    }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
@@ -307,9 +283,6 @@ class FullScreenImage extends BasicResponse {
         this.type = 4;
         this.payload = {    speak : speech,
                             imageURL : url      };
-    }
-    setContext(contextObj) {
-        super.setContext(contextObj);
     }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
@@ -380,9 +353,6 @@ class Icons extends BasicResponse {
                                 }
                             })};
     }
-    setContext(contextObj) {
-        super.setContext(contextObj);
-    }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
@@ -417,9 +387,6 @@ class Style extends BasicResponse {
             }
         }
         this.payload.speak = title || " ";
-    }
-    setContext(contextObj) {
-        super.setContext(contextObj);
     }
 }
 
@@ -474,9 +441,6 @@ class TextBubbles extends BasicResponse {
         if (randomize)
             this.payload.randomize = true;
     }
-    setContext(contextObj) {
-        super.setContext(contextObj);
-    }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
@@ -503,9 +467,6 @@ class TriggerIntent extends BasicResponse {
                          action_parameters : { nextUtterance : triggerUtterance } };
         if (title)
             this.payload.speak = title;
-    }
-    setContext(contextObj) {
-        super.setContext(contextObj);
     }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
@@ -542,9 +503,6 @@ class Video extends BasicResponse {
                             contentType : contentType,
                             speak : speech              };
     }
-    setContext(contextObj) {
-        super.setContext(contextObj);
-    }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
     }
@@ -575,9 +533,6 @@ class Website extends BasicResponse {
                             action_parameters: {
                                 url : url,
                                 onClose : onClose   }   };
-    }
-    setContext(contextObj) {
-        super.setContext(contextObj);
     }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
@@ -646,6 +601,15 @@ class PepperResponse {
             // If it made it this far, it should be a valid chain of messages
             this.messages.push(arguments[x]);
         }
+    }
+    setContext(contextObj){
+        if (!this.contextOut)
+            this.contextOut = [];
+        this.contextOut.push({ 
+            name : contextObj.name, 
+            lifespan : contextObj.lifespan,
+            parameters : contextObj.parameters
+        });
     }
     send(webhookResponse) {
       let responseToUser = this;
