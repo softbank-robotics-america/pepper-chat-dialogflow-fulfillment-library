@@ -352,7 +352,7 @@ where:
 
 #  Base Class: 
 
- The base class from which all of Pepper's Responses inherit, has a handy helper method to set Style to the response. This design enables using these methods on (nearly**) any response of your choice.
+ The base class from which all of Pepper's Responses inherit, has a handy helper method to set Style to the response. This design enables using this method on (nearly**) any response of your choice.
  
 
 ## Setting Style:
