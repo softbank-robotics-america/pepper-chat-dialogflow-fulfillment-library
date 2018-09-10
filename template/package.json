@@ -18,6 +18,6 @@
     "firebase-functions": "^0.5.7",
     "dialogflow": "^0.1.0",
     "dialogflow-fulfillment": "0.3.0-beta.3",
-    "sbra-pepper-chat-markup": "softbank-robotics-america/pepper-dialogflow-markup-library#master"
+    "pepper-chat-dialogflow": "softbank-robotics-america/pepper-chat-dialogflow-fulfillment-library#master"
   }
 }
