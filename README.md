@@ -42,6 +42,23 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
     let responseToPepper = new PepperResponse(card, website);
     responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter    
 
+## Setting Context:
+ To set context with a Pepper response, use the setContext function which is available to any response type. The 'setContext' function requires an object with 3 properties to be valid: 'name', 'lifespan', & 'parameters'.
+
+### Method definition:
+setContext(contextObj) <br>
+where contextObj is a simple object containing 3 properties:
+  - name = name of the context
+  - lifespan = duration/expiration of the context, once set
+  - parameters = an object containing a comma-separated list of key-value pairs
+
+
+### Example of usage:
+    let urlOfBat = generateRandomUrlOfBat()
+    let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
+    let pepperResponse = new PepperResponse(basicCard);
+    pepperResponse.setContext({name: "batImage", lifespan: 3, parameters: { whichImageSeen: urlOfBat }} )
+    pepperResponse.send(response); // <-- send() takes the webhook response object as a parameter  
 
 # BackgroundImage(speech, url)
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-background-image
@@ -335,23 +352,7 @@ where:
 
 #  Base Class: 
 
- The base class from which all of Pepper's Responses inherit, has some handy helper methods to set Context and Style to the response. This design enables using these methods on (nearly**) any response of your choice.
-
-## Setting Context:
- To set context with a response, use the setContext function which is available to any response type. The 'setContext' function requires an object with 3 properties to be valid: 'name', 'lifespan', & 'parameters'.
-
-### Method definition:
-setContext(contextObj) <br>
-where contextObj is a simple object containing 3 properties:
-  - name = name of the context
-  - lifespan = duration/expiration of the context, once set
-  - parameters = an object containing a comma-separated list of key-value pairs
-
-
-### Example of usage:
-    let urlOfBat = generateRandomUrlOfBat()
-    let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
-    basicCard.setContext({name: "batImage", lifespan: 3, parameters: { whichImageSeen: urlOfBat }} )
+ The base class from which all of Pepper's Responses inherit, has a handy helper method to set Style to the response. This design enables using these methods on (nearly**) any response of your choice.
  
 
 ## Setting Style:
