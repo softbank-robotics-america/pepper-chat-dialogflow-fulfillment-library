@@ -43,7 +43,7 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
     responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter    
 
 ## Setting Context:
- To set context with a Pepper response, use the setContext function which is available to any response type. The 'setContext' function requires an object with 3 properties to be valid: 'name', 'lifespan', & 'parameters'.
+ To set context with a Pepper response, use the setContext method which is available to any valid instantiated PepperResponse object. The 'setContext' function requires an object with 3 properties to be valid: 'name', 'lifespan', & 'parameters'.
 
 ### Method definition:
 setContext(contextObj) <br>
