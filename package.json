@@ -1,5 +1,5 @@
 {
-  "name": "pepper-chat-dialogflowa",
+  "name": "pepper-chat-dialogflow",
   "version": "0.0.8",
   "description": "A simple library for creating Dialogflow responses for Pepper the robot configured on the Pepper Chat platform.",
   "main": "Pepper-Fulfillment-Library.js",
