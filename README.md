@@ -187,13 +187,14 @@ where:
       responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter        
 
 
-# FullScreenImage(speech, url)
+# FullScreenImage(speech, url, delay)
 ### https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-fullscreen-image
 where:
 
 ## Parameter(s):
       speech - what is to be spoken
       url - url of the image to display in fullscreen mode
+      delay - (optional) the amount of time after the speech finishes for the image to be displayed
  
 ## Ex. usage:
     	let speech = "Look at this beautiful vista."
