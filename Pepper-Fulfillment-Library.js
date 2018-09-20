@@ -264,10 +264,11 @@ class CarouselNoTitles extends BasicResponse {
 }
 
 /**
- * FullScreenImage(speech, url):
+ * FullScreenImage(speech, url, delay):
  * 
  * @param {string} speech - what is to be spoken
  * @param {string} url - the URL of the image to display in fullscreen mode
+ * @param {number} delay - (optional) the amount of time after the speech finishes for the image to be displayed
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
@@ -278,11 +279,13 @@ class CarouselNoTitles extends BasicResponse {
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
 class FullScreenImage extends BasicResponse {
-    constructor(speech, url) {
+    constructor(speech, url, delay) {
         super();
         this.type = 4;
         this.payload = {    speak : speech,
                             imageURL : url      };
+        if (delay)
+            this.payload.delay = delay;
     }
     setStyle(styleConfig) {
         super.setStyle(styleConfig);
