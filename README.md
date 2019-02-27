@@ -238,11 +238,11 @@ where:
       iconArray - array of Icon objects
  
 ## Ex. usage:
-    	let speech = "Select from one of these options"
-    	let titleText = "Select an option:"
-    	let urlBase = "https://icon-library/best-icons/icon-"
-    	let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
-    	let icons = new Icons(speech, titleText, iconArray);
+      let speech = "Select from one of these options"
+      let titleText = "Select an option:"
+      let urlBase = "https://icon-library/best-icons/icon-"
+      let iconArray = [new Icon(urlBase + "1.jpg", "Icon 1"), new Icon(urlBase + "2.jpg", "Icon 2")]
+      let icons = new Icons(speech, titleText, iconArray);
       let responseToPepper = new PepperResponse(icons);
       responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
 
@@ -324,9 +324,9 @@ where:
       contentType - (optional) If the video file's url ends in the filetype, this field is optional;
           otherwise specify the content type with the syntax "video/{file-type}", e.g. "video/mp4"
 ## Ex. usage:
-    	let speech = "Watch this product video to understand our latest new features:"
-    	let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
-    	let video = new Video(speech, url);
+      let speech = "Watch this product video to understand our latest new features:"
+      let url = "https://pepper-promo-videos/vid/pepper-promo-1.mp4";
+      let video = new Video(speech, url);
       let responseToPepper = new PepperResponse(video);
       responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter     
 
@@ -391,6 +391,18 @@ where:
  <br>
 
 ** Some response types do not allow styling to be added to them directly. In these cases, the styling must be applied either before or after such a response type.
+
+# Follow-up Events
+Followup events can be added to any response. After the response has been formed, 
+      e.g. 
+      let video = new Video(speech, url);
+      video.followupEvent = {
+		  "name": "event name",
+		  "parameters": {
+		    "param": "param value"
+		  }
+		}
+      let responseToPepper = new PepperResponse(video);
 
 
 # Helper functions
