@@ -393,17 +393,18 @@ where:
 ** Some response types do not allow styling to be added to them directly. In these cases, the styling must be applied either before or after such a response type.
 
 # Follow-up Events
-Followup events can be added to any response. After the response has been formed, 
+Followup events can be added to any Pepperresponse. After the response has been formed, simply add the followup event name and, optionally, any parameters.
 ``` 
 e.g. 
 let video = new Video(speech, url);
-video.followupEvent = {
-	  "name": "event name",
-	  "parameters": {
-	    "param": "param value"
-	  }
-	}
 let responseToPepper = new PepperResponse(video);
+responseToPepper.followupEvent = {
+				  "name": "event name",
+				  "parameters": {
+				    "param": "param value"
+				  }
+				};
+responseToPepper.send(response);
 ```
 
 
