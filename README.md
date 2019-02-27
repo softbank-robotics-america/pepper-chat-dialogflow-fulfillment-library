@@ -394,15 +394,17 @@ where:
 
 # Follow-up Events
 Followup events can be added to any response. After the response has been formed, 
-      e.g. 
-      let video = new Video(speech, url);
-      video.followupEvent = {
-		  "name": "event name",
-		  "parameters": {
-		    "param": "param value"
-		  }
-		}
-      let responseToPepper = new PepperResponse(video);
+``` 
+e.g. 
+let video = new Video(speech, url);
+video.followupEvent = {
+	  "name": "event name",
+	  "parameters": {
+	    "param": "param value"
+	  }
+	}
+let responseToPepper = new PepperResponse(video);
+```
 
 
 # Helper functions
