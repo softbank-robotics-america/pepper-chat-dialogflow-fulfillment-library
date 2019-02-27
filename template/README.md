@@ -1,5 +1,5 @@
 # Example Project
-To see the library in action on Pepper, you can use this example project to get started. Follow the instructions below to load this agent into your Dialogflow account and activate it. Then use the instructions at softbankroboticstraining.github.io/pepper-chatbot-api in order to pair the Dialogflow agent with your Pepper Chat account.
+To see the library in action on Pepper, you can use this example project to get started. Follow the instructions below to load this agent into your Dialogflow account and activate it. Then use the instructions at https://softbankroboticstraining.github.io/pepper-chatbot-api in order to pair the Dialogflow agent with your Pepper Chat account.
 
 ## Setup Instructions
 
