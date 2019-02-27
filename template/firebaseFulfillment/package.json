@@ -13,11 +13,10 @@
     "deploy": "firebase deploy --only functions:dialogflowFirebaseFulfillment"
   },
   "dependencies": {
-    "actions-on-google": "^1.5.0",
-    "firebase-admin": "^4.2.1",
-    "firebase-functions": "^0.5.7",
-    "dialogflow": "^0.1.0",
-    "dialogflow-fulfillment": "0.3.0-beta.3",
+    "actions-on-google": "^2.6.0",
+    "firebase-admin": "^4.2.1",    
+    "firebase-functions": "^2.2.0",
+    "dialogflow-fulfillment": "^0.6.0",
     "pepper-chat-dialogflow": "softbank-robotics-america/pepper-chat-dialogflow-fulfillment-library#master"
   }
 }

@@ -2,7 +2,6 @@
 /**********************************************/
 // DF Webhook Setup:
 /**********************************************/
-const { DialogflowApp } = require('actions-on-google');
 const { WebhookClient } = require('dialogflow-fulfillment');
 const functions = require('firebase-functions');
 const {BackgroundImage, BasicCard, BasicText, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, Icon, Icons, 
@@ -91,7 +90,7 @@ const COPY = {
                                 
 // Handles all V1 requests
 function processV1Request(request, response) {
-    const app = new DialogflowApp({ request, response });
+    const agent = new WebhookClient({ request, response });
     const Actions = { 
         background_image: "BackgroundImage.ThreePeppers",
         basic_card: 'BasicCard.StarWars',
@@ -108,31 +107,31 @@ function processV1Request(request, response) {
     const Contexts = { user_name: "username" };
     const Parameters = { user_name: "firstName", color: "color"};
     let firstName = '';
-    try {
-        firstName = app.getContext(Contexts.user_name).parameters[Parameters.user_name];
+    try {  
+        firstName = agent.contexts.filter(context => { return context.name === Contexts.user_name; })[0].parameters[Parameters.user_name];
     } catch (err) {
         console.log("Error retrieving username: ", err);
     }
-    const showBasicCard = () => {
+    function showBasicCard() {
         console.log(BasicCard);
         let basicCard = new BasicCard(COPY.basic_card, MEDIA.basic_card);
         let basicCardResponse = new PepperResponse(basicCard);
         basicCardResponse.send(response);
-    };
-    const showFullScreenImage = () => {
+    }
+    function showFullScreenImage() {
         let fullScreen = new FullScreenImage(COPY.full_screen_image, MEDIA.full_screen_image);
         let fullScreenResponse = new PepperResponse(fullScreen);
         fullScreenResponse.send(response);
-    };
-    const setBackgroundImage = () => {
+    }
+    function setBackgroundImage() {
         let background = new BackgroundImage(COPY.background_image, MEDIA.background_image);
         let backgroundResponse = new PepperResponse(background);
         backgroundResponse.send(response);        
-    };
-    const showCarousel = () => {
+    }
+    function showCarousel() {
         let carouselArray = [];
         for (let carouselItem in COPY.carousel) {
-            if (carouselItem == "title") { continue }
+            if (carouselItem == "title") { continue; }
             carouselArray.push( new CarouselImageNoTitle(
                 COPY.carousel[carouselItem].speech.replace("Yay!", "Yay, " + firstName + "!"),
                 MEDIA.carousel[carouselItem],
@@ -141,11 +140,11 @@ function processV1Request(request, response) {
         let carousel = new CarouselNoTitles(COPY.carousel.title, carouselArray);
         let carouselResponse = new PepperResponse(carousel);
         carouselResponse.send(response);        
-    };
-    const showIcons = () => {
+    }
+    function showIcons() {
         let iconArray = [];
         for (let icon in COPY.icons) {
-            if (icon == "title") { continue }
+            if (icon == "title") { continue; }
             iconArray.push( new Icon(
                 MEDIA.icons[icon],
                 COPY.icons[icon].nextIntent,
@@ -154,67 +153,68 @@ function processV1Request(request, response) {
         let icons = new Icons(COPY.icons.title, COPY.icons.title, iconArray);
         let iconsResponse = new PepperResponse(icons);
         iconsResponse.send(response);        
-    };
-    const showTextBubbles = () => {
+    }
+    function showTextBubbles() {
         let bubblesArray = [];
         for (let bubble in COPY.text_bubbles) {
-            if (bubble == "title") { continue }
+            if (bubble == "title") { continue; }
             bubblesArray.push( new TextBubble( COPY.text_bubbles[bubble].display, COPY.text_bubbles[bubble].nextIntent));  
         }
         let textBubbles = new TextBubbles(COPY.text_bubbles.title, bubblesArray);
         let textBubblesResponse = new PepperResponse(textBubbles);
         textBubblesResponse.send(response);            
-    };
-    const setTextColor = () =>
-    {
+    }
+    function setTextColor() {
         let color = "I'm not sure what you said, but I'm sure your favorite color";
         try {
-            color = app.getArgument(Parameters.color).toLowerCase();
+            color = agent.parameters[Parameters.color].toLowerCase();
         } catch (err) {
             console.log("Error retrieving user-selected color.");
         }
-        let text1 = new BasicText(color + "  is a nice color indeed!");
+        let text1 = new BasicText(color + " is a nice color indeed!");
         console.log(text1);
         text1.setStyle({textColor : color.length > 20 ? "blue" : color});
         let text2 = new BasicText("And now. \\pau=300\\ Please ask me to show you another response type. || Please ask me to show you another response type.");
         let textStyleResponse = new PepperResponse(text1, text2);
         textStyleResponse.send(response);            
-    };
-    const showVideo = () => {
+    }
+    function showVideo() {
         let video = new Video(COPY.video, MEDIA.video);
         let videoResponse = new PepperResponse(video);
         videoResponse.send(response);          
-    };
-    const showWebsite = () => {
+    }
+    function showWebsite() {
         let website = new Website( COPY.website.speech, MEDIA.website, COPY.website.onExit );
         let websiteResponse = new PepperResponse(website);
         websiteResponse.send(response);           
-    };
-    const triggerIntent = () => {
+    }
+    function triggerIntent() {
         let text = new BasicText("Ok, I will now trigger the Star Wars basic card intent.");
         let nextIntent = new TriggerIntent("Show Me Star Wars Droids");
         nextIntent.speech = COPY.trigger_intent;
         let nextIntentResponse = new PepperResponse(nextIntent);
         nextIntentResponse.send(response);         
-    };
-    const showChainedResponses = () => {
+    }
+    function showChainedResponses() {
         let fullScreen = new FullScreenImage(COPY.full_screen_image, MEDIA.full_screen_image);
         let fullScreen2 = new FullScreenImage("And " + COPY.full_screen_image2, MEDIA.full_screen_image2);
         let website = new Website("And " + COPY.website.speech, MEDIA.website, COPY.website.onExit);
         let chainedResponse = new PepperResponse ( fullScreen, fullScreen2, website );
         chainedResponse.send(response);         
-    };
-    const actionMap = new Map();
-    actionMap.set(  Actions.basic_card,             showBasicCard       );
-    actionMap.set(  Actions.full_screen_image,      showFullScreenImage );
-    actionMap.set(  Actions.background_image,       setBackgroundImage  );
-    actionMap.set(  Actions.carousel,               showCarousel        );
-    actionMap.set(  Actions.icons,                  showIcons           );
-    actionMap.set(  Actions.text_bubbles,           showTextBubbles     );
-    actionMap.set(  Actions.text_bubbles_set_color, setTextColor        );
-    actionMap.set(  Actions.video,                  showVideo           );
-    actionMap.set(  Actions.website,                showWebsite         );
-    actionMap.set(  Actions.trigger_intent,         triggerIntent       );
-    actionMap.set(  Actions.chained_responses,      showChainedResponses);
-    app.handleRequest(actionMap);
+    }
+    const actionMap = {};
+	actionMap[Actions.basic_card] 			  = showBasicCard;
+    actionMap[Actions.full_screen_image]      = showFullScreenImage;
+    actionMap[Actions.background_image]       = setBackgroundImage;
+    actionMap[Actions.carousel]               = showCarousel;
+    actionMap[Actions.icons]                  = showIcons;
+    actionMap[Actions.text_bubbles]           = showTextBubbles;
+    actionMap[Actions.text_bubbles_set_color] = setTextColor;
+    actionMap[Actions.video]                  = showVideo;
+    actionMap[Actions.website]                = showWebsite;
+    actionMap[Actions.trigger_intent]         = triggerIntent;
+    actionMap[Actions.chained_responses]      = showChainedResponses;
+  
+    console.log("Handling request");
+    actionMap[agent.action]();
 }
