@@ -203,7 +203,7 @@ function processV1Request(request, response) {
         chainedResponse.send(response);         
     }
     const actionMap = {};
-	actionMap[Actions.basic_card] 			  = showBasicCard;
+    actionMap[Actions.basic_card].            = showBasicCard;
     actionMap[Actions.full_screen_image]      = showFullScreenImage;
     actionMap[Actions.background_image]       = setBackgroundImage;
     actionMap[Actions.carousel]               = showCarousel;
