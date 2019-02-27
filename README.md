@@ -99,7 +99,7 @@ where:
       simpleText - what is to be spoken/display by Pepper
  
 ## Ex. usage:
-    	let simpleText = "Why, hello! Hello there! || Hello.";
+      let simpleText = "Why, hello! Hello there! || Hello.";
       let responseToPepper = new PepperResponse(new BasicText(simpleText)); // ** see note below
       responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter
 
@@ -197,9 +197,9 @@ where:
       delay - (optional) the amount of time after the speech finishes for the image to be displayed
  
 ## Ex. usage:
-    	let speech = "Look at this beautiful vista."
-    	let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
-    	let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
+      let speech = "Look at this beautiful vista."
+      let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
+      let fullScreenImg = new FullScreenImage(speech, landscapeImageUrl);
       let responseToPepper = new PepperResponse(fullScreenImg);
       responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter    
 
@@ -272,9 +272,9 @@ where:
     speech - (optional) what Pepper says if a user selects this text bubble
  
 ## Ex. usage:
-    	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
-    	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
-    	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
+      let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
+      let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
+      let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
       let responseToPepper = new PepperResponse(textBubbles);
       responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter   
 
@@ -291,9 +291,9 @@ where:
     randomize - (optional) a boolean value of whether or not to randomize the bubbles
  
 ## Ex. usage:
-    	let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
-    	let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
-    	let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
+      let bubbleOne = new TextBubble("First Time Visit", "Registration Sign-Up", "Welcome! Let's get you registered!");
+      let bubbleTwo = new TextBubble("Returning Customer", "Schedule Appointment", "Welcome back. Pulling up the available time slots now");
+      let textBubbles = new TextBubbles("Please choose the option that applies to you", [bubbleOne, bubbleTwo]);
       let responseToPepper = new PepperResponse(textBubbles);
       responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
 
@@ -307,7 +307,7 @@ where:
       title - (optional) what Pepper will display on its
  
 ## Ex. usage:
-    	let returnToMainMenu = new TriggerIntent("Main Menu");
+      let returnToMainMenu = new TriggerIntent("Main Menu");
       let responseToPepper = new PepperResponse(returnToMainMenu);
       responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter   
  
