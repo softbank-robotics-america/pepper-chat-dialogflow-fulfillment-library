@@ -3,8 +3,8 @@ A Javascript Node.JS library for the easy creation of valid responses for the Pe
 
 
 # Pepper Chat Responses Dialogflow Fulfillment Library    
-We recommend you use the included template files, located in the 'template' folder: 
-- Agent zip file: PEPPER_FULLFILLMENT_EXAMPLE.zip
+We recommend you use the included example project, located in the 'Example' folder: 
+- Agent zip file: PepperFulfillmentExampleAgent.zip
 - Fulfillment code: index.js, package.json <br><br>
 to get started with using this library. <br><br>
 
