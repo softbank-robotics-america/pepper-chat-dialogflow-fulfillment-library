@@ -54,7 +54,7 @@ where contextObj is a simple object containing 3 properties:
 
 
 ### Example of usage:
-    let urlOfBat = generateRandomUrlOfBat()
+    let urlOfBat = "https://bat-image.jpg"
     let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
     let pepperResponse = new PepperResponse(basicCard);
     pepperResponse.setContext({name: "batImage", lifespan: 3, parameters: { whichImageSeen: urlOfBat }} )
