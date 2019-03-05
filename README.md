@@ -50,7 +50,7 @@ setContext(contextObj) <br>
 where contextObj is a simple object containing 3 properties:
   - name = name of the context
   - lifespan = duration/expiration of the context, once set
-  - parameters = an object containing a comma-separated list of key-value pairs
+  - parameters = (optional) an object containing a comma-separated list of key-value pairs
 
 
 ### Example of usage:
