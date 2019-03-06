@@ -608,11 +608,15 @@ class PepperResponse {
     setContext(contextObj){
         if (!this.contextOut)
             this.contextOut = [];
-        this.contextOut.push({ 
+        if (Array.isArray(contextObj)) {
+           this.contextOut = contextObj;
+        } else {
+          this.contextOut.push({ 
             name : contextObj.name, 
             lifespan : contextObj.lifespan,
             parameters : contextObj.parameters
-        });
+          });
+        }
     }
     send(webhookResponse) {
       let responseToUser = this;
