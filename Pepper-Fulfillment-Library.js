@@ -11,20 +11,20 @@
  * 
  * @return {object} DO NOT INSTANTIATE THIS OBJECT; IT IS JUST A BASE CLASS
  */
-class BasicResponse {
-    constructor() {
-    }
-    setStyle(styleConfig) {
+ class BasicResponse {
+     constructor() {
+     }
+     setStyle(styleConfig) {
         // Only allow the addition of styling to Custom Payload types
         if (this.type == 4) {
             let validStyles = [    'backgroundColor', 'backgroundImage','textColor',
-                    'font','bubbleColor','bubbleTextColor','bubbleFont'];
+            'font','bubbleColor','bubbleTextColor','bubbleFont'];
             let styleConfigKeys = Object.keys(styleConfig);
             for (let x = 0; x < styleConfigKeys.length; x++) {
                 let styleKey = styleConfigKeys[x];
                 if (validStyles.indexOf(styleKey) == -1) {
                     throw styleKey + " is not a valid style key (" + validStyles.join(", ") + ").";
-                } else {
+                } else {``
                     this.payload[styleKey] = styleConfig[styleKey];
                 }
             }
@@ -38,7 +38,7 @@ class BasicResponse {
         } else {
             // For Google Assistant types (and any other objects), do not allow the addition of styling
             throw "Unfortunately, you are not able to add style to this type of response (" + this.constructor.name +
-                "). Please add the styling to a previous response or choose a different response type.";
+            "). Please add the styling to a previous response or choose a different response type.";
         }
     }
 }
@@ -58,17 +58,17 @@ class BasicResponse {
  *  let responseToPepper = new PepperResponse(backgroundImage);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
-class BackgroundImage extends BasicResponse {
-    constructor(title, url) {
-        super();
-        this.type = 4;
-        this.payload = {    speak : title, 
-                            backgroundImage : url   };
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+ class BackgroundImage extends BasicResponse {
+     constructor(title, url) {
+         super();
+         this.type = 4;
+         this.payload = {    speak : title, 
+             backgroundImage : url   };
+         }
+         setStyle(styleConfig) {
+             super.setStyle(styleConfig);
+         }
+     }
 
 /**
  * BasicCard(title, url) -- creates a basic image card on Pepper's tablet
@@ -84,19 +84,19 @@ class BackgroundImage extends BasicResponse {
  *  let responseToPepper = new PepperResponse(basicCard);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
-class BasicCard extends BasicResponse {
-    constructor(title, url) {
-        super();
-        this.type = "basic_card";
-        this.platform = "google";
-        this.title = title;
-        this.image = { "url" : url };
-        this.buttons = [];
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+ class BasicCard extends BasicResponse {
+     constructor(title, url) {
+         super();
+         this.type = "basic_card";
+         this.platform = "google";
+         this.title = title;
+         this.image = { "url" : url };
+         this.buttons = [];
+     }
+     setStyle(styleConfig) {
+         super.setStyle(styleConfig);
+     }
+ }
 
 /**
  * BasicText(title) - a simple text-based response
@@ -115,16 +115,15 @@ class BasicCard extends BasicResponse {
  *  let responseToPepper = new PepperResponse(title); // <-- You can also just pass text directly to create a Basic Text response
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter       
  */
-class BasicText extends BasicResponse {
-    constructor(title) {
-        super();
-        this.type = 0;
-        this.speech = title;
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+ class BasicText extends BasicResponse {
+     constructor(title) {
+         super();
+         this.text = { text: title };
+     }
+     setStyle(styleConfig) {
+         super.setStyle(styleConfig);
+     }
+ }
 
 /**
  * CarouselImage(title, url, triggerUtterance) - must be used in conjunction with the Carousel class
@@ -148,13 +147,13 @@ class BasicText extends BasicResponse {
  * 
  * Note: Cannot be used standalone with PepperResponse!
  */
-class CarouselImage {
-    constructor(title, url, triggerUtterance) {
-        this.title = title;
-        this.url = url;
-        this.triggerUtterance = triggerUtterance;
-    }  
-}
+ class CarouselImage {
+     constructor(title, url, triggerUtterance) {
+         this.title = title;
+         this.url = url;
+         this.triggerUtterance = triggerUtterance;
+     }  
+ }
 
 /**
  * Carousel(title, carouselImageArray) - creates a carousel of images as a response to an intent; 
@@ -174,30 +173,30 @@ class CarouselImage {
  *  let responseToPepper = new PepperResponse(carousel);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
-class Carousel extends BasicResponse {
-    constructor(title, carouselImagesArray) {
-        super();
-        this.type = "list_card";
-        this.platform = "google";
-        this.title = title;
-        this.items = carouselImagesArray.map(carouselImage => {
-            console.log("Map --> carouselImage: ", carouselImage);
-            if (carouselImage instanceof CarouselImage) {
-                return { 
-                    "optionInfo": {
-                        "key": carouselImage.triggerUtterance,
-                        "synonyms": []  },
-                    "title" : carouselImage.title,
-                    "image" : { "url" : carouselImage.url } };
-            } else {
-                throw "A Carousel object must take an array of CarouselImage objects";
-            }
-        });
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+ class Carousel extends BasicResponse {
+     constructor(title, carouselImagesArray) {
+         super();
+         this.type = "list_card";
+         this.platform = "google";
+         this.title = title;
+         this.items = carouselImagesArray.map(carouselImage => {
+             console.log("Map --> carouselImage: ", carouselImage);
+             if (carouselImage instanceof CarouselImage) {
+                 return { 
+                     "optionInfo": {
+                         "key": carouselImage.triggerUtterance,
+                         "synonyms": []  },
+                         "title" : carouselImage.title,
+                         "image" : { "url" : carouselImage.url } };
+                     } else {
+                         throw "A Carousel object must take an array of CarouselImage objects";
+                     }
+                 });
+     }
+     setStyle(styleConfig) {
+         super.setStyle(styleConfig);
+     }
+ }
 
 /**
  * CarouselImageNoTitle(speak, url, triggerUtterance):
@@ -220,13 +219,13 @@ class Carousel extends BasicResponse {
  *
  * Note: Cannot be used standalone with PepperResponse; must be used with CarouselNoTitles!
  */
-class CarouselImageNoTitle {
-    constructor(speak, url, triggerUtterance) {
-        if (speak) { this.speak = speak }
-        this.contentURL = url;
-        this.value = triggerUtterance;
-    }    
-}
+ class CarouselImageNoTitle {
+     constructor(speak, url, triggerUtterance) {
+         if (speak) { this.speak = speak }
+             this.contentURL = url;
+         this.value = triggerUtterance;
+     }    
+ }
 
 /**
  * CarouselNoTitles(title, carouselImageArray):
@@ -244,24 +243,23 @@ class CarouselImageNoTitle {
  *  let responseToPepper = new PepperResponse(carousel);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter  
  */
-class CarouselNoTitles extends BasicResponse {
-    constructor(title, carouselImagesNoTitlesArray) {
-        super();
-        this.type = 4;
-        this.payload = {};
-        this.payload.title = title;
-        this.payload.imageCards = carouselImagesNoTitlesArray.map(carouselImage => {
-            if (carouselImage instanceof CarouselImageNoTitle) {
-                return carouselImage;
-            } else {
-                throw "A Carousel object must take an array of CarouselImageNoTitle objects";
-            }
-        });
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+ class CarouselNoTitles extends BasicResponse {
+     constructor(title, carouselImagesNoTitlesArray) {
+         super();
+         this.payload = {};
+         this.payload.title = title;
+         this.payload.imageCards = carouselImagesNoTitlesArray.map(carouselImage => {
+             if (carouselImage instanceof CarouselImageNoTitle) {
+                 return carouselImage;
+             } else {
+                 throw "A Carousel object must take an array of CarouselImageNoTitle objects";
+             }
+         });
+     }
+     setStyle(styleConfig) {
+         super.setStyle(styleConfig);
+     }
+ }
 
 /**
  * FullScreenImage(speech, url, delay):
@@ -278,19 +276,18 @@ class CarouselNoTitles extends BasicResponse {
  *  let responseToPepper = new PepperResponse(fullScreenImg);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
-class FullScreenImage extends BasicResponse {
-    constructor(speech, url, delay) {
-        super();
-        this.type = 4;
-        this.payload = {    speak : speech,
-                            imageURL : url      };
-        if (delay)
-            this.payload.delay = delay;
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+ class FullScreenImage extends BasicResponse {
+     constructor(speech, url, delay) {
+         super();
+         this.payload = {    speak : speech,
+             imageURL : url      };
+             if (delay)
+                 this.payload.delay = delay;
+         }
+         setStyle(styleConfig) {
+             super.setStyle(styleConfig);
+         }
+     }
 
 /**
  * Icon(speech, url, triggerUtterance, iconTitle):
@@ -315,14 +312,14 @@ class FullScreenImage extends BasicResponse {
  *
  * Note: Cannot be used standalone with PepperResponse; it must be used with Icons (plural)!
  */
-class Icon {
-    constructor(url, triggerUtterance, speech, iconTitle) {
-        this.iconUrl = url;
-        this.value = triggerUtterance;
-        if (speech) { this.speak = speech;    }        
-        if (iconTitle) { this.text = iconTitle;       }
-    }
-}
+ class Icon {
+     constructor(url, triggerUtterance, speech, iconTitle) {
+         this.iconUrl = url;
+         this.value = triggerUtterance;
+         if (speech) { this.speak = speech;    }        
+         if (iconTitle) { this.text = iconTitle;       }
+     }
+ }
 
 /**
  * Icons(speech, titleText, iconArray) - a response of icons (1-6 menu layout)
@@ -341,12 +338,11 @@ class Icon {
  *  let responseToPepper = new PepperResponse(icons);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
-class Icons extends BasicResponse {
-    constructor(speech, titleText, customIconsArray) {
-        super();
-        this.type = 4;
-        this.payload = {    speak : speech,
-                            text : titleText,
+ class Icons extends BasicResponse {
+     constructor(speech, titleText, customIconsArray) {
+         super();
+         this.payload = {    speak : speech,
+             text : titleText,
                             // Check to make sure the icons are valid:
                             customIcons : customIconsArray.map(icon => {
                                 if (icon instanceof Icon) {
@@ -355,11 +351,11 @@ class Icons extends BasicResponse {
                                     throw "Icons' 3rd parameter must be an array of Icon objects!";
                                 }
                             })};
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+                        }
+                        setStyle(styleConfig) {
+                            super.setStyle(styleConfig);
+                        }
+                    }
 
 /**
  * Style(title, styleConfig) - a simple Style object response
@@ -375,23 +371,22 @@ class Icons extends BasicResponse {
  *  let responseToPepper = new PepperResponse(style);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
-class Style extends BasicResponse {
-    constructor(title, styleConfig) {
-        super();
-        this.type = 4;
-        this.payload = {};
-        let validStyles = this._getValidStyles();
-        let styleConfigKeys = Object.keys(styleConfig);
-        for (let styleKey in styleConfigKeys) {
-            if (validStyles.indexOf(styleKey) == -1) {
-                throw styleKey + " is not a valid style key (" + validStyles.join(", ") + ").";
-            } else {
-                this.payload[styleKey] = styleConfig[styleKey];
-            }
-        }
-        this.payload.speak = title || " ";
-    }
-}
+ class Style extends BasicResponse {
+     constructor(title, styleConfig) {
+         super();
+         this.payload = {};
+         let validStyles = this._getValidStyles();
+         let styleConfigKeys = Object.keys(styleConfig);
+         for (let styleKey in styleConfigKeys) {
+             if (validStyles.indexOf(styleKey) == -1) {
+                 throw styleKey + " is not a valid style key (" + validStyles.join(", ") + ").";
+             } else {
+                 this.payload[styleKey] = styleConfig[styleKey];
+             }
+         }
+         this.payload.speak = title || " ";
+     }
+ }
 
 /**
  * TextBubble(textValue, triggerUtterance, speech) - creates a basic Text Bubble object; must be
@@ -412,13 +407,13 @@ class Style extends BasicResponse {
  * 
  * Note: Cannot be used standalone with PepperResponse; it must be used with TextBubbles (plural)!
  */
-class TextBubble {
-    constructor(textValue, triggerUtterance, speech) {
-        this.title = textValue;
-        this.value = triggerUtterance;
-        this.speak = speech;
-    }
-}
+ class TextBubble {
+     constructor(textValue, triggerUtterance, speech) {
+         this.title = textValue;
+         this.value = triggerUtterance;
+         this.speak = speech;
+     }
+ }
 
 /**
  * TextBubbles(title, bubblesArray, randomize):
@@ -435,20 +430,19 @@ class TextBubble {
  *  let responseToPepper = new PepperResponse(textBubbles);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
-class TextBubbles extends BasicResponse {
-    constructor(title, textBubbleArray, randomize) {
-        super();
-        this.type = 4;
-        this.payload = {    title : title,
-                            randomBubbles : textBubbleArray      };
-        if (randomize)
-            this.payload.randomize = true;
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
-        
+ class TextBubbles extends BasicResponse {
+     constructor(title, textBubbleArray, randomize) {
+         super();
+         this.payload = {    title : title,
+             randomBubbles : textBubbleArray      };
+             if (randomize)
+                 this.payload.randomize = true;
+         }
+         setStyle(styleConfig) {
+             super.setStyle(styleConfig);
+         }
+     }
+
 /**
  * TriggerIntent(triggerUtterance, title) - triggers another intent; cannot be used in conjunction 
  * with a Style response object. 
@@ -462,20 +456,19 @@ class TextBubbles extends BasicResponse {
  *  let responseToPepper = new PepperResponse(returnToMainMenu);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
-class TriggerIntent extends BasicResponse {
-    constructor(triggerUtterance, title) {
-        super();
-        this.type = 4;
-        this.payload = { action : "setStyle",
-                         action_parameters : { nextUtterance : triggerUtterance } };
-        if (title)
-            this.payload.speak = title;
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
- 
-}
+ class TriggerIntent extends BasicResponse {
+     constructor(triggerUtterance, title) {
+         super();
+         this.payload = { action : "setStyle",
+         action_parameters : { nextUtterance : triggerUtterance } };
+         if (title)
+             this.payload.speak = title;
+     }
+     setStyle(styleConfig) {
+         super.setStyle(styleConfig);
+     }
+
+ }
 
 /**
  * Video(speech, url, contentType):
@@ -493,23 +486,22 @@ class TriggerIntent extends BasicResponse {
  *  let responseToPepper = new PepperResponse(video);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
-class Video extends BasicResponse {
-    constructor(speech, url, contentType) {
-        super();
-        this.type = 4;
-        try {
-            contentType = contentType ? contentType : "video/" + url.split('.').pop();
-        } catch (err) {
-            throw "ERROR: Content type was not specified and could not be extracted from the video's URL.";
-        }
-        this.payload = {    videoURL : url,
-                            contentType : contentType,
-                            speak : speech              };
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+ class Video extends BasicResponse {
+     constructor(speech, url, contentType) {
+         super();
+         try {
+             contentType = contentType ? contentType : "video/" + url.split('.').pop();
+         } catch (err) {
+             throw "ERROR: Content type was not specified and could not be extracted from the video's URL.";
+         }
+         this.payload = {    videoURL : url,
+             contentType : contentType,
+             speak : speech              };
+         }
+         setStyle(styleConfig) {
+             super.setStyle(styleConfig);
+         }
+     }
 
 
 /**
@@ -527,20 +519,19 @@ class Video extends BasicResponse {
  *  let responseToPepper = new PepperResponse(mortgageRatesWebsite);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
-class Website extends BasicResponse {
-    constructor(speech, url, onClose) {
-        super();
-        this.type = 4;
-        this.payload = {    speak : speech,
-                            action: "showWebpage",
-                            action_parameters: {
-                                url : url,
-                                onClose : onClose   }   };
-    }
-    setStyle(styleConfig) {
-        super.setStyle(styleConfig);
-    }
-}
+ class Website extends BasicResponse {
+     constructor(speech, url, onClose) {
+         super();
+         this.payload = {    speak : speech,
+             action: "showWebpage",
+             action_parameters: {
+                 url : url,
+                 onClose : onClose   }   };
+             }
+             setStyle(styleConfig) {
+                 super.setStyle(styleConfig);
+             }
+         }
 
 /**
  * PepperResponse() - wraps any number of Pepper response objects with the appropriate JSON metadata 
@@ -556,34 +547,32 @@ class Website extends BasicResponse {
  *  let responseToPepper = new PepperResponse(mortgageRatesWebsite, followUp);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
  */
-class PepperResponse {
-    constructor(){
-        this.speech = "";
-        this.messages = [];
-        let googleAssistant = [];
-        let customPayloads = [];
-        let textResponses = [];
-        let validResponses = ["BackgroundImage","BasicCard","BasicText","Carousel","CarouselNoTitles","FullScreenImage","Icons","Style","Text","TextBubbles","TriggerIntent","Video","Website"];
-        for (let x = 0; x < arguments.length; x++) {
+ class PepperResponse {
+     constructor(){
+         this.fulfillmentMessages = [];
+         let googleAssistant = [];
+         let customPayloads = [];
+         let textResponses = [];
+         let validResponses = ["BackgroundImage","BasicCard","BasicText","Carousel","CarouselNoTitles","FullScreenImage","Icons","Style","Text","TextBubbles","TriggerIntent","Video","Website"];
+         for (let x = 0; x < arguments.length; x++) {
             // If simple text is passed to PepperResponse, convert it into a BasicText object before processing;
             if (typeof arguments[x] == "string")
                 arguments[x] = new BasicText(arguments[x]);
             // Validate that the response objects are valid
             let messageType = arguments[x].constructor.name.toString();
-            console.log("messageType: ", messageType);
-            if ( validResponses.indexOf(messageType) === -1) {
+            if ( !validResponses.includes(messageType) ) {
                 throw "Error: " + messageType + " is not a valid Pepper response type.";
             }
             switch (arguments[x].type) {
                 // For Google Assistant message types:
                 case "list_card":
                 case "basic_card":
-                    if (customPayloads.length === 0)
-                        googleAssistant.push(x);
-                    else
-                        throw "Error: You cannot combine a " + messageType +
-                            " object with a " + arguments[customPayloads[0]] + " object.";
-                    break;
+                if (customPayloads.length === 0)
+                    googleAssistant.push(x);
+                else
+                    throw "Error: You cannot combine a " + messageType +
+                " object with a " + arguments[customPayloads[0]] + " object.";
+                break;
                 // For Custom Payload message types:
                 case 4:
                     // Make sure we're not mixing Custom Payload responses with Google Assistant responses
@@ -591,35 +580,39 @@ class PepperResponse {
                         customPayloads.push(x);
                     else
                         throw "Error: You cannot combine a " + messageType + " object with a " + 
-                             arguments[googleAssistant[0]] + " object.";                    
+                    arguments[googleAssistant[0]] + " object.";                    
                     customPayloads.push(x);
                     break;
                 // For simple text object types:
                 case 0:
-                    textResponses.push(x);
-                    break;
+                textResponses.push(x);
+                break;
                 default:
-                    throw "Error: " + messageType + " is not a valid Pepper response object.";
+                throw "Error: " + messageType + " is not a valid Pepper response object.";
             }
             // If it made it this far, it should be a valid chain of messages
             this.messages.push(arguments[x]);
         }
     }
     setContext(contextObj){
-        if (!this.contextOut)
+        if (!this.contextOut) {
             this.contextOut = [];
+        }
         if (Array.isArray(contextObj)) {
-           this.contextOut = contextObj;
+            this.contextOut = [...contextObj, ...this.contextOut];
         } else {
-          this.contextOut.push({ 
-            name : contextObj.name, 
-            lifespan : contextObj.lifespan,
-            parameters : contextObj.parameters
-          });
+            if (typeof contextObj === "string") {
+                throw "Error: Context must be of type 'Object', not 'String'"
+            }
+            this.contextOut.push({ 
+                name : contextObj.name, 
+                lifespan : contextObj.lifespan || 5,
+                parameters : contextObj.parameters
+            });
         }
     }
     send(webhookResponse) {
-      let responseToUser = this;
+        let responseToUser = this;
       // If the response to the user includes rich responses or contexts send them to Dialogflow
       let responseJson = {};
       // If speech or displayText is defined, use it to respond (if one isn't defined use the other's value)
@@ -628,13 +621,13 @@ class PepperResponse {
       responseJson.messages = responseToUser.messages;
       // Optional: add contexts (https://dialogflow.com/docs/contexts)
       if (responseToUser.contextOut)
-        responseJson.contextOut = responseToUser.contextOut;
+          responseJson.contextOut = responseToUser.contextOut;
       if (responseToUser.followupEvent)
-        responseJson.followupEvent = responseToUser.followupEvent;
+          responseJson.followupEvent = responseToUser.followupEvent;
       responseJson.data = responseToUser.data;
       console.log("RESPONSE TO DIALOGFLOW COMPLETE: ", JSON.stringify(responseJson));
       webhookResponse.json(responseJson); // Send response to Dialogflow
-    }
+  }
 }
 
 
@@ -644,7 +637,7 @@ function toTitleCase(str) {
         function(txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         }
-    );
+        );
 }
 
 function randomlyChoose(array){
