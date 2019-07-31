@@ -591,7 +591,7 @@
                 throw "Error: " + messageType + " is not a valid Pepper response object.";
             }
             // If it made it this far, it should be a valid chain of messages
-            this.messages.push(arguments[x]);
+            this.fulfillmentMessages.push(arguments[x]);
         }
     }
     setContext(contextObj){
