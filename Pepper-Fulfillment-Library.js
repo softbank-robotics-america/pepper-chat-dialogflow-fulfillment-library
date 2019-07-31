@@ -61,7 +61,6 @@
  class BackgroundImage extends BasicResponse {
      constructor(title, url) {
          super();
-         this.type = 4;
          this.payload = {    speak : title, 
              backgroundImage : url   };
          }
