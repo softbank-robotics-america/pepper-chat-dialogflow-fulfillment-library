@@ -551,7 +551,7 @@
      constructor(){
          this.fulfillmentMessages = [];
          let googleAssistant = [];
-         let customPayloads = [];
+         let payload = [];
          let textResponses = [];
          let validResponses = ["BackgroundImage","BasicCard","BasicText","Carousel","CarouselNoTitles","FullScreenImage","Icons","Style","Text","TextBubbles","TriggerIntent","Video","Website"];
          for (let x = 0; x < arguments.length; x++) {
@@ -567,21 +567,21 @@
                 // For Google Assistant message types:
                 case "list_card":
                 case "basic_card":
-                if (customPayloads.length === 0)
+                if (payload.length === 0)
                     googleAssistant.push(x);
                 else
                     throw "Error: You cannot combine a " + messageType +
-                " object with a " + arguments[customPayloads[0]] + " object.";
+                " object with a " + arguments[payload[0]] + " object.";
                 break;
                 // For Custom Payload message types:
                 case 4:
                     // Make sure we're not mixing Custom Payload responses with Google Assistant responses
                     if (googleAssistant.length === 0)
-                        customPayloads.push(x);
+                        payload.push(x);
                     else
                         throw "Error: You cannot combine a " + messageType + " object with a " + 
                     arguments[googleAssistant[0]] + " object.";                    
-                    customPayloads.push(x);
+                    payload.push(x);
                     break;
                 // For simple text object types:
                 case 0:
