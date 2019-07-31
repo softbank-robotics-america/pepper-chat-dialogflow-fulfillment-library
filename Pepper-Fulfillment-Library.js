@@ -549,9 +549,9 @@
  */
  class PepperResponse {
      constructor(){
-         this.fulfillmentMessages = [];
+         this.payload = [];
          let googleAssistant = [];
-         let payload = [];
+         //let payload = [];
          let textResponses = [];
          let validResponses = ["BackgroundImage","BasicCard","BasicText","Carousel","CarouselNoTitles","FullScreenImage","Icons","Style","Text","TextBubbles","TriggerIntent","Video","Website"];
          for (let x = 0; x < arguments.length; x++) {
@@ -591,7 +591,7 @@
                 throw "Error: " + messageType + " is not a valid Pepper response object.";
             }
             // If it made it this far, it should be a valid chain of messages
-            this.fulfillmentMessages.push(arguments[x]);
+            this.payload.push(arguments[x]);
         }
     }
     setContext(contextObj){
@@ -616,9 +616,9 @@
       // If the response to the user includes rich responses or contexts send them to Dialogflow
       let responseJson = {};
       // If speech or displayText is defined, use it to respond (if one isn't defined use the other's value)
-      responseJson.speech = responseToUser.speech || responseToUser.displayText || "";
-      responseJson.displayText = responseToUser.displayText || responseToUser.speech;
-      responseJson.messages = responseToUser.messages;
+      //responseJson.speech = responseToUser.speech || responseToUser.displayText || "";
+      //responseJson.displayText = responseToUser.displayText || responseToUser.speech;
+      responseJson.payload = responseToUser.payload;
       // Optional: add contexts (https://dialogflow.com/docs/contexts)
       if (responseToUser.contextOut)
           responseJson.contextOut = responseToUser.contextOut;
