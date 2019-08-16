@@ -16,29 +16,17 @@
      }
      setStyle(styleConfig) {
         // Only allow the addition of styling to Custom Payload types
-        if (this.type == 4) {
-            let validStyles = [    'backgroundColor', 'backgroundImage','textColor',
-            'font','bubbleColor','bubbleTextColor','bubbleFont'];
-            let styleConfigKeys = Object.keys(styleConfig);
-            for (let x = 0; x < styleConfigKeys.length; x++) {
-                let styleKey = styleConfigKeys[x];
-                if (validStyles.indexOf(styleKey) == -1) {
-                    throw styleKey + " is not a valid style key (" + validStyles.join(", ") + ").";
-                } else {``
-                    this.payload[styleKey] = styleConfig[styleKey];
-                }
+        let validStyles = ['backgroundColor', 'backgroundImage','textColor',
+        'font','bubbleColor','bubbleTextColor','bubbleFont'];
+        let styleConfigKeys = Object.keys(styleConfig);
+        
+        for (let x = 0; x < styleConfigKeys.length; x++) {
+            let styleKey = styleConfigKeys[x];
+            if (validStyles.indexOf(styleKey) == -1) {
+                throw styleKey + " is not a valid style key (" + validStyles.join(", ") + ").";
+            } else {
+                this.payload[styleKey] = styleConfig[styleKey];
             }
-        } else if (this.type === 0) {
-            this.payload = {
-                speak: this.speech
-            }
-            this.type = 4;
-            this.speech = "";
-            this.setStyle(styleConfig);
-        } else {
-            // For Google Assistant types (and any other objects), do not allow the addition of styling
-            throw "Unfortunately, you are not able to add style to this type of response (" + this.constructor.name +
-            "). Please add the styling to a previous response or choose a different response type.";
         }
     }
 }
@@ -84,13 +72,13 @@
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
  class BasicCard extends BasicResponse {
-     constructor(title, url) {
+     constructor(title, speech, url) {
          super();
-         this.type = "basic_card";
-         this.platform = "google";
-         this.title = title;
-         this.image = { "url" : url };
-         this.buttons = [];
+         this.payload = {};
+         this.payload.basicCard = {};
+         this.payload.basicCard.speak = speech;
+         this.payload.basicCard.contentURL = url;
+         this.payload.basicCard.text = title;
      }
      setStyle(styleConfig) {
          super.setStyle(styleConfig);
@@ -117,7 +105,8 @@
  class BasicText extends BasicResponse {
      constructor(title) {
          super();
-         this.text = { text: title };
+         this.payload = {}
+         this.payload.basicText = { text : title }
      }
      setStyle(styleConfig) {
          super.setStyle(styleConfig);
@@ -125,19 +114,19 @@
  }
 
 /**
- * CarouselImage(title, url, triggerUtterance) - must be used in conjunction with the Carousel class
+ * CarouselImageUncaptioned(speak, contentURL, value) - must be used in conjunction with the Carousel class
  * to create a carousel; the relationship is that a Carousel is composed of CarouselImage objects.
  * 
- * @param {string} title - what is displayed under this Carousel image
- * @param {string} url - the image to be created as an item within a Carousel
- * @param {string} triggerUtterance - the utterance that will be triggered upon selecting
+ * @param {string} speak - what is displayed under this Carousel image
+ * @param {string} contentURL - the image to be created as an item within a Carousel
+ * @param {string} value - the utterance that will be triggered upon selecting
  *          this carousel image
  * @return {object} The correctly formatted JSON to pass in an array to a Carousel object
  * 
  * @example  
  *  let carouselArray = [];
  *  for (var name in list) {
- *      var carouselImage = new CarouselImage(name, "https://pepper-img-server/"+name+".jpg", "trigger " + name)
+ *      var carouselImage = new CarouselImageUncaptioned(name, "https://pepper-img-server/"+name+".jpg", "trigger " + name)
  *      carouselArray.push(carouselImage);
  *  }
  *  let carousel = new Carousel("Check out these options:", carouselArray);
@@ -146,88 +135,49 @@
  * 
  * Note: Cannot be used standalone with PepperResponse!
  */
- class CarouselImage {
-     constructor(title, url, triggerUtterance) {
-         this.title = title;
-         this.url = url;
-         this.triggerUtterance = triggerUtterance;
-     }  
- }
-
-/**
- * Carousel(title, carouselImageArray) - creates a carousel of images as a response to an intent; 
- * must be used in conjunction with the CarouselImage class to create a carousel; the relationship 
- * is that a Carousel is composed of CarouselImage objects.
- * 
- * @param {string} title - what is to be spoken/displayed as title
- * @param {object} carouselImageArray - an array of CarouselImage objects
- * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
- * 
- * @example
- *  let carouselDog = new CarouselImage("Dog","http://animal-images/dog.jpg", "Dog image");
- *  let carouselCat = new CarouselImage("Cat","http://animal-images/cat.jpg", "Cat image");
- *  let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image");
- *  let carouselArray = [carouselDog, carouselCat, carouselArray];
- *  let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
- *  let responseToPepper = new PepperResponse(carousel);
- *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
- */
- class Carousel extends BasicResponse {
-     constructor(title, carouselImagesArray) {
-         super();
-         this.type = "list_card";
-         this.platform = "google";
-         this.title = title;
-         this.items = carouselImagesArray.map(carouselImage => {
-             console.log("Map --> carouselImage: ", carouselImage);
-             if (carouselImage instanceof CarouselImage) {
-                 return { 
-                     "optionInfo": {
-                         "key": carouselImage.triggerUtterance,
-                         "synonyms": []  },
-                         "title" : carouselImage.title,
-                         "image" : { "url" : carouselImage.url } };
-                     } else {
-                         throw "A Carousel object must take an array of CarouselImage objects";
-                     }
-                 });
-     }
-     setStyle(styleConfig) {
-         super.setStyle(styleConfig);
+ class CarouselImageUncaptioned {
+     constructor(speech, url, value) {
+         this.speak = speech;
+         this.contentURL = url;
+         this.value = value;
      }
  }
 
-/**
- * CarouselImageNoTitle(speak, url, triggerUtterance):
+ /**
+ * CarouselImageCaptioned(speak, contentURL, caption, value) - must be used in conjunction with the Carousel class
+ * to create a carousel; the relationship is that a Carousel is composed of CarouselImage objects.
  * 
- * @param {string} speak - what the robot says when a user selects this carousel item
- * @param {string} url - the image to be displayed for this carousel item
- * @param {string} triggerUtterance - the utterance that will be triggered upon selecting
- *          the carousel image
- * @return {object} The correctly formatted JSON to pass in an array to a CarouselNoTitles object
+ * @param {string} speak - what is displayed under this Carousel image
+ * @param {string} contentURL - the image to be created as an item within a Carousel
+ * @param {string} caption - the caption under the image
+ * @param {string} value - the utterance that will be triggered upon selecting
+ *          this carousel image
+ * @return {object} The correctly formatted JSON to pass in an array to a Carousel object
  * 
  * @example  
  *  let carouselArray = [];
  *  for (var name in list) {
- *      var carouselImage = new CarouselImageNoTitle("https://pepper-img-server/"+name+".jpg", "trigger " + name);
+ *      var carouselImage = new CarouselImageCaptioned(name, "https://pepper-img-server/"+name+".jpg", caption, "trigger " + name)
  *      carouselArray.push(carouselImage);
  *  }
- *  let carousel = new CarouselNoTitles("Check out these options:", carouselArray);
+ *  let carousel = new Carousel("Check out these options:", carouselArray);
  *  let responseToPepper = new PepperResponse(carousel);
- *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter  
- *
- * Note: Cannot be used standalone with PepperResponse; must be used with CarouselNoTitles!
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
+ * 
+ * Note: Cannot be used standalone with PepperResponse!
  */
- class CarouselImageNoTitle {
-     constructor(speak, url, triggerUtterance) {
-         if (speak) { this.speak = speak }
-             this.contentURL = url;
-         this.value = triggerUtterance;
-     }    
+ class CarouselImageCaptioned {
+     constructor(speech, url, caption, value) {
+         this.speak = speech;
+         this.contentURL = url;
+         this.value = value;
+         this.text = caption;
+     }  
  }
 
+
 /**
- * CarouselNoTitles(title, carouselImageArray):
+ * Carousel(title, carouselImageArray):
  * 
  * @param {string} title - what is to be spoken/displayed as title
  * @param {object} carouselImageArray - an array of CarouselImageNoTitle objects
@@ -238,17 +188,17 @@
  *  let carouselCat = new CarouselImageNoTitle("Cat","http://animal-images/cat.jpg", "Cat image");
  *  let carouselBird = new CarouselImageNoTitle("Bird","http://animal-images/bird.jpg", "Bird image");
  *  let carouselArray = [carouselDog, carouselCat, carouselArray];
- *  let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
+ *  let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
  *  let responseToPepper = new PepperResponse(carousel);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter  
  */
- class CarouselNoTitles extends BasicResponse {
-     constructor(title, carouselImagesNoTitlesArray) {
+ class Carousel extends BasicResponse {
+     constructor(title, carouselImagesArray) {
          super();
          this.payload = {};
          this.payload.title = title;
-         this.payload.imageCards = carouselImagesNoTitlesArray.map(carouselImage => {
-             if (carouselImage instanceof CarouselImageNoTitle) {
+         this.payload.imageCards = carouselImagesArray.map(carouselImage => {
+             if (carouselImage instanceof CarouselImageUncaptioned || carouselImage instanceof CarouselImageCaptioned) {
                  return carouselImage;
              } else {
                  throw "A Carousel object must take an array of CarouselImageNoTitle objects";
@@ -548,49 +498,31 @@
  */
  class PepperResponse {
      constructor(){
-         this.payload = [];
-         let googleAssistant = [];
-         //let payload = [];
-         let textResponses = [];
+         this.fulfillmentMessages = [];
          let validResponses = ["BackgroundImage","BasicCard","BasicText","Carousel","CarouselNoTitles","FullScreenImage","Icons","Style","Text","TextBubbles","TriggerIntent","Video","Website"];
          for (let x = 0; x < arguments.length; x++) {
             // If simple text is passed to PepperResponse, convert it into a BasicText object before processing;
-            if (typeof arguments[x] == "string")
+            if (typeof arguments[x] == "string"){
                 arguments[x] = new BasicText(arguments[x]);
+            }
             // Validate that the response objects are valid
             let messageType = arguments[x].constructor.name.toString();
             if ( !validResponses.includes(messageType) ) {
                 throw "Error: " + messageType + " is not a valid Pepper response type.";
             }
-            switch (arguments[x].type) {
-                // For Google Assistant message types:
-                case "list_card":
-                case "basic_card":
-                if (payload.length === 0)
-                    googleAssistant.push(x);
-                else
-                    throw "Error: You cannot combine a " + messageType +
-                " object with a " + arguments[payload[0]] + " object.";
-                break;
-                // For Custom Payload message types:
-                case 4:
-                    // Make sure we're not mixing Custom Payload responses with Google Assistant responses
-                    if (googleAssistant.length === 0)
-                        payload.push(x);
-                    else
-                        throw "Error: You cannot combine a " + messageType + " object with a " + 
-                    arguments[googleAssistant[0]] + " object.";                    
-                    payload.push(x);
-                    break;
+            //this.payload = arguments[x];
+            console.log("---this---");
+            console.log(JSON.stringify(this));
+            
+            /*
                 // For simple text object types:
-                case 0:
                 textResponses.push(x);
                 break;
                 default:
-                throw "Error: " + messageType + " is not a valid Pepper response object.";
-            }
-            // If it made it this far, it should be a valid chain of messages
-            this.payload.push(arguments[x]);
+                throw "Error 2: " + messageType + " is not a valid Pepper response object.";
+                // If it made it this far, it should be a valid chain of messages
+            */
+            this.fulfillmentMessages.push(arguments[x]);
         }
     }
     setContext(contextObj){
@@ -611,13 +543,13 @@
         }
     }
     send(webhookResponse) {
-        let responseToUser = this;
+      let responseToUser = this;
       // If the response to the user includes rich responses or contexts send them to Dialogflow
       let responseJson = {};
       // If speech or displayText is defined, use it to respond (if one isn't defined use the other's value)
       //responseJson.speech = responseToUser.speech || responseToUser.displayText || "";
       //responseJson.displayText = responseToUser.displayText || responseToUser.speech;
-      responseJson.payload = responseToUser.payload;
+      responseJson = responseToUser;
       // Optional: add contexts (https://dialogflow.com/docs/contexts)
       if (responseToUser.contextOut)
           responseJson.contextOut = responseToUser.contextOut;
@@ -645,5 +577,5 @@ function randomlyChoose(array){
 }
 
 
-module.exports = { BackgroundImage, BasicCard, BasicText, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, 
+module.exports = { BackgroundImage, BasicCard, BasicText, Carousel, CarouselImageUncaptioned, CarouselImageCaptioned, FullScreenImage, 
     Icon, Icons, Style, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse, toTitleCase, randomlyChoose };
