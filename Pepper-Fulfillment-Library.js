@@ -17,7 +17,7 @@
      setStyle(styleConfig) {
         // Only allow the addition of styling to Custom Payload types
         let validStyles = ['backgroundColor', 'backgroundImage','textColor',
-        'font','bubbleColor','bubbleTextColor','bubbleFont'];
+        'font','bubbleColor','bubbleTextColor','bubbleFont', 'randomize'];
         let styleConfigKeys = Object.keys(styleConfig);
         
         for (let x = 0; x < styleConfigKeys.length; x++) {
@@ -32,81 +32,82 @@
 }
 
 /**
- * BackgroundImage(title, url) -- sets a background image (persistently) to Pepper's tablet; 
+ * BackgroundImage(spokenAndDisplayedText, url) -- sets a background image (persistently) to Pepper's tablet; 
  * https://softbankroboticstraining.github.io/pepper-chatbot-api/#image-fullscreen-image
  * 
- * @param {string} title - what is to be spoken/displayed by Pepper
+ * @param {string} spokenAndDisplayedText - what is to be spoken/displayed by Pepper
  * @param {string} url - the URL of the image to add persistently as the background
  * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
  * 
  * @example
- *  let title = "Look at this beautiful vista."
+ *  let spokenAndDisplayedText = "Look at this beautiful vista."
  *  let landscapeImageUrl = "https://travel-photography-company/img/beautiful-images.jpg";
- *  let backgroundImage = new BackgroundImage(title, landscapeImageUrl);
+ *  let backgroundImage = new BackgroundImage(spokenAndDisplayedText, landscapeImageUrl);
  *  let responseToPepper = new PepperResponse(backgroundImage);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
  class BackgroundImage extends BasicResponse {
-     constructor(title, url) {
+     constructor(spokenAndDisplayedText, url) {
          super();
-         this.payload = {    speak : title, 
-             backgroundImage : url   };
-         }
-         setStyle(styleConfig) {
-             super.setStyle(styleConfig);
-         }
+         this.payload = {    speak : spokenAndDisplayedText, 
+                             backgroundImage : url    };
      }
+     setStyle(styleConfig) {
+         super.setStyle(styleConfig);
+     }
+}
 
 /**
- * BasicCard(title, url) -- creates a basic image card on Pepper's tablet
+ * BasicCard(title, speech url) -- creates a basic image card on Pepper's tablet
  * 
- * @param {string} title - what is to be spoken/displayed as the title on Pepper's tablet
+ * @param {string} title - what is to be displayed as the title on Pepper's tablet
+ * @param {string} speech - what is to be spoken by Pepper
  * @param {string} url - the URL of the image to display as a basic image card
  * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
  * 
  * @example
  *  let title = "Employee of the Month";
+ *  let speech = "Guess who won Employee of the Month!";
  *  let employeeOfMonthImageUrl = "https://companywebsite.com/employee-of-month/jan-2018.jpg";
- *  let basicCard = new BasicCard(title, employeeOfMonthImageUrl);
+ *  let basicCard = new BasicCard(title, speech, employeeOfMonthImageUrl);
  *  let responseToPepper = new PepperResponse(basicCard);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
  class BasicCard extends BasicResponse {
-     constructor(title, speech, url) {
-         super();
-         this.payload = {};
-         this.payload.basicCard = {};
-         this.payload.basicCard.speak = speech;
-         this.payload.basicCard.contentURL = url;
-         this.payload.basicCard.text = title;
-     }
-     setStyle(styleConfig) {
-         super.setStyle(styleConfig);
-     }
+    constructor(title, speech, url) {
+        super();
+        this.payload = { 
+            basicCard : {
+                speak: speech,
+                contentURL: url,
+                text: title    } };
+    }
+    setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }
  }
 
 /**
- * BasicText(title) - a simple text-based response
+ * BasicText(spokenAndDisplayedText) - a simple text-based response
  * 
- * @param {string} title - what is to be spoken by Pepper/displayed on Pepper's tablet
+ * @param {string} spokenAndDisplayedText - what is to be spoken by Pepper/displayed on Pepper's tablet
  * @return {object} The correctly formatted JSON to pass to the PepperResponse object
  * 
  * @example
- *  let title = "Why, hello! Hello there! || Hello.";
- *  let responseToPepper = new PepperResponse(new BasicText(title));
+ *  let spokenAndDisplayedText = "Why, hello! Hello there! || Hello.";
+ *  let responseToPepper = new PepperResponse(new BasicText(spokenAndDisplayedText));
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter       
- *  (Output: Pepper's tablet: 'Hello.' || Pepper's voice: 'Why, hello! Hello there!')
+ *  (Output: Pepper's voice: 'Why, hello! Hello there!' || Pepper's tablet: 'Hello.')
  *
  * @example
- *  let title = "Why, hello! Hello there! || Hello.";
- *  let responseToPepper = new PepperResponse(title); // <-- You can also just pass text directly to create a Basic Text response
+ *  let spokenAndDisplayedText = "Why, hello! Hello there! || Hello.";
+ *  let responseToPepper = new PepperResponse(spokenAndDisplayedText); // <-- You can also just pass text directly to create a Basic Text response
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter       
  */
  class BasicText extends BasicResponse {
-     constructor(title) {
+     constructor(spokenAndDisplayedText) {
          super();
-         this.payload = {}
-         this.payload.basicText = { text : title }
+         this.payload = { speak : spokenAndDisplayedText }
      }
      setStyle(styleConfig) {
          super.setStyle(styleConfig);
