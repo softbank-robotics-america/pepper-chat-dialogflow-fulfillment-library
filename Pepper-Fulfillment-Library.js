@@ -58,27 +58,24 @@
 }
 
 /**
- * BasicCard(title, speech url) -- creates a basic image card on Pepper's tablet
+ * BasicCard(title, url) -- creates a basic image card on Pepper's tablet
  * 
- * @param {string} title - what is to be displayed as the title on Pepper's tablet
- * @param {string} speech - what is to be spoken by Pepper
+ * @param {string} title - what is to be displayed and spoken as the title on Pepper's tablet 
  * @param {string} url - the URL of the image to display as a basic image card
  * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
  * 
  * @example
- *  let title = "Employee of the Month";
- *  let speech = "Guess who won Employee of the Month!";
+ *  let title = "Employee of the Month || Guess who won Employee of the Month!";
  *  let employeeOfMonthImageUrl = "https://companywebsite.com/employee-of-month/jan-2018.jpg";
  *  let basicCard = new BasicCard(title, speech, employeeOfMonthImageUrl);
  *  let responseToPepper = new PepperResponse(basicCard);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
  */
  class BasicCard extends BasicResponse {
-    constructor(title, speech, url) {
+    constructor(title, url) {
         super();
         this.payload = { 
             basicCard : {
-                speak: speech,
                 contentURL: url,
                 text: title    } };
     }
