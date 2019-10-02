@@ -111,20 +111,20 @@
      }
  }
 
-/**
- * CarouselImageUncaptioned(speak, contentURL, value) - must be used in conjunction with the Carousel class
+ /**
+ * CarouselImage(title, url, value) - must be used in conjunction with the Carousel class
  * to create a carousel; the relationship is that a Carousel is composed of CarouselImage objects.
  * 
- * @param {string} speak - what is displayed under this Carousel image
- * @param {string} contentURL - the image to be created as an item within a Carousel
- * @param {string} value - the utterance that will be triggered upon selecting
+ * @param {string} title - what is displayed under this Carousel image
+ * @param {string} url - the image to be created as an item within a Carousel
+ * @param {string} triggerUtterance - the utterance that will be triggered upon selecting
  *          this carousel image
  * @return {object} The correctly formatted JSON to pass in an array to a Carousel object
  * 
  * @example  
  *  let carouselArray = [];
  *  for (var name in list) {
- *      var carouselImage = new CarouselImageUncaptioned(name, "https://pepper-img-server/"+name+".jpg", "trigger " + name)
+ *      var carouselImage = new CarouselImage(name, "https://pepper-img-server/"+name+".jpg", "trigger " + name)
  *      carouselArray.push(carouselImage);
  *  }
  *  let carousel = new Carousel("Check out these options:", carouselArray);
@@ -133,49 +133,83 @@
  * 
  * Note: Cannot be used standalone with PepperResponse!
  */
- class CarouselImageUncaptioned {
-     constructor(speech, url, value) {
-         this.speak = speech;
+class CarouselImage {
+    constructor(text, url, value) {
+         this.text = text;
          this.contentURL = url;
          this.value = value;
      }
- }
+}
 
- /**
- * CarouselImageCaptioned(speak, contentURL, caption, value) - must be used in conjunction with the Carousel class
- * to create a carousel; the relationship is that a Carousel is composed of CarouselImage objects.
+
+/**
+ * Carousel(title, carouselImagesArray) - creates a carousel of images as a response to an intent; 
+ * must be used in conjunction with the CarouselImage class to create a carousel; the relationship 
+ * is that a Carousel is composed of CarouselImage objects.
  * 
- * @param {string} speak - what is displayed under this Carousel image
- * @param {string} contentURL - the image to be created as an item within a Carousel
- * @param {string} caption - the caption under the image
- * @param {string} value - the utterance that will be triggered upon selecting
- *          this carousel image
- * @return {object} The correctly formatted JSON to pass in an array to a Carousel object
+ * @param {string} title - what is to be spoken/displayed as title
+ * @param {object} carouselImageArray - an array of CarouselImage objects
+ * @return {object} The correctly formatted JSON object to pass to the PepperResponse object
+ * 
+ * @example
+ *  let carouselDog = new CarouselImage("Dog","http://animal-images/dog.jpg", "Dog image");
+ *  let carouselCat = new CarouselImage("Cat","http://animal-images/cat.jpg", "Cat image");
+ *  let carouselBird = new CarouselImage("Bird","http://animal-images/bird.jpg", "Bird image");
+ *  let carouselArray = [carouselDog, carouselCat, carouselArray];
+ *  let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
+ *  let responseToPepper = new PepperResponse(carousel);
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter      
+ */
+class Carousel extends BasicResponse {
+    constructor(title, carouselImagesArray) {
+         super();
+         this.payload = {};
+         this.payload.title = title;
+         this.payload.imageCards = carouselImagesArray.map(carouselImage => {
+             if (carouselImage instanceof CarouselImage) {
+                 return carouselImage;
+             } else {
+                 throw "A Carousel object must take an array of CarouselImageTitle objects";
+             }
+         });
+     }
+     setStyle(styleConfig) {
+         super.setStyle(styleConfig);
+     }
+}
+
+/**
+ * CarouselImageNoTitle(speak, url, triggerUtterance):
+ * 
+ * @param {string} speak - what the robot says when a user selects this carousel item
+ * @param {string} url - the image to be displayed for this carousel item
+ * @param {string} triggerUtterance - the utterance that will be triggered upon selecting
+ *          the carousel image
+ * @return {object} The correctly formatted JSON to pass in an array to a CarouselNoTitles object
  * 
  * @example  
  *  let carouselArray = [];
  *  for (var name in list) {
- *      var carouselImage = new CarouselImageCaptioned(name, "https://pepper-img-server/"+name+".jpg", caption, "trigger " + name)
+ *      var carouselImage = new CarouselImageNoTitle("https://pepper-img-server/"+name+".jpg", "trigger " + name);
  *      carouselArray.push(carouselImage);
  *  }
- *  let carousel = new Carousel("Check out these options:", carouselArray);
+ *  let carousel = new CarouselNoTitles("Check out these options:", carouselArray);
  *  let responseToPepper = new PepperResponse(carousel);
- *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter 
- * 
- * Note: Cannot be used standalone with PepperResponse!
+ *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter  
+ *
+ * Note: Cannot be used standalone with PepperResponse; must be used with CarouselNoTitles!
  */
- class CarouselImageCaptioned {
-     constructor(speech, url, caption, value) {
+class CarouselImageNoTitle {
+    constructor(speech, url, value) {
          this.speak = speech;
          this.contentURL = url;
          this.value = value;
-         this.text = caption;
-     }  
- }
+     }     
+}
 
 
 /**
- * Carousel(title, carouselImageArray):
+ * CarouselNoTitles(title, carouselImageArray):
  * 
  * @param {string} title - what is to be spoken/displayed as title
  * @param {object} carouselImageArray - an array of CarouselImageNoTitle objects
@@ -186,27 +220,27 @@
  *  let carouselCat = new CarouselImageNoTitle("Cat","http://animal-images/cat.jpg", "Cat image");
  *  let carouselBird = new CarouselImageNoTitle("Bird","http://animal-images/bird.jpg", "Bird image");
  *  let carouselArray = [carouselDog, carouselCat, carouselArray];
- *  let carousel = new Carousel("Look at this beautiful carousel", carouselArray);
+ *  let carousel = new CarouselNoTitles("Look at this beautiful carousel", carouselArray);
  *  let responseToPepper = new PepperResponse(carousel);
  *  responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter  
  */
- class Carousel extends BasicResponse {
-     constructor(title, carouselImagesArray) {
+class CarouselNoTitles extends BasicResponse {
+    constructor(title, carouselImagesNoTitlesArray) {
          super();
          this.payload = {};
          this.payload.title = title;
-         this.payload.imageCards = carouselImagesArray.map(carouselImage => {
-             if (carouselImage instanceof CarouselImageUncaptioned || carouselImage instanceof CarouselImageCaptioned) {
+         this.payload.imageCards = carouselImagesNoTitlesArray.map(carouselImage => {
+             if (carouselImage instanceof CarouselImageNoTitle) {
                  return carouselImage;
              } else {
                  throw "A Carousel object must take an array of CarouselImageNoTitle objects";
              }
          });
-     }
-     setStyle(styleConfig) {
-         super.setStyle(styleConfig);
-     }
- }
+    }
+    setStyle(styleConfig) {
+        super.setStyle(styleConfig);
+    }
+}
 
 /**
  * FullScreenImage(speech, url, delay):
@@ -575,5 +609,5 @@ function randomlyChoose(array){
 }
 
 
-module.exports = { BackgroundImage, BasicCard, BasicText, Carousel, CarouselImageUncaptioned, CarouselImageCaptioned, FullScreenImage, 
+module.exports = { BackgroundImage, BasicCard, BasicText, CarouselImage, Carousel, CarouselImageNoTitle, CarouselNoTitles, FullScreenImage, 
     Icon, Icons, Style, TextBubble, TextBubbles, TriggerIntent, Video, Website, PepperResponse, toTitleCase, randomlyChoose };
