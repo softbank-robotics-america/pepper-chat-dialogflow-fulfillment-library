@@ -542,22 +542,10 @@ class CarouselNoTitles extends BasicResponse {
             if ( !validResponses.includes(messageType) ) {
                 throw "Error: " + messageType + " is not a valid Pepper response type.";
             }
-            //this.payload = arguments[x];
-            console.log("---this---");
-            console.log(JSON.stringify(this));
-            
-            /*
-                // For simple text object types:
-                textResponses.push(x);
-                break;
-                default:
-                throw "Error 2: " + messageType + " is not a valid Pepper response object.";
-                // If it made it this far, it should be a valid chain of messages
-            */
             this.fulfillmentMessages.push(arguments[x]);
         }
     }
-    setContext(contextObj){
+    setContext(contextObj, session){
         if (!this.contextOut) {
             this.contextOut = [];
         }
@@ -568,8 +556,8 @@ class CarouselNoTitles extends BasicResponse {
                 throw "Error: Context must be of type 'Object', not 'String'"
             }
             this.contextOut.push({ 
-                name : contextObj.name, 
-                lifespan : contextObj.lifespan || 5,
+                name : session+"/contexts/"+contextObj.name, 
+                lifespanCount : contextObj.lifespan || 5,
                 parameters : contextObj.parameters
             });
         }
@@ -579,15 +567,16 @@ class CarouselNoTitles extends BasicResponse {
       // If the response to the user includes rich responses or contexts send them to Dialogflow
       let responseJson = {};
       // If speech or displayText is defined, use it to respond (if one isn't defined use the other's value)
-      //responseJson.speech = responseToUser.speech || responseToUser.displayText || "";
+      responseJson.fulfillmentText = responseToUser.speech || responseToUser.displayText || "";
       //responseJson.displayText = responseToUser.displayText || responseToUser.speech;
       responseJson = responseToUser;
       // Optional: add contexts (https://dialogflow.com/docs/contexts)
       if (responseToUser.contextOut)
-          responseJson.contextOut = responseToUser.contextOut;
-      if (responseToUser.followupEvent)
-          responseJson.followupEvent = responseToUser.followupEvent;
-      responseJson.data = responseToUser.data;
+          console.log("Setting to outputContexts: "+JSON.stringify(responseToUser.contextOut));
+          responseJson.outputContexts = responseToUser.contextOut;
+      if (responseToUser.followupEventInput)
+          responseJson.followupEventInput = responseToUser.followupEventInput;
+      responseJson.payload = responseToUser.payload;
       console.log("Finished using library");
       console.log("RESPONSE TO DIALOGFLOW COMPLETE: ", JSON.stringify(responseJson));
       webhookResponse.json(responseJson); // Send response to Dialogflow
