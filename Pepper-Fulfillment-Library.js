@@ -558,7 +558,7 @@ class CarouselNoTitles extends BasicResponse {
             this.contextOut.push({ 
                 name : session+"/contexts/"+contextObj.name, 
                 lifespanCount : contextObj.lifespan || 5,
-                parameters : contextObj.parameters
+                parameters : contextObj.parameters || ""
             });
         }
     }
@@ -568,6 +568,7 @@ class CarouselNoTitles extends BasicResponse {
       let responseJson = {};
       // If speech or displayText is defined, use it to respond (if one isn't defined use the other's value)
       responseJson.fulfillmentText = responseToUser.speech || responseToUser.displayText || "";
+      responseJson.fulfillmentMessages = responseToUser.fulfillmentMessages;
       // Optional: add contexts (https://dialogflow.com/docs/contexts)
       if (responseToUser.contextOut)
           console.log("Setting to outputContexts: "+JSON.stringify(responseToUser.contextOut));
