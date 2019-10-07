@@ -568,8 +568,6 @@ class CarouselNoTitles extends BasicResponse {
       let responseJson = {};
       // If speech or displayText is defined, use it to respond (if one isn't defined use the other's value)
       responseJson.fulfillmentText = responseToUser.speech || responseToUser.displayText || "";
-      //responseJson.displayText = responseToUser.displayText || responseToUser.speech;
-      responseJson = responseToUser;
       // Optional: add contexts (https://dialogflow.com/docs/contexts)
       if (responseToUser.contextOut)
           console.log("Setting to outputContexts: "+JSON.stringify(responseToUser.contextOut));
