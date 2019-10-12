@@ -12,7 +12,7 @@ If you choose to work from an existing project, the key ingredient to using this
 
     "dependencies": {
       ...
-      "pepper-chat-dialogflow": "softbank-robotics-america/pepper-chat-dialogflow-fulfillment-library#master"
+      "pepper-chat-dialogflow": "softbank-robotics-america/pepper-chat-dialogflow-fulfillment-library#dialogflow-v2"
       ...
     }
 
@@ -43,10 +43,10 @@ All Pepper responses below must be wrapped by a PepperResponse in order to work.
     responseToPepper.send(response); // <-- send() takes the webhook response object as a parameter    
 
 ## Setting Context:
- To set context with a Pepper response, use the setContext method which is available to any valid instantiated PepperResponse object. The 'setContext' function requires an object with 3 properties to be valid: 'name', 'lifespan', & 'parameters'.
+ To set context with a Pepper response, use the setContext method which is available to any valid instantiated PepperResponse object. The 'setContext' function requires two parameters: an object with 3 properties to be valid: 'name', 'lifespan', & 'parameters'; and the session (request.body.session).
 
 ### Method definition:
-setContext(contextObj) <br>
+setContext(contextObj, session) <br>
 where contextObj is a simple object containing 3 properties:
   - name = name of the context
   - lifespan = duration/expiration of the context, once set
@@ -57,7 +57,7 @@ where contextObj is a simple object containing 3 properties:
     let urlOfBat = "https://bat-image.jpg"
     let basicCard = new BasicCard("Random picture of a bat", urlOfBat)
     let pepperResponse = new PepperResponse(basicCard);
-    pepperResponse.setContext({name: "batImage", lifespan: 3, parameters: { whichImageSeen: urlOfBat }} )
+    pepperResponse.setContext({name: "batImage", lifespan: 3, parameters: { whichImageSeen: urlOfBat }}, request.body.session )
     pepperResponse.send(response); // <-- send() takes the webhook response object as a parameter  
 
 # BackgroundImage(speech, url)
