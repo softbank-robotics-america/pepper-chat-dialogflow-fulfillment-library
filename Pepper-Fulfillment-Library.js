@@ -555,8 +555,11 @@ class CarouselNoTitles extends BasicResponse {
             if (typeof contextObj === "string") {
                 throw "Error: Context must be of type 'Object', not 'String'"
             }
+            if (!session) {
+                throw "Session must be provided"
+            }
             this.contextOut.push({ 
-                name : session+"/contexts/"+contextObj.name, 
+                name : `${session}/contexts/${contextObj.name}`, 
                 lifespanCount : contextObj.lifespan || 5,
                 parameters : contextObj.parameters || {}
             });
@@ -571,7 +574,7 @@ class CarouselNoTitles extends BasicResponse {
       responseJson.fulfillmentMessages = responseToUser.fulfillmentMessages;
       // Optional: add contexts (https://dialogflow.com/docs/contexts)
       if (responseToUser.contextOut)
-          console.log("Setting to outputContexts: "+JSON.stringify(responseToUser.contextOut));
+          console.log("Setting outputContexts: "+JSON.stringify(responseToUser.contextOut));
           responseJson.outputContexts = responseToUser.contextOut;
       if (responseToUser.followupEventInput)
           responseJson.followupEventInput = responseToUser.followupEventInput;
