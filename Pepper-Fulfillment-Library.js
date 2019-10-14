@@ -560,7 +560,7 @@ class CarouselNoTitles extends BasicResponse {
             }
             this.contextOut.push({ 
                 name : `${session}/contexts/${contextObj.name}`, 
-                lifespanCount : contextObj.lifespan || 5,
+                lifespanCount : 'lifespan' in contextObj ? contextObj.lifespan : 5,
                 parameters : contextObj.parameters || {}
             });
         }
